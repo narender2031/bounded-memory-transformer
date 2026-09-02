@@ -1,0 +1,20 @@
+Memory is a small notebook carried from one moment to the next.
+A useful memory keeps the important fact and lets the noise disappear.
+The model reads a token, compares it with earlier tokens, and predicts what follows.
+Attention builds a query, a key, and a value for every position.
+A causal mask closes the door to future information.
+Each attention head can learn a different relationship.
+Residual paths preserve information while a block learns a useful change.
+Layer normalization keeps the computation steady.
+The feed-forward network transforms each position independently.
+Training compares predicted tokens with the next tokens in the text.
+The error travels backward through every layer and adjusts the weights.
+Generation begins with a prompt and samples one new token at a time.
+The new token joins the context and becomes evidence for the next prediction.
+A tiny model is not wise, but it is small enough to inspect completely.
+We first learn how the Transformer works before asking it to remember across resets.
+Later experiments will limit memory and force the model to choose.
+Some facts will remain useful, some facts will change, and some facts will become invalid.
+A correct memory must retrieve the latest value instead of repeating a stale value.
+A careful experiment compares every policy with the same capacity and compute.
+Evidence, inference, and hypothesis must remain separate throughout the research.
