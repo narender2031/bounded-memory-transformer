@@ -2,8 +2,14 @@
 
 ## Start here
 
-Read `CODEX.md` first. It contains the conversation handoff, current project status, hard research constraints, and the exact next implementation milestone.
 These instructions apply to the entire repository.
+
+Before changing code or research, read:
+
+1. `CODEX.md` for the complete conversation handoff and exact next milestone.
+2. `EXPLORE.md` for the research landscape, problem decomposition, and experimental ladder.
+3. `PR1.md` for the verified Tiny Transformer baseline and reproduction commands.
+4. The latest entries in `research/log.md` and `research/decisions.md`.
 
 ## Source of truth
 
