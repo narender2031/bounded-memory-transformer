@@ -37,3 +37,9 @@ This file records decisions that future sessions should preserve unless new evid
 **Decision:** Always report stale-answer rate, deletion leakage, and abstention metrics alongside overall accuracy.
 
 **Reason:** Average accuracy can hide the exact failure this project aims to fix.
+
+## 2026-09-02 — D007: Establish a trusted Transformer baseline first
+
+**Decision:** Implement Project 01 as a small decoder-only Transformer without persistent memory and without high-level Transformer wrappers.
+
+**Reason:** The attention, causal masking, residual, normalization, MLP, training, and generation paths must be understandable and tested before memory changes the architecture. The same components will become the no-memory control model.

@@ -2,6 +2,13 @@
 
 Open research on whether a small Transformer can learn to maintain useful, current information in a tiny persistent memory without rereading its history.
 
+## Start here
+
+- [`CODEX.md`](CODEX.md) — complete conversation and Codex handoff.
+- [`EXPLORE.md`](EXPLORE.md) — research navigation and open questions.
+- [`AGENTS.md`](AGENTS.md) — mandatory working instructions for coding agents.
+- [`PR1.md`](PR1.md) — self-contained Project 01 and PR #1 record.
+- [`research/`](research) — papers, problem statement, decisions, experiment plan, and research log.
 ## Research question
 
 > Can a small Transformer learn what to store, retrieve, update, replace, forget, and ignore across context resets under a strict fixed memory budget?
@@ -45,7 +52,7 @@ This is a hypothesis, not a result.
 
 ## Research status
 
-The project is in **Phase 0: literature mapping and experimental specification**.
+The project has completed **Phase 0: literature mapping and experimental specification** and has started **Phase 1: build and verify the Transformer baseline**.
 
 See:
 
@@ -54,6 +61,20 @@ See:
 - [`research/experiment-plan.md`](research/experiment-plan.md) — proposed baselines, tasks, and metrics.
 - [`research/decisions.md`](research/decisions.md) — durable research decisions.
 - [`research/log.md`](research/log.md) — chronological research record.
+
+## Project 01: Tiny Transformer
+
+[`projects/01-tiny-transformer`](projects/01-tiny-transformer) contains the first runnable learning project: a decoder-only Transformer implemented without `nn.Transformer` or `nn.MultiheadAttention`.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e ".[dev]"
+pytest
+bmt-train-tiny --steps 300
+```
+
+It includes causal multi-head attention, decoder blocks, next-token training, autoregressive generation, an example corpus, and tests for causal isolation.
 
 ## Planned experimental ladder
 

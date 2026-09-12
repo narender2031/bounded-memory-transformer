@@ -31,3 +31,29 @@ This remains a provisional inference, not a verified novelty claim.
 3. Compare Titans/MIRAS memory objectives with SP-KV utility gates.
 4. Reproduce the Supersede task structure in a small symbolic generator.
 5. Define state-matched RMT, FIFO, LRU, and oracle baselines.
+
+## 2026-09-02 — Project 01 implementation
+
+### Work completed
+
+1. Added a reusable character-level tokenizer and deterministic next-token batcher.
+2. Implemented causal multi-head self-attention directly from query, key, and value projections.
+3. Implemented pre-normalized decoder blocks with residual connections and feed-forward networks.
+4. Implemented a small decoder-only language model, next-token loss, and autoregressive generation.
+5. Added a reproducible CLI and a tiny original corpus for smoke testing.
+6. Added tests for configuration, tokenization, shifted targets, tensor shapes, causal masking, causal isolation, parameter updates, and generation.
+7. Added continuous integration for linting and tests.
+
+### Verification evidence
+
+1. `ruff check .` completed with no findings.
+2. `pytest` passed all 11 tests in 3.19 seconds on CPU.
+3. A 27,520-parameter model completed a 50-step CPU smoke run without numerical failures.
+4. Validation loss decreased from 3.5936 at step 1 to 2.7913 at step 50.
+5. Autoregressive generation completed from the trained checkpoint. The sample remained mostly incoherent, which is expected from 50 steps on the intentionally tiny corpus.
+
+This satisfies the Project 01 acceptance condition: the implementation is tested and demonstrates finite, decreasing loss end to end.
+
+### Research impact
+
+The resulting model becomes the no-persistent-memory baseline. Persistent state, context-reset episodes, and learned memory controllers remain intentionally excluded until the baseline is trusted.
