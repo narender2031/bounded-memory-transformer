@@ -1,5 +1,8 @@
 # Research Continuity Instructions
 
+## Start here
+
+Read `CODEX.md` first. It contains the conversation handoff, current project status, hard research constraints, and the exact next implementation milestone.
 These instructions apply to the entire repository.
 
 ## Source of truth
