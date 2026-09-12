@@ -2,6 +2,13 @@
 
 Open research on whether a small Transformer can learn to maintain useful, current information in a tiny persistent memory without rereading its history.
 
+## Start here
+
+- [`CODEX.md`](CODEX.md) — complete conversation and Codex handoff.
+- [`EXPLORE.md`](EXPLORE.md) — research navigation and open questions.
+- [`AGENTS.md`](AGENTS.md) — mandatory working instructions for coding agents.
+- [`PR1.md`](PR1.md) — self-contained Project 01 and PR #1 record.
+- [`research/`](research) — papers, problem statement, decisions, experiment plan, and research log.
 ## Research question
 
 > Can a small Transformer learn what to store, retrieve, update, replace, forget, and ignore across context resets under a strict fixed memory budget?
