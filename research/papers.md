@@ -2,6 +2,11 @@
 
 Last literature check: 2026-08-27
 
+Latest targeted source check: 2026-09-17. Read the primary abstracts of
+[STALE](https://arxiv.org/abs/2605.06527) and
+[Memora / From Recall to Forgetting](https://arxiv.org/abs/2604.20006) while
+implementing Experiment 01. This is a targeted check, not a novelty search.
+
 This is a curated map for our specific question, not a general long-context bibliography. Papers are grouped by the component they help us understand or reproduce.
 
 ## Read first
@@ -57,6 +62,8 @@ These papers most directly constrain our research design.
 | [LongMemEval](https://arxiv.org/abs/2410.10813) (Wu et al., 2024) | Primary natural benchmark because it explicitly includes knowledge updates and abstention. |
 | [LongMemEval-V2](https://arxiv.org/abs/2605.12493) (2026) | Extends memory evaluation toward agent experience, dynamic state, workflows, and premise awareness. Candidate after the basic model is stable. |
 | [LoCoMo-Plus](https://arxiv.org/abs/2602.10715) (2026) | Tests implicit constraints and cue-trigger disconnect beyond factual recall. Out of scope initially, valuable for later generalisation. |
+| [STALE: Can LLM Agents Know When Their Memories Are No Longer Valid?](https://arxiv.org/abs/2605.06527) (Chao et al., 2026) | Tests implicit invalidation through state resolution, premise resistance, and policy adaptation. Our explicit UPDATE/DELETE benchmark does not reproduce these reasoning demands. |
+| [From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents](https://arxiv.org/abs/2604.20006) (Uddin et al., 2026; Memora) | Introduces forgetting-aware memory accuracy (FAMA), penalizing use of obsolete information across remembering, reasoning, and recommending. Do not confuse this benchmark with other projects named Memora. |
 
 ## Recommended reading order
 
@@ -101,3 +108,50 @@ For every A-priority paper, record:
 - Limitation that creates space for our experiment.
 
 Use `research/reading-notes/template.md` for individual notes.
+
+## 2026-09-17 — Experiment-driven source check
+
+- **Evidence:** STALE's primary abstract describes 400 conflict scenarios and
+  1,200 queries probing implicit invalidation. Memora's primary abstract reports
+  reuse of invalid memories and introduces FAMA to penalize obsolete evidence.
+- **Inference:** Phase 1 should separate stale-value matches, deletion leakage,
+  abstention, and paired memory harm from overall answer accuracy. Explicit
+  symbolic operations remain a simpler engineering control than either paper's
+  personalized-agent setting.
+- **Hypothesis:** A competent reader plus learned validity/admission may help on
+  harder invalidation tasks. Neither these abstracts nor the local pilot
+  establishes that our proposed controller is necessary or novel.
+- **Next reading question:** Which STALE invalidation cases can be represented
+  with explicit ground-truth transitions without giving the controller the
+  invalidation label? Defer that task extension until the reader generalizes.
+
+## 2026-09-17 — Reader diagnosis and alternative mechanisms
+
+Fresh targeted search and primary-source reading in response to the weak-reader
+pilot. The [comparison note](reading-notes/2026-09-17-memory-improvements.md)
+connects these mechanisms to the new frozen-checkpoint diagnostic and proposed
+ablations. This is not an exhaustive novelty search or a claim of reproduction.
+
+| Primary paper | Verified mechanism | Specific use and limitation here |
+|---|---|---|
+| [Key-Value Memory Networks for Directly Reading Documents](https://aclanthology.org/D16-1147/) (Miller et al., EMNLP 2016) | Separates memory addressing keys from returned values; inspected the mechanism in sections 3.1–3.2. | Motivate a structured full-key reader. Original memory scale, addressing, and answer classification differ from a four-record pointer. |
+| [Get To The Point: Summarization with Pointer-Generator Networks](https://arxiv.org/abs/1704.04368) (See et al., ACL 2017) | Combines generation with copying from the source to reproduce factual details; primary abstract checked. | Compare record selection plus exact copying with character generation. Copying solves output reproduction only when selection is correct. |
+| [Sufficient Context: A New Lens on Retrieval Augmented Generation Systems](https://arxiv.org/abs/2411.06037) (Joren et al., 2024; revised 2025) | Separates context insufficiency from failures to use sufficient context; studies guided abstention. | Measure reading and evidence sufficiency separately. Our synthetic labels need no external LLM judge; their results do not predict ours. |
+| [TinyLFU: A Highly Efficient Cache Admission Policy](https://arxiv.org/abs/1512.00727) (Einziger et al., 2015 preprint) | Uses approximate recent access frequencies to compare candidate admission with eviction. | A hand-designed admission control for a future repeated-query workload. Count the sketch as persistent state; current one-query episodes lack its intended access signal. |
+| [Gated Delta Networks: Improving Mamba2 with Delta Rule](https://arxiv.org/abs/2412.06464) (Yang et al., ICLR 2025) | Combines erasure gating with targeted delta updates in recurrent memory. | Later representation/update ablation. Not a four-symbolic-slot system or an automatic solution to semantic invalidation. |
+
+Rechecked primary abstracts for [SP-KV](https://arxiv.org/abs/2605.14037),
+[EXPIRE-SPAN](https://arxiv.org/abs/2105.06548),
+[RMT](https://arxiv.org/abs/2207.06881), and
+[STALE](https://arxiv.org/abs/2605.06527). SP-KV retains a local window and uses
+dynamic sparsity rather than our strict slot limit; expiration needs a task where
+fact lifetimes matter; RMT capacity must be compared in bytes, not slot count
+alone; STALE's implicit invalidation remains harder than explicit DELETE.
+
+- **Evidence:** frozen readers fail substantially even with training-vocabulary
+  symbols; unfamiliar values worsen the measured reading accuracy. See the
+  diagnostic note for exact denominators and per-seed results.
+- **Inference:** improve and measure full-key selection, copying, and abstention
+  before attributing the pilot to a memory admission failure.
+- **Hypothesis:** a record selector with exact copying and UNKNOWN can provide a
+  more competent shared reader. No improved model has yet been trained.

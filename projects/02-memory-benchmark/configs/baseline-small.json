@@ -1,0 +1,24 @@
+{
+  "seeds": [7, 19, 43],
+  "device": "auto",
+  "threads": 4,
+  "steps": 1200,
+  "batch_size": 64,
+  "train_examples": 16384,
+  "validation_examples": 512,
+  "test_episodes": 800,
+  "test_seed": 424242,
+  "d_model": 96,
+  "n_layers": 2,
+  "n_heads": 4,
+  "context_length": 128,
+  "capacity": 4,
+  "learning_rate": 0.002,
+  "log_every": 200,
+  "bootstrap_samples": 2000,
+  "scenarios": {
+    "main": {"candidates": 30, "sessions": 8, "updates": 1, "noise_rate": 0.25},
+    "longer": {"candidates": 60, "sessions": 16, "updates": 1, "noise_rate": 0.25},
+    "more_updates": {"candidates": 30, "sessions": 8, "updates": 4, "noise_rate": 0.25}
+  }
+}

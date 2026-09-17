@@ -20,9 +20,11 @@ dev = [
     "pytest>=8,<10",
     "ruff>=0.6",
 ]
+plots = ["matplotlib>=3.8,<4"]
 
 [project.scripts]
 bmt-train-tiny = "bounded_memory_transformer.cli.train_tiny:main"
+bmt-memory-benchmark = "bounded_memory_transformer.memory_benchmark.evaluate:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
