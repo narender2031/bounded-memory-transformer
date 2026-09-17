@@ -64,6 +64,22 @@ def test_training_views_are_reproducible_and_never_use_test_symbols():
         assert len(view.memory) <= 4
 
 
+def test_reader_competence_data_requires_both_entity_and_attribute_matching():
+    # An entity-only reader must not pass validation by ignoring attributes.
+    views = make_training_views("validation", seed=20260917, count=512, capacity=4)
+    disagreements = 0
+    for view in views:
+        attribute_blind = "??"
+        for op in (*view.memory, *view.current):
+            if op.entity == view.query.entity:
+                if op.kind in (Kind.SET, Kind.UPDATE):
+                    attribute_blind = f"{op.value:02d}"
+                elif op.kind == Kind.DELETE:
+                    attribute_blind = "??"
+        disagreements += attribute_blind != read_visible(view.memory, view.current, view.query)
+    assert disagreements / len(views) > 0.05
+
+
 def test_small_real_experiment_saves_replayable_checkpoint_and_all_baselines(tmp_path):
     from bounded_memory_transformer.memory_benchmark.evaluate import run_experiment
 

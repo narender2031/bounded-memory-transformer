@@ -94,10 +94,16 @@ def make_training_views(split: str, *, seed: int, count: int, capacity: int) -> 
     views = []
     for index in range(count):
         query = Operation(Kind.ASK, rng.choice(symbols.entities), rng.randrange(4))
-        peers = [e for e in symbols.entities if e != query.entity]
+        peers = [(e, a) for e in symbols.entities for a in range(4) if (e, a) != query.key]
+        same_entity = [(query.entity, a) for a in range(4) if a != query.attribute]
+        # Explicitly train key discrimination: entity-only matching must fail.
+        # The episode generator remains unchanged; these are reader microtasks.
+        def peer_key(peers=peers, same_entity=same_entity):
+            return rng.choice(same_entity if rng.random() < 0.5 else peers)
+
         policy = MemoryPolicy(POLICIES[index % len(POLICIES)], capacity)
         events = [
-            Operation(Kind.SET, rng.choice(peers), rng.randrange(4), rng.choice(symbols.values))
+            Operation(Kind.SET, *peer_key(), rng.choice(symbols.values))
             for _ in range(rng.randrange(capacity + 1))
         ]
         if rng.random() < 0.7:
@@ -116,8 +122,7 @@ def make_training_views(split: str, *, seed: int, count: int, capacity: int) -> 
             current.append(
                 Operation(
                     rng.choice((Kind.SET, Kind.NOISE)),
-                    rng.choice(peers),
-                    rng.randrange(4),
+                    *peer_key(),
                     rng.choice(symbols.values),
                 )
             )

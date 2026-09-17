@@ -96,3 +96,25 @@ determinism, disjoint symbols, fixed capacity, deletion/updates, near keys, fres
 session/episode isolation, padding, answer-loss alignment, save/reload, and a
 small actual training/evaluation run. Research notes distinguish evidence,
 inference, and next hypotheses. Broader architecture design waits for evidence.
+
+## Recorded correction and replication, before the second run
+
+The initial implementation and run are preserved at `7fc51fd` and
+`runs/when-memory-hurts-2026-09-17-v1`. Validation was only 59–69%. Independent
+review found that reader microtasks excluded same-entity/different-attribute
+distractors: an attribute-blind reader scored 512/512 on that validation set.
+This was a coverage defect independent of the neural test outcomes.
+
+Correct the microtasks so half their distractor keys share the queried entity
+but use another attribute; other distractors sample any nonmatching full key.
+A regression test requires that ignoring attributes fails more than 5% of the
+validation microtasks. Do not change the episode generator, symbol partitions,
+memory policies, metric definitions, architecture, or optimization settings.
+
+The second fixed configuration, `reader-extended.json`, uses 6,000 steps,
+65,536 training microtasks, the same three seeds, and a fresh test-episode seed
+1729. This budget is chosen before seeing the second run, motivated by weak
+validation competence and the measured ~10 seconds per 1,200-step local run.
+The original test is exploratory; fresh episodes reuse its held-out symbol
+partition, so they are not a new independent symbol split. Preserve both runs.
+Do not tune the second configuration after inspecting its held-out results.
