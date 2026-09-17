@@ -23,6 +23,7 @@ dev = [
 
 [project.scripts]
 bmt-train-tiny = "bounded_memory_transformer.cli.train_tiny:main"
+bmt-memory-benchmark = "bounded_memory_transformer.memory_benchmark.evaluate:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
