@@ -87,3 +87,27 @@ regression test, and predeclare one 6,000-step, 65,536-example replication with
 fresh episode seed 1729. Keep the held-out generator, metrics, policies, symbol
 splits, architecture, and learning rate unchanged. The new episodes reuse the
 test symbol partition; do not describe them as an independent symbol split.
+
+## 2026-09-17 — D011: Diagnose reading before changing memory management
+
+**Decision:** Separate visible-evidence reading competence from episode accuracy.
+Use frozen-checkpoint train/validation diagnostics to distinguish symbol
+generalization, record selection, value reproduction, and evidence rejection.
+The next reader candidate is learned record selection with exact copying and an
+UNKNOWN option, compared with character generation and the exact-rule control.
+This is an ablation direction, not an adopted final memory architecture.
+
+**Evidence:** an injectively renamed, matched 2,048-task diagnostic averaged
+78.91% with seen entity/value vocabularies and 76.06% with both unseen. The latter
+had 48.51% accuracy on known answers available only in memory, versus 84.43% on
+known answers supplied by the current session. These location slices contain
+different task mixtures and do not isolate location as a causal factor.
+
+**Constraints:** keep the 95% per-seed visible-evidence competence gate; predeclare
+additional slice thresholds and the next training/evaluation configuration.
+Include current-session evidence in any pointer candidate set. Disclose direct
+record supervision. Freeze historical pilots and use fresh episodes after model
+development; a fresh seed alone does not create a new unseen-symbol partition.
+Do not claim gains from copying until measured. A repeated-query workload is
+required to meaningfully compare access-frequency/recency policies, and all
+metadata must count toward persistent-state capacity.

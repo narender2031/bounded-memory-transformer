@@ -180,3 +180,31 @@ The next milestone is a reader that reliably matches complete keys, copies
 unseen values, handles deletion/precedence, and rejects missing evidence at full
 slot occupancy. Only then test whether learned admission or abstention improves
 on the strong structured-memory controls.
+
+## Reader diagnosis and learning resources
+
+The 73.83–78.52% neural validation score measures short reading microtasks against
+visible-evidence answers. The 82.50% exact-reader score measures full episodes
+against historical truth. They are different evaluations, not two readers scored
+on the same validation set. The exact reader uses ordinary Python rules on the
+same retained records and current session; it has no access to discarded history.
+
+A frozen-checkpoint diagnostic independently renamed entities and values in
+2,048 matched microtasks. Mean accuracy was 78.91% with seen symbols, 78.66% with
+unseen entities only, 75.49% with unseen values only, and 76.06% with both unseen.
+This used train/validation vocabularies and did not retrain any model or change
+the original held-out benchmark. It narrows the next experiment to record
+selection, copying, and abstention; it is not an improved-memory result.
+
+- [Diagnostic, research alternatives, and proposed next experiment](../../research/reading-notes/2026-09-17-memory-improvements.md)
+- [End-to-end Transformer fundamentals](../../research/transformer-fundamentals.md)
+- [Diagnostic configuration](configs/reader-diagnostic.json) and [full summary](results/2026-09-17-reader-diagnostic.json)
+
+With the original local v2 checkpoints present, rerun the diagnostic without
+training:
+
+```bash
+.venv/bin/python projects/02-memory-benchmark/diagnose_reader.py \
+  --config projects/02-memory-benchmark/configs/reader-diagnostic.json \
+  --output runs/reader-diagnostic-reproduction
+```

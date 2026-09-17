@@ -124,3 +124,34 @@ Use `research/reading-notes/template.md` for individual notes.
 - **Next reading question:** Which STALE invalidation cases can be represented
   with explicit ground-truth transitions without giving the controller the
   invalidation label? Defer that task extension until the reader generalizes.
+
+## 2026-09-17 — Reader diagnosis and alternative mechanisms
+
+Fresh targeted search and primary-source reading in response to the weak-reader
+pilot. The [comparison note](reading-notes/2026-09-17-memory-improvements.md)
+connects these mechanisms to the new frozen-checkpoint diagnostic and proposed
+ablations. This is not an exhaustive novelty search or a claim of reproduction.
+
+| Primary paper | Verified mechanism | Specific use and limitation here |
+|---|---|---|
+| [Key-Value Memory Networks for Directly Reading Documents](https://aclanthology.org/D16-1147/) (Miller et al., EMNLP 2016) | Separates memory addressing keys from returned values; inspected the mechanism in sections 3.1–3.2. | Motivate a structured full-key reader. Original memory scale, addressing, and answer classification differ from a four-record pointer. |
+| [Get To The Point: Summarization with Pointer-Generator Networks](https://arxiv.org/abs/1704.04368) (See et al., ACL 2017) | Combines generation with copying from the source to reproduce factual details; primary abstract checked. | Compare record selection plus exact copying with character generation. Copying solves output reproduction only when selection is correct. |
+| [Sufficient Context: A New Lens on Retrieval Augmented Generation Systems](https://arxiv.org/abs/2411.06037) (Joren et al., 2024; revised 2025) | Separates context insufficiency from failures to use sufficient context; studies guided abstention. | Measure reading and evidence sufficiency separately. Our synthetic labels need no external LLM judge; their results do not predict ours. |
+| [TinyLFU: A Highly Efficient Cache Admission Policy](https://arxiv.org/abs/1512.00727) (Einziger et al., 2015 preprint) | Uses approximate recent access frequencies to compare candidate admission with eviction. | A hand-designed admission control for a future repeated-query workload. Count the sketch as persistent state; current one-query episodes lack its intended access signal. |
+| [Gated Delta Networks: Improving Mamba2 with Delta Rule](https://arxiv.org/abs/2412.06464) (Yang et al., ICLR 2025) | Combines erasure gating with targeted delta updates in recurrent memory. | Later representation/update ablation. Not a four-symbolic-slot system or an automatic solution to semantic invalidation. |
+
+Rechecked primary abstracts for [SP-KV](https://arxiv.org/abs/2605.14037),
+[EXPIRE-SPAN](https://arxiv.org/abs/2105.06548),
+[RMT](https://arxiv.org/abs/2207.06881), and
+[STALE](https://arxiv.org/abs/2605.06527). SP-KV retains a local window and uses
+dynamic sparsity rather than our strict slot limit; expiration needs a task where
+fact lifetimes matter; RMT capacity must be compared in bytes, not slot count
+alone; STALE's implicit invalidation remains harder than explicit DELETE.
+
+- **Evidence:** frozen readers fail substantially even with training-vocabulary
+  symbols; unfamiliar values worsen the measured reading accuracy. See the
+  diagnostic note for exact denominators and per-seed results.
+- **Inference:** improve and measure full-key selection, copying, and abstention
+  before attributing the pilot to a memory admission failure.
+- **Hypothesis:** a record selector with exact copying and UNKNOWN can provide a
+  more competent shared reader. No improved model has yet been trained.

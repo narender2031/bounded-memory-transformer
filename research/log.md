@@ -205,3 +205,112 @@ Review artifact: [draft PR #2](https://github.com/narender2031/bounded-memory-tr
 stacked on Project 01's still-open branch. Only this session's research additions
 were committed; earlier local research notes and diagnostic files remain intact
 and unstaged. The branch is preserved for the next reader milestone.
+
+## 2026-09-17 — Reader explanation, alternative mechanisms, and fundamentals
+
+**Question:** Why was neural reader validation only 74–79% when the exact-rule
+memory system reached 82.5%, and which changes should we test next? The user also
+explicitly requested one parallel agent to teach the implemented Transformer
+end to end. Root investigated memory while that agent prepared the separate
+`research/transformer-fundamentals.md` guide; no production model was changed.
+
+### Evidence: these are different evaluations
+
+The 73.83–78.52% figures score 512 short visible-evidence reading tasks, across
+three trained seeds. The 82.50% figure scores 800 complete main episodes against
+historical truth using the deterministic `read_visible()` control. The direct
+same-episode comparison is 68.71% neural / 75.00% rule without memory, and 48.50%
+neural / 82.50% rule with FIFO. A policy plus the rule reader is a memory-based
+system; the rule reader is Python exact-key logic, not another trained model or
+an oracle with raw-history access. It cannot recover evicted evidence.
+
+### Evidence: frozen-reader factorial diagnostic
+
+Before running it, wrote `projects/02-memory-benchmark/configs/reader-diagnostic.json`:
+2,048 generated reading structures, generator seed 91317, renaming seed 73019,
+four slots, seeds 7/19/43 from the preserved v2 checkpoints. The four conditions
+independently map complete entity and value symbols into train or validation
+vocabularies. Per-view mappings are injective and preserve key equality,
+operation order, input length, and evidence availability. Renaming occurs after
+retrieval, so lexical similarity cannot change which evidence is being read.
+No held-out test symbols or new training were used.
+
+```bash
+.venv/bin/python -u projects/02-memory-benchmark/diagnose_reader.py \
+  --config projects/02-memory-benchmark/configs/reader-diagnostic.json \
+  --output runs/reader-diagnostic-2026-09-17
+```
+
+| Entities / values | Overall | Known visible answer | Required abstention |
+|---|---:|---:|---:|
+| Seen / seen | 78.91% | 77.07% | 81.08% |
+| Unseen / seen | 78.66% | 76.68% | 81.01% |
+| Seen / unseen | 75.49% | 69.73% | 82.29% |
+| Unseen / unseen | 76.06% | 70.63% | 82.46% |
+
+Means use the three frozen models on 2,048 matched structures, not 6,144
+independent examples. Both-unseen overall scores per seed were 77.88%, 75.83%,
+and 74.46%. Known answers present only in memory scored 48.51% (426 structures
+per seed); current-session known answers scored 84.43% (683); four visible slots
+scored 63.14% (359, mixing known and unknown). These slices have different task
+mixtures and are not causal interventions on answer location or slot occupancy.
+Changing value vocabulary affects both input and output, not just the decoder.
+
+Local environment: Python 3.13.7, PyTorch 2.9.1, MPS, four configured CPU threads.
+The timed region took 3.39 seconds, excluding startup and initial base generation.
+It includes renaming, inference, and prediction I/O; no throughput claim follows.
+All 24,576 predictions remain in the ignored local run directory. The checked-in
+summary is `projects/02-memory-benchmark/results/2026-09-17-reader-diagnostic.json`.
+It records configuration, source/checkpoint/prediction hashes, and per-seed slices.
+
+### Inferences, hypotheses, and research implications
+
+- **Evidence:** the readers fail substantially even on seen-symbol microtasks.
+  Unfamiliar values further reduce known-answer accuracy; entity renaming alone
+  has a small effect in this diagnostic.
+- **Inference:** a pure unfamiliar-entity explanation is inadequate. Selection,
+  value reproduction, and missing-evidence rejection need separate controls.
+  The current-versus-memory accuracy difference does not isolate its cause.
+- **Hypothesis:** learned record selection with exact value copying and an UNKNOWN
+  option is a useful next reader ablation. Include current-session candidates;
+  copying cannot fix wrong selection or discarded evidence. No improved reader
+  was implemented or trained during this session.
+- **Decision D011:** use these separate reading diagnostics, preserve the 95%
+  per-seed competence gate, and declare slice gates before the next training run.
+  Keep historical pilots frozen and disclose any direct record supervision.
+- **Parallel research:** use the exact-rule reader to investigate symbolic policy
+  retention independently. Access-frequency policies require repeated queries;
+  expiration needs declared lifetime semantics; all metadata counts as state.
+
+### Fresh primary-source research, 2026-09-17
+
+Added Key-Value Memory Networks (separate addressing and returned content),
+Pointer-Generator Networks (copying), Sufficient Context (evidence sufficiency
+and abstention), TinyLFU (admission from recent access frequency), and Gated
+DeltaNet (gating plus targeted updates) to the map. Rechecked SP-KV, EXPIRE-SPAN,
+RMT, and STALE. Read depths and methodological limits are recorded in `papers.md`
+and `reading-notes/2026-09-17-memory-improvements.md`. No novelty or paper-result
+replication claim. Recency already performs full-key supersession in our code.
+
+### Verification and continuity
+
+- `.venv/bin/ruff check .`: clean; `git diff --check`: clean at verification.
+- `.venv/bin/pytest`: **40 passed** in 1.78 seconds.
+- Verified diagnostic source and checkpoint hashes; independently recomputed all
+  four overall scores from the 24,576 saved predictions and checked their hash.
+- Runtime assertions checked every renamed task's answer mapping, full-key
+  relationships, and prompt length before neural prediction.
+- Reviewed the fundamentals guide against the source: 25-character vocabulary,
+  96-wide/two-layer/four-head reader, tied output embeddings, 237,792 parameters,
+  answer-only teacher forcing, stateless inference, and 64-byte fact payload.
+- The requested teaching agent executed all five guide exercises successfully,
+  including shape/mask checks, exact answer alignment, a five-step CPU training
+  demonstration, 25 relevant tests, and loading the original seed-7 checkpoint.
+  It also checked all 20 relative links. The guide contains 19 sections.
+- Preserved prior uncommitted research notes and Project 01 diagnostic artifacts.
+  Review continues on [draft PR #2](https://github.com/narender2031/bounded-memory-transformer/pull/2).
+
+**Next action:** specify and implement the record-selection/copying reader ablation
+on training/validation evidence, with its training budget and slice gates declared
+before the run. The remaining weakness is model competence, not missing local
+hardware or an already-proven need for a new memory architecture.

@@ -28,6 +28,21 @@ The original 20-candidate setting below is superseded by the user's requested
 they do not mean 30 simultaneously valid distinct facts. Most pre-query sessions
 have four or five operations; the final session has its local evidence plus ASK.
 
+### Current follow-up: separate reading from retention
+
+The [2026-09-17 diagnostic and research note](reading-notes/2026-09-17-memory-improvements.md)
+records a frozen-reader factorial check using train/validation symbols only.
+The next neural ablation is a learned record selector with exact copying and an
+UNKNOWN option, including both memory and current-session candidates. Retain the
+character reader and exact-rule reader as controls. Declare its configuration,
+supervision, optimization budget, and numerical slice gates before training.
+No improved reader or learned controller result has been obtained yet.
+
+Separately, symbolic admission/retrieval variants can use the exact-rule reader
+to isolate retained evidence. Access-based LRU/LFU/TinyLFU needs a declared
+repeated-query workload; expiry needs explicit lifetime semantics. These are
+new workload variants, not silent changes to the two recorded pilots.
+
 ## Goal
 
 Determine whether learned memory admission and supersession improve latest-fact recall under a strict fixed capacity, without raw-history access.

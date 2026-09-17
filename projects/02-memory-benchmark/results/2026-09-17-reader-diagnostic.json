@@ -1,0 +1,1166 @@
+{
+  "purpose": "Exploratory reader diagnostic, not a held-out memory result",
+  "config": {
+    "checkpoint_directory": "runs/when-memory-hurts-2026-09-17-v2",
+    "seeds": [
+      7,
+      19,
+      43
+    ],
+    "device": "auto",
+    "threads": 4,
+    "batch_size": 64,
+    "examples": 2048,
+    "generator_seed": 91317,
+    "renaming_seed": 73019,
+    "capacity": 4,
+    "entity_splits": [
+      "train",
+      "validation"
+    ],
+    "value_splits": [
+      "train",
+      "validation"
+    ]
+  },
+  "environment": {
+    "python": "3.13.7",
+    "torch": "2.9.1",
+    "device": "mps"
+  },
+  "git_head": "afbc25b997f5ad6bfd6877638faef7b384e73ffc",
+  "source_sha256": {
+    "/Users/narendersingh/transformer/bounded-memory-transformer/projects/02-memory-benchmark/diagnose_reader.py": "cd7b5c5fd80488a3eb718a065a34bb9228ba446be4643ff03c82ad07cb9688c3",
+    "projects/02-memory-benchmark/configs/reader-diagnostic.json": "98a05d1ee0c99e4e96a43b4aff5b5da82f53a3524a83709807b4e22ea9af72d2",
+    "src/bounded_memory_transformer/__init__.py": "d7e4d352739d430957dcfe0b04672c3db7f49ecdccf49e9344c20b8adfa86d9a",
+    "src/bounded_memory_transformer/memory_benchmark/metrics.py": "10aca4ec9f334f8640d1608909a17180464e0cf5429b3303b1e043728c36a3bf",
+    "src/bounded_memory_transformer/memory_benchmark/__init__.py": "13a2e5a7f89f9df3e9dca7d4043a2775aa166ffa675a0b5fdabd8842d8752916",
+    "src/bounded_memory_transformer/memory_benchmark/state_machine.py": "fad1209dcde93a96cb6bec0e01579bade171d9135d23c46b13fc0e9cc6921cfb",
+    "src/bounded_memory_transformer/memory_benchmark/reader.py": "720b0139c1dc2a97017d8357fb31474aa13a1234bbb3594d554c9d4b6f0d664a",
+    "src/bounded_memory_transformer/memory_benchmark/operations.py": "afa87ae4fa6648af72d850486ccf564631d166d7f5108de59c69de518af38e5b",
+    "src/bounded_memory_transformer/memory_benchmark/generator.py": "0356ec280ea92ffe9a67d86b4f53ad4ef3f21069ef49ce2ea9cf84b746d14d69",
+    "src/bounded_memory_transformer/memory_benchmark/evaluate.py": "64c84a0603fa7118052d7de667c1d0a73f824793940b4b098bb58f7686b6f740",
+    "src/bounded_memory_transformer/memory_benchmark/policies.py": "4288b02ede9d4c92a6d17c33925ea0e714f1f9f858e90c7497fd6a03c3c9d021",
+    "src/bounded_memory_transformer/memory_benchmark/views.py": "e9c682d97d23f78994c58028a812edcf80619a7310f35e14ff792a7c5837066a",
+    "src/bounded_memory_transformer/cli/train_tiny.py": "1dde7e6e6228caef61ced6b649fb60c21c0ae9beda16ae977162e83045e022e8",
+    "src/bounded_memory_transformer/cli/__init__.py": "c8f4341ed4303f47d68158268ec9d7f1512fb2f2879b15e011a0c6c5cb81460c",
+    "src/bounded_memory_transformer/tiny_transformer/config.py": "8631b9556c245df0a7a426fd45ea6f47f565bd8c7e64dbd1892faa8747e3b634",
+    "src/bounded_memory_transformer/tiny_transformer/__init__.py": "eba107e9224ed55c1366a7a37b8234b0522b3f10999f7341ea6bb8f8f20bae63",
+    "src/bounded_memory_transformer/tiny_transformer/model.py": "cc29d4837ded6408a514f9b79ecbc940745704867d3b2d2aeb01068795117a45",
+    "src/bounded_memory_transformer/tiny_transformer/tokenizer.py": "37b7f798619a905c9ee0b145fa3ab355627ad82cfd25674ee4ad77039dbce81d",
+    "src/bounded_memory_transformer/tiny_transformer/data.py": "690d2e58e3de656853cdd6dd147fb3c0c8fc6bf42ae2ccbd3c3f1d1b27c9de60"
+  },
+  "checkpoint_sha256": {
+    "7": "8783f6c0bc64644ea02ce138205f161a1c5d745558cf06ada1af1c58a4b65c54",
+    "19": "cbd6f96560a88e5a5a67298a47a95968fd11c5fce43d8532d2bca1e8928a9875",
+    "43": "e39604fd73fc0844cfa510d16bb0eba12b19124f8d8c832ca4c44ffa1851ac0a"
+  },
+  "conditions": {
+    "entities_train__values_train": {
+      "pooled_descriptive": {
+        "overall": {
+          "count": 6144,
+          "accuracy": 0.7890625
+        },
+        "known_visible": {
+          "count": 3327,
+          "accuracy": 0.7706642620979862
+        },
+        "required_abstention": {
+          "count": 2817,
+          "accuracy": 0.8107916222932198
+        },
+        "known_memory_only": {
+          "count": 1278,
+          "accuracy": 0.5469483568075117
+        },
+        "known_current": {
+          "count": 2049,
+          "accuracy": 0.9102000976085896
+        },
+        "by_visible_slots": {
+          "0": {
+            "count": 1797,
+            "accuracy": 0.9465776293823038
+          },
+          "1": {
+            "count": 2010,
+            "accuracy": 0.7880597014925373
+          },
+          "2": {
+            "count": 585,
+            "accuracy": 0.652991452991453
+          },
+          "3": {
+            "count": 675,
+            "accuracy": 0.6696296296296296
+          },
+          "4": {
+            "count": 1077,
+            "accuracy": 0.6768802228412256
+          }
+        },
+        "by_policy": {
+          "no_memory": {
+            "count": 1536,
+            "accuracy": 0.9453125
+          },
+          "fifo": {
+            "count": 1536,
+            "accuracy": 0.685546875
+          },
+          "recency": {
+            "count": 1536,
+            "accuracy": 0.7200520833333334
+          },
+          "similarity": {
+            "count": 1536,
+            "accuracy": 0.8053385416666666
+          }
+        },
+        "errors": {
+          "known_wrong": 763,
+          "known_unnecessary_abstention": 347,
+          "known_wrong_train_value": 406,
+          "unknown_false_answer": 533
+        }
+      },
+      "per_seed": {
+        "7": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.78955078125
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7763751127141569
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.805111821086262
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5845070422535211
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.8960468521229868
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9198664440734557
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7880597014925373
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.7025641025641025
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6711111111111111
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6963788300835655
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.919921875
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.69140625
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.744140625
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.802734375
+            }
+          },
+          "errors": {
+            "known_wrong": 248,
+            "known_unnecessary_abstention": 131,
+            "known_wrong_train_value": 115,
+            "unknown_false_answer": 183
+          }
+        },
+        "19": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.810546875
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7520288548241659
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.8796592119275826
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.49061032863849763
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.9150805270863837
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9816360601001669
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.8119402985074626
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6307692307692307
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6933333333333334
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6935933147632312
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.978515625
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.703125
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.724609375
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.8359375
+            }
+          },
+          "errors": {
+            "known_wrong": 275,
+            "known_unnecessary_abstention": 151,
+            "known_wrong_train_value": 122,
+            "unknown_false_answer": 113
+          }
+        },
+        "43": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.76708984375
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7835888187556357
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.7476038338658147
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5657276995305164
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.9194729136163983
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9382303839732888
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.764179104477612
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6256410256410256
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6444444444444445
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6406685236768802
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.9375
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.662109375
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.69140625
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.77734375
+            }
+          },
+          "errors": {
+            "known_wrong": 240,
+            "known_unnecessary_abstention": 65,
+            "known_wrong_train_value": 169,
+            "unknown_false_answer": 237
+          }
+        }
+      }
+    },
+    "entities_train__values_validation": {
+      "pooled_descriptive": {
+        "overall": {
+          "count": 6144,
+          "accuracy": 0.7548828125
+        },
+        "known_visible": {
+          "count": 3327,
+          "accuracy": 0.6973249173429517
+        },
+        "required_abstention": {
+          "count": 2817,
+          "accuracy": 0.822861199858005
+        },
+        "known_memory_only": {
+          "count": 1278,
+          "accuracy": 0.4726134585289515
+        },
+        "known_current": {
+          "count": 2049,
+          "accuracy": 0.8374816983894583
+        },
+        "by_visible_slots": {
+          "0": {
+            "count": 1797,
+            "accuracy": 0.9398998330550918
+          },
+          "1": {
+            "count": 2010,
+            "accuracy": 0.7507462686567165
+          },
+          "2": {
+            "count": 585,
+            "accuracy": 0.588034188034188
+          },
+          "3": {
+            "count": 675,
+            "accuracy": 0.6177777777777778
+          },
+          "4": {
+            "count": 1077,
+            "accuracy": 0.6304549675023212
+          }
+        },
+        "by_policy": {
+          "no_memory": {
+            "count": 1536,
+            "accuracy": 0.9427083333333334
+          },
+          "fifo": {
+            "count": 1536,
+            "accuracy": 0.6380208333333334
+          },
+          "recency": {
+            "count": 1536,
+            "accuracy": 0.6705729166666666
+          },
+          "similarity": {
+            "count": 1536,
+            "accuracy": 0.7682291666666666
+          }
+        },
+        "errors": {
+          "known_wrong": 1007,
+          "known_unnecessary_abstention": 385,
+          "known_wrong_train_value": 309,
+          "unknown_false_answer": 499
+        }
+      },
+      "per_seed": {
+        "7": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.77001953125
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7502254283137962
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.7933972310969116
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5211267605633803
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.8931185944363104
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9131886477462438
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7656716417910447
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6256410256410256
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6622222222222223
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6852367688022284
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.919921875
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.669921875
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.712890625
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.77734375
+            }
+          },
+          "errors": {
+            "known_wrong": 277,
+            "known_unnecessary_abstention": 117,
+            "known_wrong_train_value": 39,
+            "unknown_false_answer": 194
+          }
+        },
+        "19": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.7587890625
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.6176735798016231
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.9254526091586794
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.3826291079812207
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.7642752562225475
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9816360601001669
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7820895522388059
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.5384615384615384
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.5555555555555556
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.5905292479108635
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.984375
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.599609375
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.642578125
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.80859375
+            }
+          },
+          "errors": {
+            "known_wrong": 424,
+            "known_unnecessary_abstention": 204,
+            "known_wrong_train_value": 156,
+            "unknown_false_answer": 70
+          }
+        },
+        "43": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.73583984375
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7240757439134355
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.7497337593184239
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5140845070422535
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.8550512445095169
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9248747913188647
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7044776119402985
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6355555555555555
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6155988857938719
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.923828125
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.64453125
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.65625
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.71875
+            }
+          },
+          "errors": {
+            "known_wrong": 306,
+            "known_unnecessary_abstention": 64,
+            "known_wrong_train_value": 114,
+            "unknown_false_answer": 235
+          }
+        }
+      }
+    },
+    "entities_validation__values_train": {
+      "pooled_descriptive": {
+        "overall": {
+          "count": 6144,
+          "accuracy": 0.78662109375
+        },
+        "known_visible": {
+          "count": 3327,
+          "accuracy": 0.7667568379921852
+        },
+        "required_abstention": {
+          "count": 2817,
+          "accuracy": 0.81008164714235
+        },
+        "known_memory_only": {
+          "count": 1278,
+          "accuracy": 0.5383411580594679
+        },
+        "known_current": {
+          "count": 2049,
+          "accuracy": 0.9092240117130308
+        },
+        "by_visible_slots": {
+          "0": {
+            "count": 1797,
+            "accuracy": 0.9488035614913745
+          },
+          "1": {
+            "count": 2010,
+            "accuracy": 0.7800995024875622
+          },
+          "2": {
+            "count": 585,
+            "accuracy": 0.652991452991453
+          },
+          "3": {
+            "count": 675,
+            "accuracy": 0.6814814814814815
+          },
+          "4": {
+            "count": 1077,
+            "accuracy": 0.6666666666666666
+          }
+        },
+        "by_policy": {
+          "no_memory": {
+            "count": 1536,
+            "accuracy": 0.94921875
+          },
+          "fifo": {
+            "count": 1536,
+            "accuracy": 0.6848958333333334
+          },
+          "recency": {
+            "count": 1536,
+            "accuracy": 0.7135416666666666
+          },
+          "similarity": {
+            "count": 1536,
+            "accuracy": 0.798828125
+          }
+        },
+        "errors": {
+          "known_wrong": 776,
+          "known_unnecessary_abstention": 342,
+          "known_wrong_train_value": 423,
+          "unknown_false_answer": 535
+        }
+      },
+      "per_seed": {
+        "7": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.78662109375
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7709648331830478
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.805111821086262
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5657276995305164
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.8989751098096632
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9248747913188647
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7791044776119403
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6923076923076923
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.7066666666666667
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6713091922005571
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.9296875
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.689453125
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.73046875
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.796875
+            }
+          },
+          "errors": {
+            "known_wrong": 254,
+            "known_unnecessary_abstention": 129,
+            "known_wrong_train_value": 121,
+            "unknown_false_answer": 183
+          }
+        },
+        "19": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.81005859375
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7529305680793508
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.8775292864749734
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.49765258215962443
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.9121522693997072
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9816360601001669
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.8059701492537313
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6410256410256411
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6977777777777778
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6935933147632312
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.978515625
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.705078125
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.7265625
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.830078125
+            }
+          },
+          "errors": {
+            "known_wrong": 274,
+            "known_unnecessary_abstention": 144,
+            "known_wrong_train_value": 128,
+            "unknown_false_answer": 115
+          }
+        },
+        "43": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.76318359375
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7763751127141569
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.7476038338658147
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5516431924882629
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.9165446559297218
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9398998330550918
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.755223880597015
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6256410256410256
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.64
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6350974930362117
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.939453125
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.66015625
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.68359375
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.76953125
+            }
+          },
+          "errors": {
+            "known_wrong": 248,
+            "known_unnecessary_abstention": 69,
+            "known_wrong_train_value": 174,
+            "unknown_false_answer": 237
+          }
+        }
+      }
+    },
+    "entities_validation__values_validation": {
+      "pooled_descriptive": {
+        "overall": {
+          "count": 6144,
+          "accuracy": 0.7605794270833334
+        },
+        "known_visible": {
+          "count": 3327,
+          "accuracy": 0.7063420498948001
+        },
+        "required_abstention": {
+          "count": 2817,
+          "accuracy": 0.8246361377351793
+        },
+        "known_memory_only": {
+          "count": 1278,
+          "accuracy": 0.48513302034428796
+        },
+        "known_current": {
+          "count": 2049,
+          "accuracy": 0.8443142996583699
+        },
+        "by_visible_slots": {
+          "0": {
+            "count": 1797,
+            "accuracy": 0.9460211463550362
+          },
+          "1": {
+            "count": 2010,
+            "accuracy": 0.7562189054726368
+          },
+          "2": {
+            "count": 585,
+            "accuracy": 0.6034188034188034
+          },
+          "3": {
+            "count": 675,
+            "accuracy": 0.6222222222222222
+          },
+          "4": {
+            "count": 1077,
+            "accuracy": 0.6313834726090993
+          }
+        },
+        "by_policy": {
+          "no_memory": {
+            "count": 1536,
+            "accuracy": 0.9466145833333334
+          },
+          "fifo": {
+            "count": 1536,
+            "accuracy": 0.6438802083333334
+          },
+          "recency": {
+            "count": 1536,
+            "accuracy": 0.6764322916666666
+          },
+          "similarity": {
+            "count": 1536,
+            "accuracy": 0.775390625
+          }
+        },
+        "errors": {
+          "known_wrong": 977,
+          "known_unnecessary_abstention": 373,
+          "known_wrong_train_value": 302,
+          "unknown_false_answer": 494
+        }
+      },
+      "per_seed": {
+        "7": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.77880859375
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7583408476104598
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.8029818956336529
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5328638497652582
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.8989751098096632
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9348914858096828
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7671641791044777
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6358974358974359
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6755555555555556
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6824512534818942
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.935546875
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.669921875
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.720703125
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.7890625
+            }
+          },
+          "errors": {
+            "known_wrong": 268,
+            "known_unnecessary_abstention": 105,
+            "known_wrong_train_value": 41,
+            "unknown_false_answer": 185
+          }
+        },
+        "19": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.75830078125
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.6203787195671776
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.9211927582534611
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.38497652582159625
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.767203513909224
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9816360601001669
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7761194029850746
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.5641025641025641
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.5555555555555556
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.584958217270195
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.984375
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.60546875
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.642578125
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.80078125
+            }
+          },
+          "errors": {
+            "known_wrong": 421,
+            "known_unnecessary_abstention": 207,
+            "known_wrong_train_value": 150,
+            "unknown_false_answer": 74
+          }
+        },
+        "43": {
+          "overall": {
+            "count": 2048,
+            "accuracy": 0.74462890625
+          },
+          "known_visible": {
+            "count": 1109,
+            "accuracy": 0.7403065825067628
+          },
+          "required_abstention": {
+            "count": 939,
+            "accuracy": 0.7497337593184239
+          },
+          "known_memory_only": {
+            "count": 426,
+            "accuracy": 0.5375586854460094
+          },
+          "known_current": {
+            "count": 683,
+            "accuracy": 0.8667642752562226
+          },
+          "by_visible_slots": {
+            "0": {
+              "count": 599,
+              "accuracy": 0.9215358931552587
+            },
+            "1": {
+              "count": 670,
+              "accuracy": 0.7253731343283583
+            },
+            "2": {
+              "count": 195,
+              "accuracy": 0.6102564102564103
+            },
+            "3": {
+              "count": 225,
+              "accuracy": 0.6355555555555555
+            },
+            "4": {
+              "count": 359,
+              "accuracy": 0.6267409470752089
+            }
+          },
+          "by_policy": {
+            "no_memory": {
+              "count": 512,
+              "accuracy": 0.919921875
+            },
+            "fifo": {
+              "count": 512,
+              "accuracy": 0.65625
+            },
+            "recency": {
+              "count": 512,
+              "accuracy": 0.666015625
+            },
+            "similarity": {
+              "count": 512,
+              "accuracy": 0.736328125
+            }
+          },
+          "errors": {
+            "known_wrong": 288,
+            "known_unnecessary_abstention": 61,
+            "known_wrong_train_value": 111,
+            "unknown_false_answer": 235
+          }
+        }
+      }
+    }
+  },
+  "seconds_including_generation_and_io": 3.393345042131841,
+  "predictions_sha256": "b1aa3f2bb86a5dbf28cccf4ed9e526b77a538340fb2cfd25425c6ad86506f2fc"
+}

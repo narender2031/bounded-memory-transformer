@@ -73,6 +73,13 @@ bmt-train-tiny --steps 300
 
 It includes causal multi-head attention, decoder blocks, next-token training, autoregressive generation, an example corpus, and tests for causal isolation.
 
+The [end-to-end fundamentals guide](research/transformer-fundamentals.md) teaches
+the exact implementation with worked attention arithmetic, tensor shapes,
+training and generation, parameter counts, memory boundaries, and runnable
+exercises. The [memory improvement note](research/reading-notes/2026-09-17-memory-improvements.md)
+explains the reader results, new frozen-model diagnostics, and researched next
+experiments.
+
 ## Planned experimental ladder
 
 See [`projects/02-memory-benchmark`](projects/02-memory-benchmark/README.md) for

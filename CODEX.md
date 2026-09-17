@@ -111,6 +111,15 @@ without memory and 82.50% with memory. Neural validation is only 73.83–78.52%,
 so the 95% competence gate fails. These are weak-reader pilot results, not a
 validated learned-memory contribution. Preserve both runs and their limitations.
 
+The subsequent frozen-reader diagnostic and primary-source comparison are in
+[`research/reading-notes/2026-09-17-memory-improvements.md`](research/reading-notes/2026-09-17-memory-improvements.md).
+On 2,048 matched reading structures, mean accuracy was 78.91% with seen entity/value
+symbols and 76.06% with both unseen. This is exploratory train/validation analysis,
+not a new held-out policy result. It motivates a record-selection/copying reader
+ablation with an UNKNOWN option; no improved reader has yet been implemented.
+The [Transformer fundamentals guide](research/transformer-fundamentals.md) explains
+the actual architecture, training, memory boundary, and reader terminology.
+
 The remaining text below preserves the broader Project 02 specification;
 LRU/oracle/learned baselines and a competent neural reader remain future work.
 
@@ -255,9 +264,12 @@ At the end of every session:
 
 ## Immediate next action
 
-1. Improve the shared reader using train/validation evidence only: complete-key
-   discrimination, unseen-value copying, missing-evidence abstention, and four-slot
-   occupancy. Require at least 95% visible-evidence validation accuracy per seed.
+1. Specify and implement a learned record selector with exact value copying and
+   an UNKNOWN option, using train/validation evidence only. Compare against the
+   character reader and exact-rule control; include current-session records.
+   Require at least 95% visible-evidence validation accuracy per seed, and declare
+   slice gates for full-key matching, abstention, updates/deletes, and four-slot
+   occupancy before the next training run. See D011 and the diagnostic note.
 2. Predeclare the next independent test before inspecting it. Preserve the two
    recorded pilots; do not tune their held-out generators or relabel their metrics.
 3. Repeat the paired no-memory/FIFO/recency/similarity experiment with the competent
