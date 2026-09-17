@@ -1,0 +1,20 @@
+{
+  "v1/predictions.jsonl": {
+    "bytes": 10292262,
+    "local_path": "runs/when-memory-hurts-2026-09-17-v1/predictions.jsonl",
+    "sha256": "4c676a883fa9f3865d7c49acce99cb1edcfd9c8daccbba69007d964d70decdec"
+  },
+  "v1/source": {
+    "all_source_hashes_match": true,
+    "verified_commit": "7fc51fd53f985a987b7aaa415a1af5fd69da65cb"
+  },
+  "v2/predictions.jsonl": {
+    "bytes": 10294389,
+    "local_path": "runs/when-memory-hurts-2026-09-17-v2/predictions.jsonl",
+    "sha256": "290b412d7d1c0f76a3299affe630af7e019a2869d12f97c902522028b61ba77a"
+  },
+  "v2/source": {
+    "all_source_hashes_match": true,
+    "verified_commit": "280d88ce1efb8bf28b36e2cbcd1a5edb768109da"
+  }
+}

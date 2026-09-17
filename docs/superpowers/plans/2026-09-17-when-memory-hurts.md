@@ -21,29 +21,29 @@ inputs cross a boundary carrying only bounded records and current operations.
 
 ## Tasks
 
-- [ ] 1. Typed operations, reference state machine, deterministic episode generator.
+- [x] 1. Typed operations, reference state machine, deterministic episode generator.
   Create `memory_benchmark/{operations,state_machine,generator}.py` and
   `tests/test_episode_generator.py`. Test authoritative replacement, deletion,
   noise, unknown answers, independent replay, exact operation counts, and
   disjoint complete entity/value symbols before implementation.
-- [ ] 2. Fixed-array policies and reset boundary.
+- [x] 2. Fixed-array policies and reset boundary.
   Create `memory_benchmark/{policies,views}.py` and
   `tests/test_memory_policies.py`. Test oldest eviction, unique-key refresh,
   tombstones, latest similarity tie, fixed byte count, old view immutability,
   and absence of discarded source evidence after reset.
-- [ ] 3. Metrics with literal hand-calculated predictions.
+- [x] 3. Metrics with literal hand-calculated predictions.
   Create `memory_benchmark/metrics.py` and `tests/test_memory_metrics.py`.
   Verify stale/deleted denominators, abstention, paired harm/benefit and intervals.
-- [ ] 4. Shared tiny-Transformer reader and reproducible CLI.
+- [x] 4. Shared tiny-Transformer reader and reproducible CLI.
   Create `memory_benchmark/{reader,evaluate}.py`, CLI entry point, config, and
   `tests/test_memory_reader.py`. Test answer-only loss alignment, variable-length
   greedy decoding, stateless calls, checkpoint replay, and a tiny local run.
-- [ ] 5. Freeze inputs, run the three-seed local experiment, inspect diagnostics.
+- [x] 5. Freeze inputs, run the three-seed local experiment, inspect diagnostics.
   Run `.venv/bin/python -m bounded_memory_transformer.memory_benchmark.evaluate
   --config projects/02-memory-benchmark/configs/baseline-small.json`.
   Preserve all results without tuning on test data. Generate a results table
   and standalone figure from the recorded summary.
-- [ ] 6. Verify and document.
+- [x] 6. Verify and document.
   Run `.venv/bin/ruff check .`, `.venv/bin/pytest`, `git diff --check`.
   Update Project 02 README, root README, CODEX, research log/decisions/papers and
   experimental ladder. Review code and measured claims before completion.

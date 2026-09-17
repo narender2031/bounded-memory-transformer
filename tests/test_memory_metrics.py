@@ -40,8 +40,39 @@ def test_invalid_output_is_wrong_not_abstention_and_empty_denominators_are_null(
 
 
 def test_bootstrap_clusters_same_episode_across_model_seeds():
-    rows = [Result(0, seed, "unknown", QueryTruth("??"), "23", "??") for seed in (1, 2, 3)]
+    rows = [
+        Result(episode_id, seed, "history_set", QueryTruth("23"), prediction, baseline)
+        for seed in (1, 2, 3)
+        for episode_id, prediction, baseline in ((0, "23", "??"), (1, "??", "23"))
+    ]
     result = summarize(rows)
-    assert result["unique_episodes"] == 1
-    assert result["accuracy_delta_ci95"] == [-1, -1]
+    assert result["unique_episodes"] == 2
+    # Row-level resampling falsely treats the six outcomes as independent and
+    # narrows this interval. There are only two independent paired episodes.
+    assert result["accuracy_delta_ci95"] == [-1, 1]
     assert result["seed_accuracy_std"] == 0
+
+
+def test_report_retains_paired_metrics_when_stale_denominator_is_absent():
+    from bounded_memory_transformer.memory_benchmark.evaluate import markdown_report
+
+    metrics = summarize([Result(0, 1, "unknown", QueryTruth("??"), "23", "??")])
+    summary = {
+        "environment": {"device": "cpu"},
+        "effective_config": {"capacity": 4},
+        "training": [
+            {
+                "seed": 1,
+                "parameters": 100,
+                "validation_accuracy": 1,
+                "training_seconds_including_validation": 1,
+            }
+        ],
+        "reader_competence_passed": True,
+        "neural": {"main": {"fifo": metrics}},
+        "symbolic": {"main": {"fifo": {"accuracy": 1}}},
+    }
+    row = next(line for line in markdown_report(summary).splitlines() if line.startswith("| fifo"))
+    assert row.split("|")[3].strip() == "-100.00 [-100.00, -100.00]"
+    assert row.split("|")[4].strip() == "100.00%"
+    assert row.split("|")[6].strip() == "n/a"

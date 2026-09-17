@@ -155,13 +155,13 @@ def markdown_report(summary: dict) -> str:
             low, high = metrics["accuracy_delta_ci95"]
             stale = metrics["stale_answer_rate"]
             deleted = metrics["deleted_fact_leakage"]
+            stale_text = "n/a" if stale is None else f"{stale:.2%}"
+            deleted_text = "n/a" if deleted is None else f"{deleted:.2%}"
             lines.append(
                 f"| {name} | {metrics['accuracy']:.2%} | "
                 f"{100 * metrics['accuracy_delta']:+.2f} [{100 * low:+.2f}, {100 * high:+.2f}] | "
                 f"{metrics['harmful_rate']:.2%} | {metrics['beneficial_rate']:.2%} | "
-                f"{stale:.2%} | {deleted:.2%} |"
-                if stale is not None and deleted is not None
-                else f"| {name} | {metrics['accuracy']:.2%} | n/a | n/a | n/a | n/a | n/a |"
+                f"{stale_text} | {deleted_text} |"
             )
         lines += [
             "",
