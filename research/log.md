@@ -200,3 +200,8 @@ budget. No additional tuning followed the second held-out evaluation.
 **Next action:** Diagnose and improve the shared reader using training and
 validation only until every seed clears the competence gate. Predeclare the next
 test; then repeat the memory comparison before implementing a learned controller.
+
+Review artifact: [draft PR #2](https://github.com/narender2031/bounded-memory-transformer/pull/2),
+stacked on Project 01's still-open branch. Only this session's research additions
+were committed; earlier local research notes and diagnostic files remain intact
+and unstaged. The branch is preserved for the next reader milestone.

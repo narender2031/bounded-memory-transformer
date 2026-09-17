@@ -100,7 +100,8 @@ Project 01 intentionally contains no persistent memory. It is the no-memory cont
 ## Next implementation: Project 02
 
 **Current status:** The four-baseline Phase 1 implementation and two local runs
-are complete on `feat/synthetic-memory-benchmark`; see
+are available in [draft PR #2](https://github.com/narender2031/bounded-memory-transformer/pull/2)
+on `feat/synthetic-memory-benchmark`; see
 [`projects/02-memory-benchmark/README.md`](projects/02-memory-benchmark/README.md).
 The corrected second run uses source revision `280d88c`, three seeds, 30
 candidate operations, eight sessions, and four symbolic slots (64 logical bytes).
