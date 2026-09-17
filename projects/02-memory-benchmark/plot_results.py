@@ -32,6 +32,7 @@ def plot(summary_path: Path, output: Path) -> None:
             "axes.labelcolor": "#252a31",
             "axes.edgecolor": "#b4b8bc",
             "svg.fonttype": "none",
+            "svg.hashsalt": "bounded-memory-transformer-experiment-01",
         }
     )
     figure, (absolute, paired) = plt.subplots(1, 2, figsize=(12, 5.8), width_ratios=(1.2, 1))
@@ -146,7 +147,11 @@ def plot(summary_path: Path, output: Path) -> None:
     figure.subplots_adjust(left=0.10, right=0.985, top=0.79, bottom=0.32, wspace=0.40)
     output.parent.mkdir(parents=True, exist_ok=True)
     figure.savefig(output.with_suffix(".png"), dpi=170, facecolor="white")
-    figure.savefig(output.with_suffix(".svg"), facecolor="white")
+    svg_path = output.with_suffix(".svg")
+    figure.savefig(svg_path, facecolor="white", metadata={"Date": None})
+    svg_path.write_text(
+        "\n".join(line.rstrip() for line in svg_path.read_text().splitlines()) + "\n"
+    )
     plt.close(figure)
 
 
