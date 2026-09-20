@@ -123,6 +123,8 @@ and [Project 03 reproduction](projects/03-memory-reliability/README.md).
 - 95 tests pass. Independent audit passes 237 artifact and 25 source hashes and
   recomputes all reported metrics from saved query/write/bank records.
 
+Review: [draft PR #3](https://github.com/narender2031/bounded-memory-transformer/pull/3),
+stacked on #2. Hosted CPU lint/tests passed.
 Full artifacts: `runs/five-case-2026-09-20-v1` in the isolated five-case worktree.
 No held-out retuning. Original-checkout uncommitted work remains untouched.
 

@@ -156,5 +156,10 @@ assert recovery(.9, .8, .5)["value"] == pytest.approx(4/3)
 - [x] Save a factual report, including negative results, compute differences,
   limits of planted utility cues, and next falsifiable question. Update CODEX,
   paper-linked brief, decisions, experiment plan, research log, and README.
-- [ ] Commit/push the isolated branch and open a reviewable PR stacked on #2;
+- [x] Commit/push the isolated branch and open a reviewable PR stacked on #2;
   verify its CI without merging either base PR.
+
+Completion: [draft PR #3](https://github.com/narender2031/bounded-memory-transformer/pull/3)
+is stacked on #2. The [hosted CPU lint/test run](https://github.com/narender2031/bounded-memory-transformer/actions/runs/35499085042)
+passed at `116c1f2`. All cases are implemented and tested; failed reader research
+gates are retained in the results. Neither base PR was merged.

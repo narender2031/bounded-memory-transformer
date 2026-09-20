@@ -537,3 +537,11 @@ standalone figures were rendered and visually checked. An independent read-only
 review reconciled the report/README numbers and scientific caveats with saved
 results and found no remaining corrections. Frozen experiment source, tests, and
 configuration are unchanged from `4765f2f`.
+
+Review handoff: [draft PR #3](https://github.com/narender2031/bounded-memory-transformer/pull/3)
+is open against `feat/synthetic-memory-benchmark`; no base PR was merged. Hosted
+CPU lint and tests [passed at `116c1f2`](https://github.com/narender2031/bounded-memory-transformer/actions/runs/35499085042).
+Generated SVG whitespace was normalized in the exporter and saved figures after
+the staged-file check caught it; the complete branch whitespace check now passes.
+The original checkout has its original dirty status; the isolated worktree holds
+the completed implementation and results.
