@@ -184,3 +184,29 @@ use the exact-rule reader to isolate any writer study. **Hypothesis:** bounded
 operation/target learning and later latent expansion can improve the task. Future
 novelty claims must now also account for Metis and TARL, alongside the existing
 SP-KV, Supersede, RMT, GradMem, and LiveMem comparisons.
+
+## 2026-09-20 — Emergent utility and the closest caching mechanisms
+
+Fresh targeted primary-source search/read for the EU1 design. See the
+[reading note](reading-notes/2026-09-20-emergent-utility-prior-art.md) for inspected
+sections and limitations. This is neither an exhaustive novelty search nor a
+reproduction of these systems.
+
+| Primary paper | Verified mechanism | Consequence for EU1 |
+|---|---|---|
+| [ARC](https://www.usenix.org/conference/fast-03/presentation/arc-self-tuning-low-overhead-replacement-cache), Megiddo and Modha, FAST 2003 | Adaptively balances recency/frequency with ghost directories; demand paging restores missing pages. | Charge all ghost identities. EU1 does not refill values on ASK; adapting ARC changes its contract. |
+| [TinyLFU](https://arxiv.org/abs/1512.00727v2), Einziger, Friedman and Manes, 2015 preprint v2 | Uses aged approximate recent frequencies for admission, including nonresident accesses; doorkeeper also consumes state. | Add a fully charged TinyLFU-style sketch competitor, not only resident LFU; disclose its constrained adaptation. |
+| [Learning Relaxed Belady](https://www.usenix.org/conference/nsdi20/presentation/song), Song et al., NSDI 2020 | Learns next-request-time predictions using access histories, delayed labels and online training buffers. | Learning utility from access features is established. Histories, pending examples and training state cannot hide inside a 64-byte inference claim. |
+| [LeCaR](https://www.usenix.org/conference/hotstorage18/presentation/vietri), Vietri et al., HotStorage 2018 | Learns a mixture of LRU/LFU using eviction histories and delayed regret feedback. | Compare a strong tuned recency/frequency blend; a faithful LeCaR adaptation must charge its feedback history and weights. |
+
+Rechecked primary v1 abstracts for [SP-KV](https://arxiv.org/abs/2605.14037v1)
+and [Supersede](https://arxiv.org/abs/2606.27472v1), without rereading full texts.
+They remain close comparisons for future utility and factual currency respectively.
+
+**Evidence:** utility inference, workload adaptation and metadata tradeoffs have
+substantial prior art. LRB's venue is NSDI 2020, not OSDI. Conventional cache-miss
+refill and EU1's no-refill ASK are different information contracts.
+**Inference:** FIFO gains alone are insufficient; compare strong bounded heuristics
+and declare held-out mechanisms. **Hypothesis:** a learned scorer over a tiny causal
+summary can outperform them under those shifts. There are no EU1 results yet, and
+the conjunction of constraints is not itself evidence of novelty.

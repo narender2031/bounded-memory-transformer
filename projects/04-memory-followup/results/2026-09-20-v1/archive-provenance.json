@@ -1,0 +1,26 @@
+{
+  "reader-summary.json": {
+    "source": "runs/reader-followup-2026-09-20-v1/summary.json",
+    "sha256": "8027eb66210c424b6c74c5c30debf00aacb93deb2b790c181f1ffa6332d9e31e"
+  },
+  "uniform-summary.json": {
+    "source": "runs/uniform-replication-2026-09-20-v1/summary.json",
+    "sha256": "f321763a67a0b4e753423844d2ce8c78d0bfc86e61e79c1bd22b806927a71eae"
+  },
+  "reader-audit.json": {
+    "source": "runs/reader-followup-2026-09-20-v1-audit.json",
+    "sha256": "4f8867ee01df6e996b7b56474b3e2741604be7f879ed6169f0ff0e83b23919be"
+  },
+  "uniform-audit.json": {
+    "source": "runs/uniform-replication-2026-09-20-v1-independent-audit.json",
+    "sha256": "2af2a6c8ed49fde7b3969c9a19dd37179c708b9c26b9e32d5f6603f172d85992"
+  },
+  "uniform-manifest.json": {
+    "source": "runs/uniform-replication-2026-09-20-v1/manifest.json",
+    "sha256": "c2ea24bc9bf235c655c61dc8c9b5f81fe43d4c7d89e8f47215bfbd6f56a29827"
+  },
+  "reader-manifest.json": {
+    "source": "runs/reader-followup-2026-09-20-v1/frozen-manifest.json",
+    "sha256": "0704d24c922aff0332b32b00bff886a72356f83c7eee33fd4713713298347edf"
+  }
+}

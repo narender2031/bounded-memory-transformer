@@ -16,7 +16,19 @@ A separate `memory_experiments` package preserves the recorded Phase 1 pilots.
 [2026-09-20 results](five-case-results-2026-09-20.md). Controlled lifecycle passes;
 reader gates fail; learned capacity matches cue-priority and beats FIFO on B.
 The unexpected positive A8 contrast remains reported. No held-out tuning followed.
-Next: train/validation reader diagnosis and a separately preregistered A replication.
+These historical results are unchanged.
+
+**Completed follow-up:** [Project 04](reader-followup-results-2026-09-20.md) fixes
+symbolic reading with a disclosed neural classifier/composition/copy architecture:
+all 41 conditions pass both gates for all three seeds. The separately frozen
+10,240-episode uniform replication meets its ±1-point practical-equivalence
+criterion against FIFO, recency and random at both capacities. Both independent
+audits pass; unsuccessful development variants remain archived.
+
+**Next milestone:** review the [Case 5B emergent-utility design](case-5b-emergent-utility-design.md),
+then implement its generator, byte serializer and independent strong baselines
+on development data. Utility learning, its held-out freeze, and distribution-shift
+evaluation remain future work. No emergent-utility superiority has been measured.
 
 The user's three-phase plan now governs implementation. The longer architectural
 ladder below remains a proposal, not work already completed.
@@ -50,9 +62,11 @@ The [2026-09-17 diagnostic and research note](reading-notes/2026-09-17-memory-im
 records a frozen-reader factorial check using train/validation symbols only.
 Project 03 implements that selector/copy ablation with an UNKNOWN option and
 both memory/current candidates, plus shared character and exact-rule controls.
-Its source/configuration and gates were frozen before testing. Selection/copying
-improves aggregate accuracy, but the declared slice/recovery gates still fail.
-Follow-up model development must use training/validation evidence only.
+Its source/configuration and gates were frozen before testing. Its declared
+slice/recovery gates failed. Project 04 subsequently passes those gates and a
+broader predeclared suite after train/validation-only development. Its structured
+classifier uses field-pair supervision and deterministic composition; it does
+not establish a free-form reader or calibrated trust in uncertain sources.
 
 Separately, symbolic admission/retrieval variants can use the exact-rule reader
 to isolate retained evidence. Access-based LRU/LFU/TinyLFU needs a declared

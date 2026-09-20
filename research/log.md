@@ -545,3 +545,125 @@ Generated SVG whitespace was normalized in the exporter and saved figures after
 the staged-file check caught it; the complete branch whitespace check now passes.
 The original checkout has its original dirty status; the isolated worktree holds
 the completed implementation and results.
+
+## 2026-09-20 — Reader repair, uniform replication and emergent-utility design
+
+**Authorization and isolation:** the user requested a reader fix toward both 95%
+gates, replication of the uniform negative control, and design of Case 5B emergent
+utility. Continued in the isolated five-case worktree on new branch
+`feat/reader-reliability-followup`. Original-checkout dirty work and both historical
+experiment packages remain unchanged. Independent agents handled the uniform
+replication, prior-art/design track, and read-only method/result audits.
+
+**Development evidence and failures:** a frozen-reader train/validation diagnosis
+identified wrong-entity/same-attribute selection as the dominant error (506 of
+533 errors in the three-seed fresh four-slot validation sample). A factorized
+reader compares field characters through a small manually implemented Transformer.
+Candidate 1's perfect seed-7 validation was invalid as coverage evidence because
+the new generator correlated occupancy with query category. Corrected this before
+test and added cross-occupancy checks. Candidate 2 reached 98.5% aggregate for seed
+7 but failed its unsupported category; other seeds passed. Candidate 3 pretrained
+and froze the comparator, passing the earlier validation suite, but an additional
+nine-transition authority probe scored only 66.67%. Soft operation confidence
+could outrank a later authoritative value. Candidate 4 added saturation/transition
+training yet still scored only 66.67–77.78% on that probe. Its unchanged weights
+with a fixed binary classifier/chronology adapter passed all 12 validation
+conditions per seed. No inference exact-key repair or threshold search was added.
+
+The initial three-candidate budget was explicitly amended before reader test
+opening for a fourth training variant and a fifth readout variation. The final
+adapter separates eligibility from chronological ranking using deterministic
+composition of learned classifier outputs. It differs from the soft training
+path; auxiliary pair supervision covers the training alphabet. Preserve every
+failure and training history. [Protocol](reader-followup-protocol-2026-09-20.md),
+[development archive](../projects/04-memory-followup/results/2026-09-20-v1/development.json).
+
+**Reader held-out evidence:** source/config/protocol freeze `1845235` preceded
+generation, and all three final models had already trained. Seeds 7/19/43 each
+score 100% visible-evidence accuracy and raw oracle-relative recovery on all 41
+conditions (123 evaluations), with no unavailable full-run headroom. The 29,600
+shared reader microtasks cover original, varied occupancy/current counts, and
+all nine authoritative transitions; each seed additionally has 29 episode controls.
+All 437,664 saved rows match the exact visible oracle. There are zero paired
+harmful answers on this suite. Matched original four-slot old-reader scores are
+92.38/90.66/95.18%, averaging 92.74%; all final seeds score 100%.
+
+**Reader limits:** 437,664 is a repeated model/policy row count, not independent N.
+Fresh seeds reuse the existing held-out full-symbol partition and familiar
+character alphabet. The structured 7,639-parameter classifier, supervision,
+composition and copy aids are part of the method. Its success is instrumentation,
+not a free-form reader or learned trust contribution. Fresh planted-cue B world
+recall remains 28.61%/57.69% with exact lifecycle/learned retention, despite perfect
+reading of retained evidence. A discarded live fact can correctly elicit visible
+UNKNOWN while losing world recall. An unavailable superseding event cannot be
+detected from the old fact alone. Capacity-only zero paired harm has no safety
+meaning when current-only world accuracy is zero.
+
+**Independent uniform evidence:** preregistration freeze `569c387` preceded the
+unchanged historical generator's 20 dataset seeds, 512 episodes each, 24 keys and
+32 uniform queries per episode. Frozen learned checkpoints have identical greedy
+cue decisions over 544 exhaustive allocations/model. Learned recall is
+16.6956%/33.3240% for K4/K8, versus FIFO 16.7047%/33.3630%. All six learned-minus-
+FIFO/recency/random intervals contain zero and lie inside ±1 percentage point,
+under both multiplicity-corrected analytic and 10,000-replicate paired bootstrap
+methods. The predeclared practical-equivalence criterion is met. The prior
++3.08-point A8 result did not replicate; its original positive interval is preserved.
+**Inference:** this supports sampling variation rather than an ability to predict
+uniformly unpredictable demand. It is not a test of emergent access-based utility.
+See [uniform protocol](uniform-replication-protocol-2026-09-20.md) and D016.
+
+**Compute and independent verification:** M2 Pro, 16 GiB, Python 3.13.7, PyTorch
+2.9.1. Final reader training across three seeds took 246.93 s; reader evaluation
+115.73 s; CPU uniform replication 189.96 s. Earlier development/audit costs are
+additional, and concurrent activity makes these observational timings. Uniform
+learned write totals 7.77/6.71 s versus FIFO 2.75/2.60 s at equal 64/128 bytes.
+Reader audit passes 211 artifact hashes, 54 source/checkpoint/config hashes,
+12 checkpoints and 437,664 prediction rows; it independently reconstructs
+semantics/metrics/gates without rerunning all neural forwards. Uniform audit
+passes 263 artifact hashes, replaying 122,880 banks and checking 3,932,160 query
+records and all bootstrap replicates without project imports. Its exact audit
+program is embedded in the saved audit. Later auditor checks/tests strengthened
+source/config binding without changing frozen experiment code or outcomes.
+
+Commands and immutable run locations are in
+[Project 04](../projects/04-memory-followup/README.md). Compact summaries, audits,
+source manifests, development failures and source-backed PNG/SVG are checked in.
+The revised two-panel figure was visually inspected; its numbers equal saved
+prediction rows and uniform summaries. Local `pytest`: **156 passed in 2.97 s**;
+`ruff check .`: passed. Final document-link/whitespace checks and PR follow below.
+
+**Literature evidence, search/read date 2026-09-20:** primary ARC (FAST 2003),
+TinyLFU (v2), LRB (**NSDI** 2020), and LeCaR (HotStorage 2018) already establish
+access-based utility and recency/frequency adaptation. Rechecked SP-KV/Supersede
+abstracts only. Read details in the [prior-art note](reading-notes/2026-09-20-emergent-utility-prior-art.md).
+Conventional refill, ghost identities, sketches and delayed-feedback histories
+change the information/state contract. This was a targeted check, not a novelty
+proof. Updated the literature map and decisions D015–D017.
+
+**Design and next hypothesis:** [EU1](case-5b-emergent-utility-design.md) proposes
+interleaved accesses with no ASK refill, causal bounded summaries, strong independent
+heuristics (including a charged TinyLFU-style sketch), unseen temporal mechanisms,
+five model seeds, and joint superiority/harm gates. It uses exact lifecycle guards
+to isolate retention. A feasible small-panel oracle replaces the invalid top-K
+future-count bound for interleaving. **No EU1 implementation or results exist.**
+Review this design, then implement its generator/serializer/baselines on development
+data. The hypothesis that learned retention beats strong heuristics under shift
+remains open. No completed test is to be retuned or overwritten.
+
+Final report review independently reconciled all material numbers with raw and
+compact artifacts and found no scientific overclaims. Corrected two reproduction
+wording details: only retention checkpoints are pinned by the uniform config,
+and audit JSON outputs need fresh paths because the auditor can replace them.
+All **89 local document links** resolve; six compact raw-artifact copies match
+their source bytes/hashes; whitespace checks pass. The final auditor SHA is
+`aaef204d727343a7565edb93defbea325bb817ad7f9a2ac7eb62db06f6ca50c1`.
+Frozen reader source/config/protocol are unchanged from `1845235`; both historical
+experiment packages are unchanged from `4765f2f`. The original checkout retains
+its pre-session dirty status. The standalone figure was visually checked after
+moving its equivalence-margin legend out of the plotted intervals.
+
+Review handoff: [draft PR #4](https://github.com/narender2031/bounded-memory-transformer/pull/4)
+is open against `feat/five-case-memory` (#3), with results commit `39d67eb`.
+The PR links hosted CPU verification for its current revision. No base PR was
+merged. This completes the authorized reader, replication, and design tasks;
+the next research implementation is the separately specified EU1 development stage.

@@ -104,6 +104,50 @@ Verification:
 
 Project 01 intentionally contains no persistent memory. It is the no-memory control model.
 
+## Project 04 — reader gates and independent uniform replication completed
+
+The user authorized reader repair, independent uniform replication, and design
+of Case 5B emergent utility. All three tasks are complete. See the
+[detailed results](research/reader-followup-results-2026-09-20.md),
+[reproduction commands](projects/04-memory-followup/README.md), and
+[Case 5B design](research/case-5b-emergent-utility-design.md).
+
+- Reader source/config/protocol freeze: `1845235`. Seeds 7/19/43 all pass both
+  95% gates in all 41 conditions: 100% visible accuracy and 100% raw oracle-relative
+  recovery, matching the oracle on all 437,664 saved rows. Repeated model/policy
+  rows are not independent samples. Matched old four-slot accuracy is 92.74%.
+- This 7,639-parameter reader learns field matching and authority, with auxiliary
+  equality labels over the training alphabet, a frozen comparator, deterministic
+  conjunction/ranking composition and exact copying. Final binary readout uses
+  candidate-4 weights but differs from the soft training path. No exact-key repair.
+  Preserve all four training variants, failed authority probes, and the pre-test
+  readout amendment. No held-out retuning occurred.
+- Zero observed paired harm applies to authoritative symbolic inputs; discarded
+  facts still reduce world recall. Plausible stale facts cannot be detected when
+  their newer evidence is unavailable. General trust/uncertainty is unproved.
+- Uniform preregistration freeze: `569c387`; 20 fresh dataset seeds × 512 episodes.
+  All six learned-minus-FIFO/recency/random contrasts satisfy the predeclared
+  ±1-point equivalence criterion with corrected analytic and bootstrap intervals.
+  The eight-slot learned/FIFO difference is −0.0391 points [−0.3985, +0.3204].
+  The earlier +3.08-point result did not replicate and remains in the old report.
+- Independent audits pass: reader 211 artifact hashes and 437,664 rows; uniform
+  263 artifact hashes, 122,880 bank replays and 3,932,160 saved query records.
+- `case_5b_emergent_utility_v1` is **design only**, distinct from planted-cue B.
+  It specifies no-refill interleaved access, fully charged state, strong caching
+  baselines, held-out mechanisms, and a demanding multi-seed superiority gate.
+  There is no emergent-utility model, result, or novelty claim yet.
+
+Worktree: `/Users/narendersingh/transformer/bounded-memory-transformer-five-cases`,
+branch `feat/reader-reliability-followup`. Immutable local runs:
+`runs/reader-followup-2026-09-20-v1`, `runs/uniform-replication-2026-09-20-v1`;
+development: `runs/reader-followup-development`. Compact checked-in evidence:
+`projects/04-memory-followup/results/2026-09-20-v1`.
+Historical experiment packages and the original checkout's dirty work are unchanged.
+
+Review: [draft PR #4](https://github.com/narender2031/bounded-memory-transformer/pull/4),
+stacked on #3. Local verification: 156 tests, Ruff, whitespace and 89 document links
+pass. The PR exposes the current hosted CPU-check status. No base PR is merged.
+
 ## Project 03 — five cases implemented and tested
 
 The user approved all five cases and authorized implementation and local testing.
@@ -161,7 +205,8 @@ competence gate for a combined neural writer/reader claim. Pending evidence,
 provenance, and dependency metadata must consume the same total state budget.
 
 The remaining text below preserves the broader Project 02 specification;
-it predates Project 03. LRU and a fully competent neural reader remain future work.
+it predates Projects 03–04. Interleaved LRU remains future work; Project 04 now
+establishes the declared symbolic reader competence with disclosed structural aids.
 
 Build the deterministic synthetic memory benchmark before adding a learned memory controller.
 
@@ -304,28 +349,19 @@ At the end of every session:
 
 ## Immediate next action
 
-**Approved implementation (2026-09-20):** the user approved five cases and
-explicitly requested building and testing every case. The review checkpoint is
-complete. Work proceeds in the isolated `feat/five-case-memory` worktree:
-`/Users/narendersingh/transformer/bounded-memory-transformer-five-cases`.
+The authorized reader repair, uniform replication, and Case 5B design are complete.
+Review the [EU1 design](research/case-5b-emergent-utility-design.md). Its first
+implementation milestone is the deterministic generator, canonical byte serializer,
+and independent FIFO/recency/LRU/LFU/decayed-LFU/hybrid/TinyLFU-style baselines with
+development-only causal and capacity tests. The current request authorized design
+of this new workload; no EU1 training or held-out testing has occurred.
 
-- [Locked protocol](docs/superpowers/specs/2026-09-20-five-case-memory.md): selector
-  oracle, four rejection strata, two reader gates, lifecycle, A/B capacity, regret.
-- [Execution plan](docs/superpowers/plans/2026-09-20-five-case-memory.md).
-- [Frozen run configuration](projects/03-memory-reliability/configs/five-case-small.json).
-- New `memory_experiments` package; historical `memory_benchmark` is unchanged.
-
-All five cases, CPU smoke, full local run, figures, and independent audit are
-complete. The failed reader gates are retained as results, not unfinished tests.
-The four-slot canonical bank includes the observed utility cue within 64 bytes.
-Do not compare its scores directly with the historical event-bank workload.
-
-**Next research action:** develop a train/validation-only reader ablation for
-full-key matching, precedence, UNKNOWN rejection, and varied current-record
-counts/occupancy. Freeze a new protocol before further held-out evaluation. A
-separate preregistered replication should investigate the unexpected uniform-A8
-contrast. Do not tune to this test set or add latent compression as an automatic
-next step. Keep the original checkout's uncommitted work and PR #1/#2 intact.
+Do not retune the completed reader or uniform study after their test opening.
+Preserve historical failed gates, original positive A8 interval, all development
+variants, and raw runs. Utility learning needs a separate executable freeze and
+the declared distribution-shift and harm evaluation. Do not automatically add
+latent compression or dependency rollback. Keep the original checkout's
+uncommitted work and PR #1/#2/#3 intact.
 
 ## External research cadence
 

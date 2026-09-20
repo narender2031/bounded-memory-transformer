@@ -1,0 +1,23 @@
+{
+  "protocol": "reader-followup-v1",
+  "readout_mode": "binary",
+  "seeds": [7, 19, 43],
+  "device": "mps",
+  "cpu_threads": 4,
+  "split": "test",
+  "original_seed": 20260926,
+  "original_count": 5000,
+  "varied_seed": 20260927,
+  "varied_count": 2000,
+  "authority_seed": 20260930,
+  "authority_count": 1800,
+  "capacities": [4, 8],
+  "current_counts": [0, 1, 6, 32],
+  "lifecycle_seed": 20260928,
+  "lifecycle_count": 800,
+  "capacity_seed": 20260929,
+  "capacity_count": 128,
+  "capacity_policies": ["fifo", "recency", "random", "similarity", "cue_priority", "learned"],
+  "bootstrap_samples": 2000,
+  "threshold": 0.95
+}
