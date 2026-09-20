@@ -1,6 +1,6 @@
 # Codex Project Handoff
 
-Last updated: 2026-09-12
+Last updated: 2026-09-20
 
 This document transfers the working context from the original ChatGPT research conversation into the repository. A new Codex session should begin here, then follow the linked source-of-truth documents.
 
@@ -55,8 +55,15 @@ Read the complete curated map in [research/papers.md](research/papers.md). Start
 6. Supersede — bounded memory under changing facts.
 7. LiveMem — state that survives context turnover and affects later behaviour.
 8. LongMemEval — updates, temporal reasoning, and abstention evaluation.
+9. Metis — trained native memory with forward-only online updates and interference diagnostics.
+10. TARL — executable action/target decisions over memory lifecycle transitions.
 
-The closest overlap with our proposed contribution is SP-KV for utility-based admission and Supersede for stale-fact replacement. Any future claim must compare directly with both mechanisms.
+Compare mechanisms directly: SP-KV for utility-based admission, Supersede for
+stale-fact replacement, TARL for executable lifecycle control, and Metis for
+native-state maintenance. The [six-paper review](research/reading-notes/2026-09-20-six-paper-review.md)
+also covers SeDeM reader selection, MemOps diagnostics, dependency repair, and
+MetaKV. Metis is an empirical prototype; its earlier vision-only classification
+was incorrect. None of these papers establishes novelty for our proposed system.
 
 ## Work completed
 
@@ -98,6 +105,39 @@ Verification:
 Project 01 intentionally contains no persistent memory. It is the no-memory control model.
 
 ## Next implementation: Project 02
+
+**Current status:** The four-baseline Phase 1 implementation and two local runs
+are available in [draft PR #2](https://github.com/narender2031/bounded-memory-transformer/pull/2)
+on `feat/synthetic-memory-benchmark`; see
+[`projects/02-memory-benchmark/README.md`](projects/02-memory-benchmark/README.md).
+The corrected second run uses source revision `280d88c`, three seeds, 30
+candidate operations, eight sessions, and four symbolic slots (64 logical bytes).
+Mean neural accuracy: no memory 68.71%, FIFO 48.50%, recency 48.58%, lexical
+similarity 48.79%. The exact-key reader of the same evidence scores 75.00%
+without memory and 82.50% with memory. Neural validation is only 73.83–78.52%,
+so the 95% competence gate fails. These are weak-reader pilot results, not a
+validated learned-memory contribution. Preserve both runs and their limitations.
+
+The subsequent frozen-reader diagnostic and primary-source comparison are in
+[`research/reading-notes/2026-09-17-memory-improvements.md`](research/reading-notes/2026-09-17-memory-improvements.md).
+On 2,048 matched reading structures, mean accuracy was 78.91% with seen entity/value
+symbols and 76.06% with both unseen. This is exploratory train/validation analysis,
+not a new held-out policy result. It motivates a record-selection/copying reader
+ablation with an UNKNOWN option; no improved reader has yet been implemented.
+The [Transformer fundamentals guide](research/transformer-fundamentals.md) explains
+the actual architecture, training, memory boundary, and reader terminology.
+
+The [detailed results summary](research/results-summary-2026-09-20.md) independently
+checks the saved predictions and explains the denominators. Main useful-fact
+retention is only 30% on historical-answerable queries: the exact reader's 82.5%
+overall accuracy is 75% + 25% × 30%. Both retention and neural reading need work.
+The 2026-09-20 review added no new training or controller results. D012 allows
+an independent writer study using the exact-rule reader, while retaining the
+competence gate for a combined neural writer/reader claim. Pending evidence,
+provenance, and dependency metadata must consume the same total state budget.
+
+The remaining text below preserves the broader Project 02 specification;
+LRU/oracle/learned baselines and a competent neural reader remain future work.
 
 Build the deterministic synthetic memory benchmark before adding a learned memory controller.
 
@@ -240,11 +280,26 @@ At the end of every session:
 
 ## Immediate next action
 
-1. Review and merge PR #1.
-2. Create `feat/synthetic-memory-benchmark` from the updated main branch.
-3. Implement the typed operation schema and the reference state machine.
-4. Add unit tests for SET, UPDATE, DELETE, NOISE, ASK, stale-value prevention, deletion, and unknown answers.
-5. Only then implement the deterministic episode generator and hand-designed baselines.
+**User review checkpoint (2026-09-20):** the user requested a brief proposal to
+analyze before implementation. The [five-case review brief](research/memory-improvements-review-brief.md)
+compares four-, five-, and six-case scopes and links each proposal to the paper
+evidence. Its scope and additional slice gates are recommendations, not approved
+experimental changes. Await the user's review before starting the work below.
+
+1. Specify and implement a learned record selector with exact value copying and
+   an UNKNOWN option, using train/validation evidence only. Compare against the
+   character reader and exact-rule control; include current-session records.
+   Require at least 95% visible-evidence validation accuracy per seed, and declare
+   slice gates for full-key matching, abstention, updates/deletes, and four-slot
+   occupancy before the next training run. See D011 and the diagnostic note.
+2. Predeclare the next independent test before inspecting it. Preserve the two
+   recorded pilots; do not tune their held-out generators or relabel their metrics.
+3. Repeat the paired no-memory/FIFO/recency/similarity experiment with the competent
+   reader. Compare against the exact-reader control before interpreting a combined
+   Phase 2 system. A bounded action-and-target writer can be studied separately
+   with the exact-rule reader after its workload and transition metrics are declared.
+4. Project 01 PR #1 remains open; this phase was implemented locally on top of its
+   source without merging it. Preserve prior uncommitted research notes.
 
 ## External research cadence
 

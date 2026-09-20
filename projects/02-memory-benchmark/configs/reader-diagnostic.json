@@ -1,0 +1,13 @@
+{
+  "checkpoint_directory": "runs/when-memory-hurts-2026-09-17-v2",
+  "seeds": [7, 19, 43],
+  "device": "auto",
+  "threads": 4,
+  "batch_size": 64,
+  "examples": 2048,
+  "generator_seed": 91317,
+  "renaming_seed": 73019,
+  "capacity": 4,
+  "entity_splits": ["train", "validation"],
+  "value_splits": ["train", "validation"]
+}

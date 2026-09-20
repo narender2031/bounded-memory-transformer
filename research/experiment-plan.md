@@ -1,6 +1,64 @@
 # Initial Experiment Plan
 
-Last updated: 2026-08-27
+Last updated: 2026-09-20
+
+## Current execution phases
+
+**Pending review:** [Memory improvements: proposal for review](memory-improvements-review-brief.md)
+recommends five focused cases and compares four/six-case alternatives. The user
+will review the scope before implementation. Proposed cases and slice thresholds
+are not additions to the frozen pilots or an approved training configuration.
+
+The user's three-phase plan now governs implementation. The longer architectural
+ladder below remains a proposal, not work already completed.
+
+1. **Experiment 01 — When Memory Hurts:** Implement and run the deterministic
+   benchmark locally with 30 candidate operations, eight hard-reset sessions,
+   four slots, and no-memory/FIFO/recency/similarity policies. Use an exact-key
+   reader of the same evidence as a control and a shared tiny Transformer for
+   the neural comparison. Report harmful and beneficial paired outcomes, stale
+   values, deletion leakage, abstention, retention, and compute. Preserve weak
+   reader results rather than treating them as controller evidence.
+2. **Learned controller:** Investigate STORE, IGNORE, UPDATE, DELETE, EVICT,
+   RETRIEVE, and ABSTAIN. A writer can first be evaluated through the exact-rule
+   reader to isolate storage decisions; a combined neural system still requires
+   the reader competence gate. Keep the strong structured baselines and
+   fixed-capacity contract.
+3. **Adversarial evaluation:** Old preferences, changed jobs, temporary facts,
+   contradictions, similar wrong keys, indirect updates, and salient distractors;
+   sweep 4, 8, 16, and 32 slots. Capacities 1 and 2 remain optional stress tests.
+
+Runnable Phase 1 protocol and checked-in configurations:
+[`projects/02-memory-benchmark`](../projects/02-memory-benchmark/README.md).
+The original 20-candidate setting below is superseded by the user's requested
+30-candidate run. Candidate operations include labelled noise and repeated facts;
+they do not mean 30 simultaneously valid distinct facts. Most pre-query sessions
+have four or five operations; the final session has its local evidence plus ASK.
+
+### Current follow-up: separate reading from retention
+
+The [2026-09-17 diagnostic and research note](reading-notes/2026-09-17-memory-improvements.md)
+records a frozen-reader factorial check using train/validation symbols only.
+The next neural ablation is a learned record selector with exact copying and an
+UNKNOWN option, including both memory and current-session candidates. Retain the
+character reader and exact-rule reader as controls. Declare its configuration,
+supervision, optimization budget, and numerical slice gates before training.
+No improved reader or learned controller result has been obtained yet.
+
+Separately, symbolic admission/retrieval variants can use the exact-rule reader
+to isolate retained evidence. Access-based LRU/LFU/TinyLFU needs a declared
+repeated-query workload; expiry needs explicit lifetime semantics. These are
+new workload variants, not silent changes to the two recorded pilots.
+
+The [2026-09-20 six-paper review](reading-notes/2026-09-20-six-paper-review.md)
+adds matched irrelevant-memory controls, operation/target/transition diagnostics,
+and a bounded action-and-target writer as candidates. First specify what a correct
+transition means when capacity forces eviction; do not compare four retained
+records with the entire unbounded world state. Preserve explicit deletion and
+distinguish writer deferral from answer abstention. Count pending evidence and
+provenance in the total persistent budget. SeDeM-style expansion and Metis-inspired
+auxiliary losses require separate ablations; dependency repair requires a later
+derived-fact workload. See D012. No final architecture is selected by this review.
 
 ## Goal
 

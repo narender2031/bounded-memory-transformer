@@ -1,0 +1,425 @@
+[
+  {
+    "case": "current_set",
+    "episode_id": 12,
+    "model_seed": 7,
+    "no_memory_prediction": "37",
+    "policy": "fifo",
+    "prediction": "88",
+    "prompt": "MS21b84;S65a22;S39a23;S35b87;CS65a37;Q65a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "37",
+      "deleted": false,
+      "evidence_gap": 0,
+      "overwrites": 1,
+      "stale_values": [
+        "22"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "37"
+  },
+  {
+    "case": "near_miss",
+    "episode_id": 23,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "fifo",
+    "prediction": "10",
+    "prompt": "MS77c22;S72d16;S39c30;S75a16;CS24c77;Q35a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": false,
+      "evidence_gap": null,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "unknown",
+    "episode_id": 27,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "fifo",
+    "prediction": "84",
+    "prompt": "MS64b48;S78b86;S26c84;S90d37;CS39c27;Q21b=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": false,
+      "evidence_gap": null,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "history_delete",
+    "episode_id": 42,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "fifo",
+    "prediction": "48",
+    "prompt": "MS77c48;S04a69;S12d48;S23b19;CQ36a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": true,
+      "evidence_gap": 6,
+      "overwrites": 0,
+      "stale_values": [
+        "47"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "history_set",
+    "episode_id": 72,
+    "model_seed": 7,
+    "no_memory_prediction": "16",
+    "policy": "fifo",
+    "prediction": "??",
+    "prompt": "MS73b84;S77b77;S36d23;S26c00;CS23c16;Q77a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "16",
+      "deleted": false,
+      "evidence_gap": 6,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "history_update",
+    "episode_id": 105,
+    "model_seed": 7,
+    "no_memory_prediction": "22",
+    "policy": "fifo",
+    "prediction": "??",
+    "prompt": "MS73a48;S75b16;S04c00;S19c00;CS39b22;Q39c=",
+    "scenario": "main",
+    "truth": {
+      "answer": "22",
+      "deleted": false,
+      "evidence_gap": 2,
+      "overwrites": 1,
+      "stale_values": [
+        "19"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "current_set",
+    "episode_id": 12,
+    "model_seed": 7,
+    "no_memory_prediction": "37",
+    "policy": "recency",
+    "prediction": "88",
+    "prompt": "MS21b84;S65a22;S39a23;S35b87;CS65a37;Q65a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "37",
+      "deleted": false,
+      "evidence_gap": 0,
+      "overwrites": 1,
+      "stale_values": [
+        "22"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "37"
+  },
+  {
+    "case": "near_miss",
+    "episode_id": 23,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "recency",
+    "prediction": "10",
+    "prompt": "MS77c22;S72d16;S39c30;S75a16;CS24c77;Q35a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": false,
+      "evidence_gap": null,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "unknown",
+    "episode_id": 27,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "recency",
+    "prediction": "84",
+    "prompt": "MS64b48;S78b86;S26c84;S90d37;CS39c27;Q21b=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": false,
+      "evidence_gap": null,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "history_delete",
+    "episode_id": 42,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "recency",
+    "prediction": "48",
+    "prompt": "MS77c48;S04a69;S12d48;S23b19;CQ36a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": true,
+      "evidence_gap": 6,
+      "overwrites": 0,
+      "stale_values": [
+        "47"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "history_set",
+    "episode_id": 72,
+    "model_seed": 7,
+    "no_memory_prediction": "16",
+    "policy": "recency",
+    "prediction": "??",
+    "prompt": "MS73b84;S77b77;S36d23;S26c00;CS23c16;Q77a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "16",
+      "deleted": false,
+      "evidence_gap": 6,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "history_update",
+    "episode_id": 105,
+    "model_seed": 7,
+    "no_memory_prediction": "22",
+    "policy": "recency",
+    "prediction": "??",
+    "prompt": "MS73a48;S75b16;S04c00;S19c00;CS39b22;Q39c=",
+    "scenario": "main",
+    "truth": {
+      "answer": "22",
+      "deleted": false,
+      "evidence_gap": 2,
+      "overwrites": 1,
+      "stale_values": [
+        "19"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "history_delete",
+    "episode_id": 2,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "similarity",
+    "prediction": "16",
+    "prompt": "MS24a16;CQ21d=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": true,
+      "evidence_gap": 4,
+      "overwrites": 0,
+      "stale_values": [
+        "30"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "unknown",
+    "episode_id": 3,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "similarity",
+    "prediction": "49",
+    "prompt": "MS21c49;CQ36c=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": false,
+      "evidence_gap": null,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "near_miss",
+    "episode_id": 15,
+    "model_seed": 7,
+    "no_memory_prediction": "??",
+    "policy": "similarity",
+    "prediction": "69",
+    "prompt": "MS78a69;CQ75a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "??",
+      "deleted": false,
+      "evidence_gap": null,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "current_set",
+    "episode_id": 100,
+    "model_seed": 7,
+    "no_memory_prediction": "19",
+    "policy": "similarity",
+    "prediction": "??",
+    "prompt": "MS24a86;CS23b19;Q23b=",
+    "scenario": "main",
+    "truth": {
+      "answer": "19",
+      "deleted": false,
+      "evidence_gap": 0,
+      "overwrites": 1,
+      "stale_values": [
+        "73"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "19"
+  },
+  {
+    "case": "history_update",
+    "episode_id": 105,
+    "model_seed": 7,
+    "no_memory_prediction": "22",
+    "policy": "similarity",
+    "prediction": "00",
+    "prompt": "MS19c00;CS39b22;Q39c=",
+    "scenario": "main",
+    "truth": {
+      "answer": "22",
+      "deleted": false,
+      "evidence_gap": 2,
+      "overwrites": 1,
+      "stale_values": [
+        "19"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  },
+  {
+    "case": "current_update",
+    "episode_id": 69,
+    "model_seed": 19,
+    "no_memory_prediction": "22",
+    "policy": "fifo",
+    "prediction": "29",
+    "prompt": "MS73b27;S93b27;S77a69;S39b87;CU93c22;Q93c=",
+    "scenario": "main",
+    "truth": {
+      "answer": "22",
+      "deleted": false,
+      "evidence_gap": 0,
+      "overwrites": 1,
+      "stale_values": [
+        "01"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "22"
+  },
+  {
+    "case": "current_update",
+    "episode_id": 69,
+    "model_seed": 19,
+    "no_memory_prediction": "22",
+    "policy": "recency",
+    "prediction": "29",
+    "prompt": "MS73b27;S93b27;S77a69;S39b87;CU93c22;Q93c=",
+    "scenario": "main",
+    "truth": {
+      "answer": "22",
+      "deleted": false,
+      "evidence_gap": 0,
+      "overwrites": 1,
+      "stale_values": [
+        "01"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "22"
+  },
+  {
+    "case": "current_update",
+    "episode_id": 21,
+    "model_seed": 19,
+    "no_memory_prediction": "23",
+    "policy": "similarity",
+    "prediction": "26",
+    "prompt": "MS64d86;CS36d86;U65b23;Q65b=",
+    "scenario": "main",
+    "truth": {
+      "answer": "23",
+      "deleted": false,
+      "evidence_gap": 0,
+      "overwrites": 1,
+      "stale_values": [
+        "84"
+      ]
+    },
+    "useful_retained": false,
+    "visible_reference": "23"
+  },
+  {
+    "case": "history_set",
+    "episode_id": 72,
+    "model_seed": 43,
+    "no_memory_prediction": "16",
+    "policy": "similarity",
+    "prediction": "17",
+    "prompt": "MS77b77;CS23c16;Q77a=",
+    "scenario": "main",
+    "truth": {
+      "answer": "16",
+      "deleted": false,
+      "evidence_gap": 6,
+      "overwrites": 0,
+      "stale_values": []
+    },
+    "useful_retained": false,
+    "visible_reference": "??"
+  }
+]

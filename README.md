@@ -52,10 +52,16 @@ This is a hypothesis, not a result.
 
 ## Research status
 
-The project has completed **Phase 0: literature mapping and experimental specification** and has started **Phase 1: build and verify the Transformer baseline**.
+The tiny Transformer is implemented and tested. **Experiment 01 — When Memory
+Hurts** now runs locally with hard context resets and four memory baselines.
+Initial neural results show memory harm, but the reader fails the validation
+competence gate; the exact-reader control benefits from memory. This remains
+an exploratory result, with no learned-controller claim.
 
 See:
 
+- [Detailed results summary](research/results-summary-2026-09-20.md) — measured results, reader versus storage failures, and remaining hypotheses.
+- [Six-paper review](research/reading-notes/2026-09-20-six-paper-review.md) — verified findings and bounded-memory adaptations from the latest supplied papers.
 - [`research/problem-statement.md`](research/problem-statement.md) — precise problem and success criteria.
 - [`research/papers.md`](research/papers.md) — curated paper map and reading order.
 - [`research/experiment-plan.md`](research/experiment-plan.md) — proposed baselines, tasks, and metrics.
@@ -76,7 +82,26 @@ bmt-train-tiny --steps 300
 
 It includes causal multi-head attention, decoder blocks, next-token training, autoregressive generation, an example corpus, and tests for causal isolation.
 
+The [end-to-end fundamentals guide](research/transformer-fundamentals.md) teaches
+the exact implementation with worked attention arithmetic, tensor shapes,
+training and generation, parameter counts, memory boundaries, and runnable
+exercises. The [memory improvement note](research/reading-notes/2026-09-17-memory-improvements.md)
+explains the reader results, new frozen-model diagnostics, and researched next
+experiments.
+
 ## Planned experimental ladder
+
+See [`projects/02-memory-benchmark`](projects/02-memory-benchmark/README.md) for
+the measured three-seed results, limitations, figure, and reproduction commands.
+
+```bash
+python -m bounded_memory_transformer.memory_benchmark.evaluate \
+  --config projects/02-memory-benchmark/configs/reader-extended.json
+```
+
+The run uses the existing 237,792-parameter Transformer, 30 candidate operations,
+eight sessions, and four slots, with MPS or CPU. Checkpoints and full predictions
+are saved locally under `runs/`.
 
 1. Implement and verify a tiny decoder-only Transformer.
 2. Build a deterministic multi-session memory benchmark.
