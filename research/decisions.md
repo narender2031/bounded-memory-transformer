@@ -111,3 +111,25 @@ development; a fresh seed alone does not create a new unseen-symbol partition.
 Do not claim gains from copying until measured. A repeated-query workload is
 required to meaningfully compare access-frequency/recency policies, and all
 metadata must count toward persistent-state capacity.
+
+## 2026-09-20 — D012: Adapt mechanisms without changing the memory contract
+
+**Decision:** integrate the reviewed papers as separate candidate mechanisms and
+evaluation controls. Keep the reader competence milestone. A bounded writer may
+be evaluated independently through the exact-rule reader before combining it
+with neural reading. No all-in-one architecture is selected by this review.
+
+**Evidence:** primary Metis v2 is a trained prototype, correcting its old map
+classification. SeDeM separates read selection from a larger stored bank. TARL's
+actions are append/noop/revise/reject_conflict/defer_verify, not the proposed
+add/replace/delete/defer/ignore set. MemOps supplies finer operation diagnostics;
+rollback assumes diagnosed faults, provenance, and replay. MetaKV addresses
+inference cache configuration rather than semantic memory after reset.
+
+**Constraints:** top-k read count is not stored capacity. Pending/rejected items,
+provenance, versions, and dependency links count in the total persistent budget.
+Keep DELETE explicit and distinguish writer deferral from answer abstention.
+Introduce uncertainty, derived facts, and dependency repair only as separately
+declared workloads. Full raw-history replay remains outside strict comparisons.
+Current metrics and historical pilots remain unchanged. Retaining the entire
+unbounded world state is not a valid success target for four symbolic slots.

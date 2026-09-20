@@ -53,6 +53,8 @@ an exploratory result, with no learned-controller claim.
 
 See:
 
+- [Detailed results summary](research/results-summary-2026-09-20.md) — measured results, reader versus storage failures, and remaining hypotheses.
+- [Six-paper review](research/reading-notes/2026-09-20-six-paper-review.md) — verified findings and bounded-memory adaptations from the latest supplied papers.
 - [`research/problem-statement.md`](research/problem-statement.md) — precise problem and success criteria.
 - [`research/papers.md`](research/papers.md) — curated paper map and reading order.
 - [`research/experiment-plan.md`](research/experiment-plan.md) — proposed baselines, tasks, and metrics.

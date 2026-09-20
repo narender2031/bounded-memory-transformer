@@ -1,8 +1,13 @@
 # Paper Map
 
-Last literature check: 2026-08-27
+Last literature check: 2026-09-20 (targeted review of six user-supplied papers).
 
-Latest targeted source check: 2026-09-17. Read the primary abstracts of
+Latest review: [SeDeM, Metis, TARL, MemOps, rollback, and MetaKV](reading-notes/2026-09-20-six-paper-review.md).
+Primary full-text checks corrected the earlier Metis classification and separated
+read budgets, state budgets, and executable action semantics. This is not an
+exhaustive novelty search.
+
+Previous targeted source check: 2026-09-17. Read the primary abstracts of
 [STALE](https://arxiv.org/abs/2605.06527) and
 [Memora / From Recall to Forgetting](https://arxiv.org/abs/2604.20006) while
 implementing Experiment 01. This is a targeted check, not a novelty search.
@@ -52,7 +57,7 @@ These papers most directly constrain our research design.
 |---|---|
 | [Larimar](https://arxiv.org/abs/2403.11901) (Das et al., 2024) | Supports one-shot knowledge updates through distributed episodic memory. Useful for separating knowledge editing from streaming memory management. |
 | [M+: Extending MemoryLLM](https://arxiv.org/abs/2502.00592) (Wang et al., 2025) | Adds longer-term storage and a co-trained retriever to MemoryLLM after its fixed latent pool showed distant-retention limits. |
-| [Metis: Memory Foundation Model](https://arxiv.org/abs/2607.26760) (2026) | Articulates the broader target: native state whose lifecycle learns what to remember, update, consolidate, and forget based on expected future utility. Treat as a vision/taxonomy paper, not evidence that the problem is solved. |
+| [Metis: Memory Foundation Model](https://arxiv.org/abs/2607.26760) (Zhang et al., 2026; v2 checked 2026-09-20) | Trained native-memory prototype with forward-only online state updates, frozen inference weights, and memory-operation/interference objectives. The earlier vision/taxonomy classification was incorrect. Strong internal results coexist with weak external operation results and interference; see the six-paper review. |
 
 ## Evaluation and datasets
 
@@ -155,3 +160,27 @@ alone; STALE's implicit invalidation remains harder than explicit DELETE.
   before attributing the pilot to a memory admission failure.
 - **Hypothesis:** a record selector with exact copying and UNKNOWN can provide a
   more competent shared reader. No improved model has yet been trained.
+
+## 2026-09-20 — Six-paper review and implications
+
+Read all six primary abstracts and targeted full-text methods/results/limitations.
+The [review note](reading-notes/2026-09-20-six-paper-review.md) records versions,
+table-specific numerical checks, corrections, and proposed controlled adaptations.
+These are reported paper results, not local reproductions.
+
+| Paper | Role in our map | Consequence for the next experiments |
+|---|---|---|
+| [SeDeM](https://arxiv.org/abs/2608.00311), Haghifam et al., 2026, v2 | Reader/representation architecture | Separate storage from conditioning; compare selection and expansion with matched inputs and supervision. Its growing segment bank is not bounded by top-k read count. |
+| [Metis](https://arxiv.org/abs/2607.26760), Zhang et al., 2026, v2 | Native memory architecture and interference controls | Promote from the earlier incorrect vision-only description. Test irrelevant-memory harm and selective forgetting; do not assume large-model results transfer. |
+| [TARL](https://arxiv.org/abs/2608.03699), Xiao et al., 2026, v2 | Executable controller and state supervision | Action plus target matters. The actual five actions exclude explicit DELETE; adapting them requires declared semantics and a budget shared by all ledger statuses. |
+| [MemOps](https://arxiv.org/abs/2607.12893), Hao et al., 2026, v1 | Operation/trajectory evaluation | Adapt exact target, transition, provenance, and collateral-forgetting probes. Our synthetic gold state permits deterministic scoring rather than an LLM judge. |
+| [Dependency-guided rollback repair](https://arxiv.org/abs/2608.10502), Yu et al., 2026, v1 | Future derived-state repair | Add dependent-claim invalidation only in a declared task extension. Bounded provenance is part of state; raw-trace replay is outside strict mode. |
+| [MetaKV](https://arxiv.org/abs/2609.07966), Wang et al., 2026, v1 | Deployment context, outside core baselines | Adaptive KV configuration is not cross-reset semantic memory. Capacity is already configurable here; its sweep remains future work. |
+
+**Evidence:** our stored Phase 1 predictions still show a weak reader and substantial
+retention loss. The new papers introduce no measured improvement in this repository.
+**Inference:** prioritize reader selection/rejection and transition diagnostics;
+use the exact-rule reader to isolate any writer study. **Hypothesis:** bounded
+operation/target learning and later latent expansion can improve the task. Future
+novelty claims must now also account for Metis and TARL, alongside the existing
+SP-KV, Supersede, RMT, GradMem, and LiveMem comparisons.

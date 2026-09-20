@@ -1,6 +1,6 @@
 # Codex Project Handoff
 
-Last updated: 2026-09-17
+Last updated: 2026-09-20
 
 This document transfers the working context from the original ChatGPT research conversation into the repository. A new Codex session should begin here, then follow the linked source-of-truth documents.
 
@@ -55,8 +55,15 @@ Read the complete curated map in [research/papers.md](research/papers.md). Start
 6. Supersede — bounded memory under changing facts.
 7. LiveMem — state that survives context turnover and affects later behaviour.
 8. LongMemEval — updates, temporal reasoning, and abstention evaluation.
+9. Metis — trained native memory with forward-only online updates and interference diagnostics.
+10. TARL — executable action/target decisions over memory lifecycle transitions.
 
-The closest overlap with our proposed contribution is SP-KV for utility-based admission and Supersede for stale-fact replacement. Any future claim must compare directly with both mechanisms.
+Compare mechanisms directly: SP-KV for utility-based admission, Supersede for
+stale-fact replacement, TARL for executable lifecycle control, and Metis for
+native-state maintenance. The [six-paper review](research/reading-notes/2026-09-20-six-paper-review.md)
+also covers SeDeM reader selection, MemOps diagnostics, dependency repair, and
+MetaKV. Metis is an empirical prototype; its earlier vision-only classification
+was incorrect. None of these papers establishes novelty for our proposed system.
 
 ## Work completed
 
@@ -119,6 +126,15 @@ not a new held-out policy result. It motivates a record-selection/copying reader
 ablation with an UNKNOWN option; no improved reader has yet been implemented.
 The [Transformer fundamentals guide](research/transformer-fundamentals.md) explains
 the actual architecture, training, memory boundary, and reader terminology.
+
+The [detailed results summary](research/results-summary-2026-09-20.md) independently
+checks the saved predictions and explains the denominators. Main useful-fact
+retention is only 30% on historical-answerable queries: the exact reader's 82.5%
+overall accuracy is 75% + 25% × 30%. Both retention and neural reading need work.
+The 2026-09-20 review added no new training or controller results. D012 allows
+an independent writer study using the exact-rule reader, while retaining the
+competence gate for a combined neural writer/reader claim. Pending evidence,
+provenance, and dependency metadata must consume the same total state budget.
 
 The remaining text below preserves the broader Project 02 specification;
 LRU/oracle/learned baselines and a competent neural reader remain future work.
@@ -273,7 +289,9 @@ At the end of every session:
 2. Predeclare the next independent test before inspecting it. Preserve the two
    recorded pilots; do not tune their held-out generators or relabel their metrics.
 3. Repeat the paired no-memory/FIFO/recency/similarity experiment with the competent
-   reader. Compare against the exact-reader control before designing Phase 2.
+   reader. Compare against the exact-reader control before interpreting a combined
+   Phase 2 system. A bounded action-and-target writer can be studied separately
+   with the exact-rule reader after its workload and transition metrics are declared.
 4. Project 01 PR #1 remains open; this phase was implemented locally on top of its
    source without merging it. Preserve prior uncommitted research notes.
 

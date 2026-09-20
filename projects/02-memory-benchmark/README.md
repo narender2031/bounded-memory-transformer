@@ -4,6 +4,12 @@ A local Phase 1 benchmark using the existing `TinyTransformerLM`: **30 candidate
 operations, eight hard-reset sessions, four persistent slots**. Admission and
 retrieval are hand-written policies. There is no learned memory controller yet.
 
+The [detailed results summary](../../research/results-summary-2026-09-20.md)
+explains all recorded runs, the reader-validation gate, and the 30% retention
+hidden by the 82.5% exact-reader aggregate. The
+[six-paper review](../../research/reading-notes/2026-09-20-six-paper-review.md)
+connects those findings to concrete next experiments without changing the pilots.
+
 ## Measured result, 2026-09-17
 
 The corrected second run used a **237,792-parameter** Transformer on the MacBook's

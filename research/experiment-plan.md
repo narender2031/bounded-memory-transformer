@@ -1,6 +1,6 @@
 # Initial Experiment Plan
 
-Last updated: 2026-09-17
+Last updated: 2026-09-20
 
 ## Current execution phases
 
@@ -14,9 +14,11 @@ ladder below remains a proposal, not work already completed.
    the neural comparison. Report harmful and beneficial paired outcomes, stale
    values, deletion leakage, abstention, retention, and compute. Preserve weak
    reader results rather than treating them as controller evidence.
-2. **Learned controller:** After the reader competence gate, investigate STORE,
-   IGNORE, UPDATE, EVICT, RETRIEVE, and ABSTAIN. Keep the strong structured
-   baselines and fixed-capacity contract.
+2. **Learned controller:** Investigate STORE, IGNORE, UPDATE, DELETE, EVICT,
+   RETRIEVE, and ABSTAIN. A writer can first be evaluated through the exact-rule
+   reader to isolate storage decisions; a combined neural system still requires
+   the reader competence gate. Keep the strong structured baselines and
+   fixed-capacity contract.
 3. **Adversarial evaluation:** Old preferences, changed jobs, temporary facts,
    contradictions, similar wrong keys, indirect updates, and salient distractors;
    sweep 4, 8, 16, and 32 slots. Capacities 1 and 2 remain optional stress tests.
@@ -42,6 +44,16 @@ Separately, symbolic admission/retrieval variants can use the exact-rule reader
 to isolate retained evidence. Access-based LRU/LFU/TinyLFU needs a declared
 repeated-query workload; expiry needs explicit lifetime semantics. These are
 new workload variants, not silent changes to the two recorded pilots.
+
+The [2026-09-20 six-paper review](reading-notes/2026-09-20-six-paper-review.md)
+adds matched irrelevant-memory controls, operation/target/transition diagnostics,
+and a bounded action-and-target writer as candidates. First specify what a correct
+transition means when capacity forces eviction; do not compare four retained
+records with the entire unbounded world state. Preserve explicit deletion and
+distinguish writer deferral from answer abstention. Count pending evidence and
+provenance in the total persistent budget. SeDeM-style expansion and Metis-inspired
+auxiliary losses require separate ablations; dependency repair requires a later
+derived-fact workload. See D012. No final architecture is selected by this review.
 
 ## Goal
 

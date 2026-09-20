@@ -314,3 +314,94 @@ replication claim. Recency already performs full-key supersession in our code.
 on training/validation evidence, with its training budget and slice gates declared
 before the run. The remaining weakness is model competence, not missing local
 hardware or an already-proven need for a new memory architecture.
+
+## 2026-09-20 — Results synthesis and six-paper primary-source review
+
+### Request, scope, and evidence checked
+
+The user requested a detailed summary of the measured results and then supplied
+six new paper links for project-specific review. Created
+[`results-summary-2026-09-20.md`](results-summary-2026-09-20.md) and
+[`reading-notes/2026-09-20-six-paper-review.md`](reading-notes/2026-09-20-six-paper-review.md).
+No model was trained and no new policy experiment was run. Historical generators,
+metrics, configurations, and results were not changed.
+
+Independently recalculated all 12 scenario-policy neural accuracies, paired
+harmful/beneficial rates, case slices, and exact-reader scores from all 28,800
+stored v2 predictions. They agree with the checked-in JSON. Checked the frozen
+diagnostic prediction hash against its summary. The new report rounds stored
+numbers using half-up rounding; the full-precision JSON remains authoritative.
+
+**Evidence:** main neural accuracy is 68.71% without memory and 48.50–48.79%
+with memory. The exact reader improves from 75.00% to 82.50%. Its aggregate
+decomposes as 75% + 25% × 30%: only 30% of historical-answerable queries retain
+their required fact. On similar-but-wrong keys, similarity neural accuracy falls
+to 9.67%, versus 88% without memory. All three reader seeds fail the 95% visible
+validation gate. Familiar-symbol reading also fails substantially in the frozen
+diagnostic. These are distinct storage and reading limitations.
+
+**Inference:** the pilots support memory harm for these readers and workloads,
+not a successful learned controller or a universal defect in FIFO/retrieval.
+Retention still has room to improve despite the exact reader's aggregate benefit.
+The detailed report distinguishes stale-value matching from any non-abstention
+on deleted queries, and visible-evidence validation from world-truth scoring.
+
+### Fresh literature review, 2026-09-20
+
+Read the primary abstracts and targeted full-text methods, results, and limitations
+of SeDeM v2 (2608.00311), Metis v2 (2607.26760), TARL v2 (2608.03699), MemOps v1
+(2607.12893), dependency-guided rollback v1 (2608.10502), and MetaKV v1
+(2609.07966). The linked review records source URLs and table-specific scores.
+This was a targeted review of supplied papers, not an exhaustive novelty search
+or reproduction of their experiments.
+
+- **Evidence/correction:** Metis reports a trained native-memory prototype. The
+  map's previous vision/taxonomy classification was wrong. Strong internal
+  operation results coexist with weak external scores and memory interference.
+- **Evidence/correction:** TARL uses append/noop/revise/reject_conflict/defer_verify.
+  A controller with add/replace/delete/defer/ignore would be our adaptation.
+  Its Table 2 and Table 3 next-state scores differ; the review keeps their
+  contexts explicit rather than silently combining them.
+- **Evidence:** SeDeM stores a bank that grows with segments; top-k limits reading,
+  not persistent storage. Its reported TTFT includes online compression,
+  selection, and decoder prefill. Matched full-bank/raw-retrieval controls show
+  that selective reading is not always the highest-quality condition.
+- **Inference:** MemOps-style state-transition and collateral-forgetting probes
+  can improve our diagnoses with exact synthetic labels. We already report
+  stale-value and deletion-leakage metrics; those are not new additions.
+- **Inference:** rollback motivates a later derived-fact workload. Diagnosed faults,
+  dependency metadata, and replay cannot be assumed to be free. MetaKV stays
+  outside the cross-reset semantic-memory comparison.
+
+### Decision and remaining hypotheses
+
+D012 preserves the strict state budget and reader competence milestone while
+allowing an independently evaluated writer through the exact-rule reader.
+Updated the paper map, experiment plan, handoff, and README links accordingly.
+Pending/rejected items, source/version identifiers, and dependencies count as
+persistent state. Keep explicit deletion; distinguish writer deferral from
+answer abstention. New uncertainty/derived-state workloads must be declared
+separately. Four symbolic slots are not expected to equal a 20–50-record world.
+
+**Hypotheses, not measured improvements:** learned record selection plus copying
+and UNKNOWN improves reading; action-and-target learning improves bounded writing;
+reconstruction/pollution losses help a later latent representation. Test mechanisms
+separately. LRU, a learned writer, latent decompression, and the capacity sweep
+remain unimplemented or unevaluated here.
+
+### Verification and continuity
+
+- `.venv/bin/ruff check .`: all checks passed.
+- `.venv/bin/pytest`: **40 passed** in 3.79 seconds.
+- `git diff --check`: clean.
+- All 52 relative links across the two new documents, handoff, plan, and README
+  entry points resolve locally.
+- This session changes documentation only. Prior uncommitted research notes and
+  Project 01 diagnostic artifacts are preserved separately from these changes.
+- Review continues on [draft PR #2](https://github.com/narender2031/bounded-memory-transformer/pull/2),
+  stacked on the still-open Project 01 PR.
+
+**Next action:** predeclare and implement the record-selection/copying reader
+comparison with UNKNOWN and paired irrelevant-memory controls on train/validation
+data. Specify writer transition metrics separately, using the exact reader to
+avoid attributing reading failures to storage decisions.
