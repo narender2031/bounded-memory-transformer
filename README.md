@@ -20,7 +20,7 @@ The first system will use:
 
 - A small decoder-only Transformer implemented from understandable components.
 - Explicit context resets between sessions.
-- A fixed bank of latent memory slots that alone survives each reset.
+- A fixed symbolic bank that alone survives each reset; latent representations are deferred.
 - Learned read, write, update, and eviction controls.
 - Synthetic tasks with `SET`, `UPDATE`, `DELETE`, `NOISE`, and `ASK` operations.
 - Evaluation on unseen entities, values, episode lengths, and update patterns.
@@ -45,11 +45,17 @@ This is a hypothesis, not a result.
 
 ## Research status
 
-The tiny Transformer is implemented and tested. **Experiment 01 — When Memory
-Hurts** now runs locally with hard context resets and four memory baselines.
-Initial neural results show memory harm, but the reader fails the validation
-competence gate; the exact-reader control benefits from memory. This remains
-an exploratory result, with no learned-controller claim.
+The five-case study is implemented and has completed a three-seed local run.
+Selection/copying improves reader accuracy to 92.83%, but every seed still fails
+the full reader gates. Controlled updates/deletions score 100%. On predictable
+future utility, learned retention reaches 27.91% versus FIFO's 15.41% with four
+slots, matching the cue-priority heuristic. The combined system remains unvalidated.
+
+Start with [Project 03 and reproduction commands](projects/03-memory-reliability/README.md)
+and the [detailed five-case report](research/five-case-results-2026-09-20.md).
+The run took 12.28 minutes on an M2 Pro MacBook with 16 GiB RAM. All 95 tests pass;
+independent auditing reconciles the saved predictions, metrics, and hashes.
+Historical **Experiment 01 — When Memory Hurts** remains a weak-reader pilot.
 
 See:
 

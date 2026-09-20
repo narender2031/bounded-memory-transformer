@@ -32,24 +32,24 @@ pytest, Ruff; no new runtime dependency.
 
 ## Task 1 — Reader oracles, strata, selector, training
 
-- [ ] Write tests with literal outputs: old A=23/current A=45 ->45; absent A ->??;
+- [x] Write tests with literal outputs: old A=23/current A=45 ->45; absent A ->??;
   deleted A ->??; attribute mismatch ->??. Verify failure before implementation.
-- [ ] Implement visible-only oracle selection, exact copy, and selected QueryView
+- [x] Implement visible-only oracle selection, exact copy, and selected QueryView
   projection preserving memory/current origin. Neither oracle nor model may read
   `view.retained`; include a forged-retained-field regression test.
-- [ ] Generate balanced `select`, `unsupported`, `contradicted`, `irrelevant`,
+- [x] Generate balanced `select`, `unsupported`, `contradicted`, `irrelevant`,
   `deleted` task strata with occupancy and known/unknown tags. Use `symbol_space`.
   Include old/current and within-bank overrides, both key-coordinate distractors,
   and shared empty-memory controls. Assert oracle copy equals `read_visible`.
-- [ ] Implement a tiny manual-Transformer record scorer and UNKNOWN candidate.
+- [x] Implement a tiny manual-Transformer record scorer and UNKNOWN candidate.
   Query and each record are encoded jointly; record order/current origin may be
   explicit features. Learn full-key discrimination; do not hard-code key equality
   in the reader. Return B×(N+1) scores with padding masked. Test padding invariance,
   reset/no cross-batch state, invalid indices, and masked candidates.
-- [ ] Train selector with visible oracle indices and character reader with answer
+- [x] Train selector with visible oracle indices and character reader with answer
   tokens. Reuse character weights across full and selected input; reuse selector
   choices across generation and copying. Record supervision and compute.
-- [ ] Public entrypoint: `train_readers(config, seed, device)` returns a bundle
+- [x] Public entrypoint: `train_readers(config, seed, device)` returns a bundle
   with `.predict(views)` mapping four system names to answer lists, selector
   indices, metadata, and saveable state dictionaries. Expose task generation and
   oracle helpers separately for the root runner. Return actual tested interfaces.
@@ -66,17 +66,17 @@ assert copy_selected(v, 0) == "23"  # no gold correction of a wrong choice
 
 ## Task 2 — Learned lifecycle and honest executor
 
-- [ ] Write tests for update/delete of one key preserving another, both key
+- [x] Write tests for update/delete of one key preserving another, both key
   coordinates, IGNORE, missing-target deletion, full-bank allocation, and bytes.
-- [ ] Implement action/target model using explicit key-equality/occupancy features;
+- [x] Implement action/target model using explicit key-equality/occupancy features;
   train with causal state-transition labels. Record that these features simplify
   binding. No future data or capacity-oracle labels enter training.
-- [ ] Executor accepts predicted `(action, target)` and current operation/cue.
+- [x] Executor accepts predicted `(action, target)` and current operation/cue.
   `STORE` allocation uses a provided victim/empty slot; UPDATE/DELETE act only on
   the predicted slot. Wrong decisions must stay wrong in measured outcomes.
-- [ ] Train and evaluate controlled two-key update/delete episodes, with three
+- [x] Train and evaluate controlled two-key update/delete episodes, with three
   seeds, exact reading, action/target/transition metrics and collateral checks.
-- [ ] Expose model training plus `decide(bank, operation)` and
+- [x] Expose model training plus `decide(bank, operation)` and
   `apply_decision(bank, operation, decision, cue=0, allocation=None)`. Bank is an
   int32 array; absent/full allocation is explicit. Provide held-out task generator
   and per-task records, not just aggregate accuracy, for end-to-end integration.
@@ -91,35 +91,35 @@ bank = np.array([[12, 0, 23, 0], [13, 0, 71, 0], [-1]*4, [-1]*4], dtype=np.int32
 
 ## Task 3 — Capacity workloads, causal policies, retention bound
 
-- [ ] Write independent fixtures: four known request counts [5,3,2,0] and K=2
+- [x] Write independent fixtures: four known request counts [5,3,2,0] and K=2
   imply oracle utility .8; a bank retaining counts [3,2] implies utility .5 and
   regret .3. Ensure policy state trajectories are invariant to changing queries.
-- [ ] Implement 24-key/30-write/32-query generators A/B, with paired identical
+- [x] Implement 24-key/30-write/32-query generators A/B, with paired identical
   prefixes and separate suffix RNG, cues assigned before probes, and unseen split
   symbols. Provide immutable episodes and streamed `(Operation, cue)` writes.
-- [ ] Implement exact-lifecycle FIFO facts, write recency, bounded similarity,
+- [x] Implement exact-lifecycle FIFO facts, write recency, bounded similarity,
   stateless random, cue-priority, and learned retention at equal K×4 bytes.
   No policy may consume an Episode or its future queries at observe time.
-- [ ] Implement closed-form top-K request-count oracle for this write-then-query
+- [x] Implement closed-form top-K request-count oracle for this write-then-query
   workload. Keep it outside policies and trainers; verify feasibility/latest values.
-- [ ] Train a small retention scorer from delayed query rewards (REINFORCE with a
+- [x] Train a small retention scorer from delayed query rewards (REINFORCE with a
   training-only running baseline), equal A/B mix. Save weights, training seeds,
   learning curve, and feature definition; greedy evaluation has no hidden RNG.
-- [ ] Expose `generate_capacity(split, seed, count, ...)`, `train_capacity(...)`,
+- [x] Expose `generate_capacity(split, seed, count, ...)`, `train_capacity(...)`,
   and `evaluate_capacity(...)` plus an online policy factory. Return final bank
   and query predictions for root neural-reader integration. Include capacity 4/8.
-- [ ] Test no query reload, no future suffix leakage, fixed bytes, oracle bound,
+- [x] Test no query reload, no future suffix leakage, fixed bytes, oracle bound,
   unchanged source episodes, and cue-feature availability. Do not run the final
   held-out comparison independently; root freezes all configuration first.
 
 ## Task 4 — Gate and paired metric implementation
 
-- [ ] Write hand-calculated tests before implementation for recovery and joint
+- [x] Write hand-calculated tests before implementation for recovery and joint
   correctness. Use `A_N=.7965,A_O=.82,A_0=.35` -> recovery .95. Nonpositive
   oracle gain returns null plus reason; do not hide it with an epsilon.
-- [ ] Implement visible absolute categories, relative gate, copied/generation joint
+- [x] Implement visible absolute categories, relative gate, copied/generation joint
   errors, abstention, paired harm/benefit, and episode-clustered confidence intervals.
-- [ ] Keep new metrics outside old `memory_benchmark/metrics.py` and report exact
+- [x] Keep new metrics outside old `memory_benchmark/metrics.py` and report exact
   denominators, per-seed values, and raw accuracies for each gate decision.
 
 ```python
@@ -130,30 +130,30 @@ assert recovery(.9, .8, .5)["value"] == pytest.approx(4/3)
 
 ## Task 5 — Reproducible runner and end-to-end integration
 
-- [ ] Create `projects/03-memory-reliability/configs/five-case-small.json`, a
+- [x] Create `projects/03-memory-reliability/configs/five-case-small.json`, a
   dedicated evaluation CLI, and smoke config. Fix seeds/budgets before test data.
-- [ ] Train all components before reading test symbols. Save validation curves,
+- [x] Train all components before reading test symbols. Save validation curves,
   component gates and failed gates. Validation-only fixes get separate saved runs.
-- [ ] Emit per-example reader predictions and selector indices; per-operation
+- [x] Emit per-example reader predictions and selector indices; per-operation
   lifecycle predictions and final banks; per-capacity query outputs, oracle utility,
   regret, all baselines, and combined-reader outputs. Include exact substitutions.
-- [ ] If gates fail, still complete a labelled diagnostic run; do not silently
+- [x] If gates fail, still complete a labelled diagnostic run; do not silently
   skip cases or call their hypotheses successful. No additional held-out tuning.
-- [ ] Record environment, parameter counts, state bytes, source/data/checkpoint
+- [x] Record environment, parameter counts, state bytes, source/data/checkpoint
   SHA256 hashes, config and timings. Disallow overwriting an existing output dir.
-- [ ] Add real tiny CPU train/save/reload integration test and JSON reconciliation
+- [x] Add real tiny CPU train/save/reload integration test and JSON reconciliation
   checks. Validate any composed writer adapter against each component in isolation.
 
 ## Task 6 — Execute, audit, and report
 
-- [ ] Run all tests and Ruff. Run a small CPU smoke experiment before the recorded
+- [x] Run all tests and Ruff. Run a small CPU smoke experiment before the recorded
   MacBook MPS run. Tests must include masking, persistence/reset, and no-future access.
-- [ ] Freeze and commit source/config, then execute the recorded three-seed run.
-- [ ] Independently recalculate all aggregate scores and gate outcomes from saved
+- [x] Freeze and commit source/config, then execute the recorded three-seed run.
+- [x] Independently recalculate all aggregate scores and gate outcomes from saved
   rows; inspect representative false selections, stale/deleted errors, and regrets.
-- [ ] Generate standalone figures for reader strata, lifecycle integrity, A/B
+- [x] Generate standalone figures for reader strata, lifecycle integrity, A/B
   utility and regret at 4/8 slots. Use checked-in summaries as chart input.
-- [ ] Save a factual report, including negative results, compute differences,
+- [x] Save a factual report, including negative results, compute differences,
   limits of planted utility cues, and next falsifiable question. Update CODEX,
   paper-linked brief, decisions, experiment plan, research log, and README.
 - [ ] Commit/push the isolated branch and open a reviewable PR stacked on #2;

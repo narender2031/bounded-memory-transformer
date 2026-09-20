@@ -167,3 +167,25 @@ heuristic. Writer symbolic equality features and selector provenance supervision
 are disclosed engineering aids. ABSTAIN stays in the reader; DEFER, latent slots,
 dependency repair, and interleaved-access LRU are deferred. Prior pilots keep their
 original event-bank semantics and cannot be directly compared to the new scores.
+
+## 2026-09-20 — D014: Preserve failed reader gates and narrow the capacity claim
+
+**Evidence:** the frozen five-case run completed all cases and combined controls.
+Every reader seed fails the full absolute/relative gates despite a 92.83% mean
+selection/copy score. Controlled four-slot lifecycle is perfect with supplied
+key-equality features. Learned capacity exactly matches cue-priority; B gains
+12.50/25.20 percentage points over FIFO at four/eight slots. A8 also has a positive
+observed interval (0.76–5.64 points), while its uniform population definition has
+no cue advantage. See [full results](five-case-results-2026-09-20.md).
+
+**Decision:** retain the complete run unchanged and label the combined neural
+system unvalidated. Do not interpret three identical greedy capacity policies on
+shared episodes as three independent dataset replications. Do not conceal the A8
+contrast, claim a confirmed null, or assume all clairvoyant regret is learnable.
+No future-query information or test-based retuning is authorized by these results.
+
+**Next hypotheses:** use train/validation ablations of key matching, precedence,
+UNKNOWN thresholds, and occupancy/current-record distribution. Predeclare a new
+held-out protocol after development, and separately replicate uniform A on fresh
+episodes. More realistic future utility needs an interleaved, budgeted-access
+workload and stronger access-based baselines; latent compression stays deferred.

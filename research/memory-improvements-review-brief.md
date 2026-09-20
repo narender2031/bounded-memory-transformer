@@ -31,7 +31,7 @@ govern the new experiment; historical pilots stay frozen.
 The original alternatives and paper-to-case rationale below remain for context;
 the approved amendments and locked protocol take precedence.
 
-## Recommendation: five cases
+## Why five cases
 
 Start with **correct recall, wrong-memory rejection, updates, selective deletion,
 and capacity pressure**. Here, a “case” means an experimental question, not one
@@ -40,7 +40,7 @@ Several papers inform the same case.
 
 | Scope | Included cases | Trade-off |
 |---|---|---|
-| **Five — recommended** | Cases 1–5 below | Tests reading, lifecycle correctness, and the central limited-capacity problem. |
+| **Five — approved** | Cases 1–5 below | Tests reading, lifecycle correctness, and the central limited-capacity problem. |
 | Four — smaller first step | Cases 1–4 | Faster diagnosis; does not establish better admission or eviction under pressure. |
 | Six — later extension | Cases 1–5 plus dependent-fact repair | Adds provenance and derived facts, requiring new semantics and extra memory accounting. |
 
@@ -64,7 +64,7 @@ memory to 48.50–48.79% with memory**, while the exact reader improves from 75%
 need investigation; a weak neural reader cannot reliably judge a new writer.
 See the [measured-results summary](results-summary-2026-09-20.md).
 
-## The five proposed cases
+## The five approved cases
 
 ### 1. Read the right fact and reproduce its value
 
@@ -73,9 +73,10 @@ See the [measured-results summary](results-summary-2026-09-20.md).
 - **Change:** a learned selector considers memory and current-session records,
   selects the supporting record, and copies its value; include an UNKNOWN option.
 - **Comparison:** current character reader, selector feeding the character reader,
-  and selector with exact copying, starting from the same available records.
-  Hold selector decisions fixed when comparing the latter two. Keep the exact-rule
-  control; disclose selector supervision and additional training/read cost.
+  selector with exact copying, and oracle selector with exact copying, starting
+  from the same available records. Hold learned selector decisions fixed for
+  generation/copy. Oracle + copy must agree with the exact-rule reader 100%;
+  disclose selector supervision and additional training/read cost.
 - **Measure:** visible-answer accuracy, full-key matching, unfamiliar values,
   and four-slot occupancy. Selection and copying may fail independently.
 
@@ -88,8 +89,11 @@ motivated by our earlier reader diagnostic. Latent decompression comes later.
 - **Example:** retain `(12, a) = 23`; ask never-observed `(13, a)`.
   Expected answer: UNKNOWN. Separately, add irrelevant records to a question
   already answerable from the current session; its answer should stay correct.
-- **Change:** explicitly test and train evidence rejection with paired empty-bank
-  and irrelevant-bank examples, while preserving the question and answer.
+- **Change:** separately test unsupported (no matching evidence → UNKNOWN),
+  contradicted/stale (old memory plus a visible authoritative update → new value),
+  irrelevant (other-key evidence → ignore), and deleted (visible deletion →
+  UNKNOWN). Preserve query/current evidence in paired empty-bank controls.
+  These controls can change answerability when required historical memory is removed.
 - **Measure:** paired harmful-memory rate, abstention precision/recall, and
   accuracy on answerable questions. Always abstaining must not count as success.
 
@@ -129,15 +133,20 @@ its actual five actions do not include explicit DELETE.
 - **Example:** stream 30 candidate operations over eight sessions, exceeding four
   slots. Compare four and eight slots on matched episodes; query after resets.
 - **Change:** evaluate admission and eviction separately from correct updating,
-  using the exact reader and then the validated neural reader.
+  using the exact reader and then neural reading with its competence gates.
+  Workload A samples uniform future queries; B uses an observed, budgeted cue
+  correlated with future usefulness. No future query or future-derived eviction
+  label enters the policy. Learn from delayed rewards and compare with a cue rule.
 - **Measure:** historical useful-fact retention, latest-value accuracy, harmful
   answers, state bytes, and write/read cost. Compare no memory, FIFO, recency,
-  and similarity; bounded policies get equal bytes within each capacity condition.
+  similarity, stateless random, and cue-priority; bounded policies get equal bytes
+  within each capacity condition. Include evaluation-only clairvoyant utility and
+  retention regret, defined as oracle utility minus policy utility.
 
 **Hypothesis:** learned choices improve usefulness under pressure. None of these
 papers proves this for our task. Uniformly unpredictable future queries may offer
-no learnable admission advantage. No future query is visible during writing;
-supervised eviction labels must disclose their source. Four symbolic slots are
+no learnable admission advantage. No future information is allowed during writing
+or in supervised eviction targets; the future-aware oracle only scores an upper bound. Four symbolic slots are
 not expected to retain 30 independent records. Expand to 16/32 slots later.
 
 ## What would change first
@@ -147,8 +156,8 @@ not expected to retain 30 independent records. Expand to 16/32 slots later.
 3. Test operation/target writing on cases 3–4 using the exact reader, then case 5
    for capacity. Combine the learned reader and writer only after separate checks.
 
-Proposed writer semantics are STORE, UPDATE, DELETE, and IGNORE, with an eviction
-target when full. The exact head design remains an implementation-plan choice.
+Writer semantics are STORE, UPDATE, DELETE, and IGNORE, with an eviction
+target when full. A small shared action/target head uses disclosed equality and occupancy features.
 ABSTAIN is a reader decision. DEFER needs a later uncertain-evidence workload;
 our current SET/UPDATE/DELETE events are authoritative. TARL's actual actions are
 append/noop/revise/reject_conflict/defer_verify, so this is an adaptation.
@@ -158,9 +167,10 @@ append/noop/revise/reject_conflict/defer_verify, so this is an adaptation.
 - Preserve hard resets and zero raw-history access. All model-accessible versions,
   pending records, and provenance count toward persistent capacity.
 - **Existing reader gate:** at least 95% visible-evidence accuracy in every seed.
-  **Proposed additional gates:** at least 95% separately on known answers, unknown
-  answers, updates, deletions, and full occupancy. These are engineering targets,
-  not results or paper-derived thresholds.
+  **Approved additional gates:** at least 95% separately on each required stratum,
+  known/unknown answers, and full occupancy, plus the oracle-relative criterion
+  above on microtasks and episode controls. These are engineering targets, not
+  measured results or paper-derived thresholds.
 - Report retention and lifecycle errors separately. Claim a writer benefit only
   if paired comparisons at equal bytes show gains beyond sampling uncertainty
   without concealing worse deletion, abstention, or control-fact preservation.

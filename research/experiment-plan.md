@@ -1,4 +1,4 @@
-# Initial Experiment Plan
+# Experiment Plan
 
 Last updated: 2026-09-20
 
@@ -11,6 +11,12 @@ and locally testing every case. See the [approved brief](memory-improvements-rev
 [locked protocol](../docs/superpowers/specs/2026-09-20-five-case-memory.md),
 and [configuration](../projects/03-memory-reliability/configs/five-case-small.json).
 A separate `memory_experiments` package preserves the recorded Phase 1 pilots.
+
+**Completed run:** all five cases and combined diagnostics are measured in the
+[2026-09-20 results](five-case-results-2026-09-20.md). Controlled lifecycle passes;
+reader gates fail; learned capacity matches cue-priority and beats FIFO on B.
+The unexpected positive A8 contrast remains reported. No held-out tuning followed.
+Next: train/validation reader diagnosis and a separately preregistered A replication.
 
 The user's three-phase plan now governs implementation. The longer architectural
 ladder below remains a proposal, not work already completed.
@@ -42,11 +48,11 @@ have four or five operations; the final session has its local evidence plus ASK.
 
 The [2026-09-17 diagnostic and research note](reading-notes/2026-09-17-memory-improvements.md)
 records a frozen-reader factorial check using train/validation symbols only.
-The next neural ablation is a learned record selector with exact copying and an
-UNKNOWN option, including both memory and current-session candidates. Retain the
-character reader and exact-rule reader as controls. Declare its configuration,
-supervision, optimization budget, and numerical slice gates before training.
-No improved reader or learned controller result has been obtained yet.
+Project 03 implements that selector/copy ablation with an UNKNOWN option and
+both memory/current candidates, plus shared character and exact-rule controls.
+Its source/configuration and gates were frozen before testing. Selection/copying
+improves aggregate accuracy, but the declared slice/recovery gates still fail.
+Follow-up model development must use training/validation evidence only.
 
 Separately, symbolic admission/retrieval variants can use the exact-rule reader
 to isolate retained evidence. Access-based LRU/LFU/TinyLFU needs a declared

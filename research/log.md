@@ -483,3 +483,57 @@ Pre-freeze verification: **95 tests passed** in 2.43 seconds; Ruff and whitespac
 checks passed. The checked-in five-step CPU smoke completed every case, all
 policies and both capacities. Its learned gates failed as expected for untrained
 models; the oracle controls were exact. This is pipeline verification only.
+
+## 2026-09-20 — All five cases executed and independently audited
+
+**Evidence:** frozen source/config commit `4765f2f8295ce1d225638a38030ab6e85a985a2f`
+ran seeds 7/19/43 on an Apple M2 Pro, 16 GiB, Python 3.13.7, PyTorch 2.9.1, with
+MPS readers and CPU controllers. Wall time: 736.83 seconds. Full artifacts are
+preserved at `runs/five-case-2026-09-20-v1` in the five-case worktree. All training
+completed before held-out generation. No test-based model/generator/metric
+changes followed.
+
+Mean reader accuracy: character 39.13%, selected generation 85.03%, selected copy
+92.83%, oracle copy 100%. Every seed fails reader gates; seed 43 exceeds 95%
+overall but fails required categories and recovery. Controlled writer update,
+deletion, control, action, target, and transition metrics are 100% in every seed,
+with zero stale/deleted leakage. Features include exact key equality. B learned
+retention is 27.91%/57.18% at four/eight slots versus FIFO 15.41%/31.98%, exactly
+matching cue-priority. Combined neural B recall of 25.63%/51.35% remains diagnostic.
+The full report explains denominators, failed gates, abstention, regret, per-seed
+variation, traces, and compute.
+
+**Unexpected evidence:** uniform A8 learned/FIFO difference is +3.08 points with
+95% paired interval [0.76, 5.64]. A4's interval crosses zero. Preserve both; the
+observed A8 contrast is not evidence that a cue-independent future becomes
+predictable. Potential sample variation or generator structure requires an
+independent preregistered episode replication. All seeds share evaluation episodes.
+
+**Verification:** the independent auditor, without experiment metric imports,
+passes 237 artifact hashes and 25 source hashes and recalculates scores from
+405,696 reader rows, 33,600 lifecycle operation rows, 12,288 capacity banks, and
+46,080 combined writes. Those are repeated control/policy/seed records, not
+independent examples. Tamper checks reject altered metrics/checkpoint hashes
+and incomplete runs. Source review verified all episode recovery gates, overwrite
+refusal, and four/eight-slot adapter trajectories. The suite has 95 passing tests.
+Figures and compact results are checked in; raw checkpoints/predictions remain
+local (~362 MiB). No fresh literature search; paper interpretations are unchanged.
+
+**Inference:** learned retention recovers the planted cue rule. Controlled writer
+competence and reader failure are now experimentally separable. A perfect exact
+reader over good banks still exceeds neural answers. This does not establish
+superiority over the strongest heuristic, representation learning, calibrated
+source trust, or the original latent-memory hypothesis. Capacity paired harm of
+zero has no safety meaning because its no-memory control has 0% accuracy.
+
+**Next action:** follow D014: train/validation reader diagnosis and a separately
+predeclared uniform-workload replication. Preserve this run and original-checkout
+uncommitted notes. See the [five-case report](five-case-results-2026-09-20.md) and
+[reproduction commands](../projects/03-memory-reliability/README.md).
+
+Final verification: `pytest` passed all 95 tests; `ruff check .` and
+`git diff --check` passed. All 69 checked local document links resolve. The three
+standalone figures were rendered and visually checked. An independent read-only
+review reconciled the report/README numbers and scientific caveats with saved
+results and found no remaining corrections. Frozen experiment source, tests, and
+configuration are unchanged from `4765f2f`.

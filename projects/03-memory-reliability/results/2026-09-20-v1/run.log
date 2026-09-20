@@ -1,0 +1,152 @@
+Training all components for seed 7
+reader selector seed=7 step=1 loss=2.1718 val=0.4000
+reader selector seed=7 step=1000 loss=0.1426 val=0.9469
+reader selector seed=7 step=2000 loss=0.1068 val=0.9320
+reader selector seed=7 step=3000 loss=0.2084 val=0.9461
+reader selector seed=7 step=4000 loss=0.4860 val=0.9418
+reader selector seed=7 step=5000 loss=0.1830 val=0.9398
+reader selector seed=7 step=6000 loss=0.1869 val=0.9203
+reader character seed=7 step=1 loss=3.0697 val=0.4000
+reader character seed=7 step=1000 loss=0.4808 val=0.3988
+reader character seed=7 step=2000 loss=0.4590 val=0.3957
+reader character seed=7 step=3000 loss=0.3757 val=0.3484
+reader character seed=7 step=4000 loss=0.5175 val=0.3848
+reader character seed=7 step=5000 loss=0.4660 val=0.3750
+reader character seed=7 step=6000 loss=0.3681 val=0.3965
+Training all components for seed 19
+reader selector seed=19 step=1 loss=2.1861 val=0.1949
+reader selector seed=19 step=1000 loss=0.2262 val=0.9254
+reader selector seed=19 step=2000 loss=0.1490 val=0.9164
+reader selector seed=19 step=3000 loss=0.3067 val=0.9211
+reader selector seed=19 step=4000 loss=0.3027 val=0.9207
+reader selector seed=19 step=5000 loss=0.2004 val=0.9215
+reader selector seed=19 step=6000 loss=0.2989 val=0.9176
+reader character seed=19 step=1 loss=3.0922 val=0.4000
+reader character seed=19 step=1000 loss=0.7461 val=0.3859
+reader character seed=19 step=2000 loss=0.3999 val=0.3973
+reader character seed=19 step=3000 loss=0.4738 val=0.3973
+reader character seed=19 step=4000 loss=0.4111 val=0.3805
+reader character seed=19 step=5000 loss=0.5132 val=0.3996
+reader character seed=19 step=6000 loss=0.4084 val=0.3984
+Training all components for seed 43
+reader selector seed=43 step=1 loss=2.0700 val=0.4000
+reader selector seed=43 step=1000 loss=0.2110 val=0.9332
+reader selector seed=43 step=2000 loss=0.3830 val=0.9426
+reader selector seed=43 step=3000 loss=0.0520 val=0.9340
+reader selector seed=43 step=4000 loss=0.2423 val=0.9098
+reader selector seed=43 step=5000 loss=0.1709 val=0.9383
+reader selector seed=43 step=6000 loss=0.1415 val=0.9391
+reader character seed=43 step=1 loss=3.0701 val=0.4000
+reader character seed=43 step=1000 loss=0.5873 val=0.3973
+reader character seed=43 step=2000 loss=0.5343 val=0.3980
+reader character seed=43 step=3000 loss=0.4394 val=0.3941
+reader character seed=43 step=4000 loss=0.5707 val=0.3977
+reader character seed=43 step=5000 loss=0.6210 val=0.3711
+reader character seed=43 step=6000 loss=0.4418 val=0.3797
+Evaluating all five cases for seed 7 on test
+seed=7 capacity=4 workload=A policy=no_memory
+seed=7 capacity=4 workload=A policy=fifo
+seed=7 capacity=4 workload=A policy=recency
+seed=7 capacity=4 workload=A policy=random
+seed=7 capacity=4 workload=A policy=similarity
+seed=7 capacity=4 workload=A policy=cue_priority
+seed=7 capacity=4 workload=A policy=learned
+seed=7 capacity=8 workload=A policy=no_memory
+seed=7 capacity=8 workload=A policy=fifo
+seed=7 capacity=8 workload=A policy=recency
+seed=7 capacity=8 workload=A policy=random
+seed=7 capacity=8 workload=A policy=similarity
+seed=7 capacity=8 workload=A policy=cue_priority
+seed=7 capacity=8 workload=A policy=learned
+seed=7 capacity=4 workload=B policy=no_memory
+seed=7 capacity=4 workload=B policy=fifo
+seed=7 capacity=4 workload=B policy=recency
+seed=7 capacity=4 workload=B policy=random
+seed=7 capacity=4 workload=B policy=similarity
+seed=7 capacity=4 workload=B policy=cue_priority
+seed=7 capacity=4 workload=B policy=learned
+seed=7 capacity=8 workload=B policy=no_memory
+seed=7 capacity=8 workload=B policy=fifo
+seed=7 capacity=8 workload=B policy=recency
+seed=7 capacity=8 workload=B policy=random
+seed=7 capacity=8 workload=B policy=similarity
+seed=7 capacity=8 workload=B policy=cue_priority
+seed=7 capacity=8 workload=B policy=learned
+Evaluating all five cases for seed 19 on test
+seed=19 capacity=4 workload=A policy=no_memory
+seed=19 capacity=4 workload=A policy=fifo
+seed=19 capacity=4 workload=A policy=recency
+seed=19 capacity=4 workload=A policy=random
+seed=19 capacity=4 workload=A policy=similarity
+seed=19 capacity=4 workload=A policy=cue_priority
+seed=19 capacity=4 workload=A policy=learned
+seed=19 capacity=8 workload=A policy=no_memory
+seed=19 capacity=8 workload=A policy=fifo
+seed=19 capacity=8 workload=A policy=recency
+seed=19 capacity=8 workload=A policy=random
+seed=19 capacity=8 workload=A policy=similarity
+seed=19 capacity=8 workload=A policy=cue_priority
+seed=19 capacity=8 workload=A policy=learned
+seed=19 capacity=4 workload=B policy=no_memory
+seed=19 capacity=4 workload=B policy=fifo
+seed=19 capacity=4 workload=B policy=recency
+seed=19 capacity=4 workload=B policy=random
+seed=19 capacity=4 workload=B policy=similarity
+seed=19 capacity=4 workload=B policy=cue_priority
+seed=19 capacity=4 workload=B policy=learned
+seed=19 capacity=8 workload=B policy=no_memory
+seed=19 capacity=8 workload=B policy=fifo
+seed=19 capacity=8 workload=B policy=recency
+seed=19 capacity=8 workload=B policy=random
+seed=19 capacity=8 workload=B policy=similarity
+seed=19 capacity=8 workload=B policy=cue_priority
+seed=19 capacity=8 workload=B policy=learned
+Evaluating all five cases for seed 43 on test
+seed=43 capacity=4 workload=A policy=no_memory
+seed=43 capacity=4 workload=A policy=fifo
+seed=43 capacity=4 workload=A policy=recency
+seed=43 capacity=4 workload=A policy=random
+seed=43 capacity=4 workload=A policy=similarity
+seed=43 capacity=4 workload=A policy=cue_priority
+seed=43 capacity=4 workload=A policy=learned
+seed=43 capacity=8 workload=A policy=no_memory
+seed=43 capacity=8 workload=A policy=fifo
+seed=43 capacity=8 workload=A policy=recency
+seed=43 capacity=8 workload=A policy=random
+seed=43 capacity=8 workload=A policy=similarity
+seed=43 capacity=8 workload=A policy=cue_priority
+seed=43 capacity=8 workload=A policy=learned
+seed=43 capacity=4 workload=B policy=no_memory
+seed=43 capacity=4 workload=B policy=fifo
+seed=43 capacity=4 workload=B policy=recency
+seed=43 capacity=4 workload=B policy=random
+seed=43 capacity=4 workload=B policy=similarity
+seed=43 capacity=4 workload=B policy=cue_priority
+seed=43 capacity=4 workload=B policy=learned
+seed=43 capacity=8 workload=B policy=no_memory
+seed=43 capacity=8 workload=B policy=fifo
+seed=43 capacity=8 workload=B policy=recency
+seed=43 capacity=8 workload=B policy=random
+seed=43 capacity=8 workload=B policy=similarity
+seed=43 capacity=8 workload=B policy=cue_priority
+seed=43 capacity=8 workload=B policy=learned
+{
+  "7": {
+    "reader_absolute": false,
+    "reader_relative": false,
+    "reader_episode_relative": false,
+    "lifecycle": true
+  },
+  "19": {
+    "reader_absolute": false,
+    "reader_relative": false,
+    "reader_episode_relative": false,
+    "lifecycle": true
+  },
+  "43": {
+    "reader_absolute": false,
+    "reader_relative": false,
+    "reader_episode_relative": false,
+    "lifecycle": true
+  }
+}
