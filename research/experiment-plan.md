@@ -4,6 +4,11 @@ Last updated: 2026-09-20
 
 ## Current execution phases
 
+**Pending review:** [Memory improvements: proposal for review](memory-improvements-review-brief.md)
+recommends five focused cases and compares four/six-case alternatives. The user
+will review the scope before implementation. Proposed cases and slice thresholds
+are not additions to the frozen pilots or an approved training configuration.
+
 The user's three-phase plan now governs implementation. The longer architectural
 ladder below remains a proposal, not work already completed.
 

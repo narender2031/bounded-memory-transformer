@@ -405,3 +405,44 @@ remain unimplemented or unevaluated here.
 comparison with UNKNOWN and paired irrelevant-memory controls on train/validation
 data. Specify writer transition metrics separately, using the exact reader to
 avoid attributing reading failures to storage decisions.
+
+## 2026-09-20 — Brief proposal for user review before implementation
+
+The user requested a brief evidence-to-experiment document, with a choice of
+four, five, or six cases, to analyze before implementation. Created
+[`memory-improvements-review-brief.md`](memory-improvements-review-brief.md).
+This synthesizes the six primary-paper versions already reviewed today; no fresh
+literature search, training, or new experiment was performed in this session.
+
+**Evidence:** the existing pilots distinguish weak reading from 30% historical
+useful-fact retention. The paper findings and limitations are linked in the brief;
+none is a measured gain for our implementation.
+
+**Inference/recommendation:** five focused cases cover correct recall, rejection
+of wrong memory, updates, selective deletion, and capacity pressure. Four cases
+omit the capacity study; a sixth would add derived-fact repair and its provenance
+requirements. These are experimental questions, not a replacement for the
+eight-case historical generator or a five-action architecture.
+
+**Hypotheses awaiting review:** selection/copying and evidence rejection improve
+reading; operation-and-target learning maintains lifecycle semantics; admission
+and eviction improve usefulness at equal capacity. The proposed additional 95%
+reader slice gates are engineering targets for review, not adopted thresholds.
+The brief distinguishes an exact-reader writer study from a combined neural result
+and notes that uniformly unpredictable future queries may limit admission gains.
+
+Updated the handoff and experiment plan to make the user's review the next step.
+D012 remains the standing methodological decision; the proposed scope is not an
+approved architecture or training plan. Historical code, metrics, configurations,
+and results were not modified. Prior uncommitted work is preserved.
+
+Verification: `.venv/bin/ruff check .` passed; `.venv/bin/pytest` reported **40
+passed** in 1.78 seconds; whitespace checks were clean. All 20 relative links
+across the brief and its two entry points resolve. Checked that the document
+contains all six versioned primary sources and five numbered proposed cases;
+reviewed examples, source attribution, control comparisons, and scope consistency.
+The document is part of [draft PR #2](https://github.com/narender2031/bounded-memory-transformer/pull/2).
+
+**Next action:** the user reviews the brief and selects the scope. After that
+review, resolve requested changes and write the detailed implementation plan
+before beginning model or benchmark implementation.

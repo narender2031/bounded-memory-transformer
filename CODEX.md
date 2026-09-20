@@ -280,6 +280,12 @@ At the end of every session:
 
 ## Immediate next action
 
+**User review checkpoint (2026-09-20):** the user requested a brief proposal to
+analyze before implementation. The [five-case review brief](research/memory-improvements-review-brief.md)
+compares four-, five-, and six-case scopes and links each proposal to the paper
+evidence. Its scope and additional slice gates are recommendations, not approved
+experimental changes. Await the user's review before starting the work below.
+
 1. Specify and implement a learned record selector with exact value copying and
    an UNKNOWN option, using train/validation evidence only. Compare against the
    character reader and exact-rule control; include current-session records.
