@@ -1,0 +1,59 @@
+{
+  "protocol": "research/uniform-replication-protocol-2026-09-20.md",
+  "original_frozen_revision": "4765f2f8295ce1d225638a38030ab6e85a985a2f",
+  "threads": 1,
+  "checkpoints": [
+    {
+      "model_seed": 7,
+      "path": "runs/five-case-2026-09-20-v1/capacity-7.pt",
+      "sha256": "f6e2592effab18140a559a78111db7fc98bf66d1df47852163e7f1c26f2b1dfc"
+    },
+    {
+      "model_seed": 19,
+      "path": "runs/five-case-2026-09-20-v1/capacity-19.pt",
+      "sha256": "7a1ab4043c796f08ce5e287d3b67d23918b63dfd84b58305752dfc3aa5619472"
+    },
+    {
+      "model_seed": 43,
+      "path": "runs/five-case-2026-09-20-v1/capacity-43.pt",
+      "sha256": "7ce279222921a18db9a0442a96d5f2ff2f91648ce6b3dafdf9e02b34c99b7e71"
+    }
+  ],
+  "frozen_sources": {
+    "src/bounded_memory_transformer/memory_experiments/capacity.py": "6791e611c238914f06d680006d78d717776e43c9c611ab780122567fb8006d12",
+    "src/bounded_memory_transformer/memory_benchmark/generator.py": "0356ec280ea92ffe9a67d86b4f53ad4ef3f21069ef49ce2ea9cf84b746d14d69",
+    "src/bounded_memory_transformer/memory_benchmark/operations.py": "afa87ae4fa6648af72d850486ccf564631d166d7f5108de59c69de518af38e5b",
+    "src/bounded_memory_transformer/memory_benchmark/views.py": "e9c682d97d23f78994c58028a812edcf80619a7310f35e14ff792a7c5837066a"
+  },
+  "generator": {
+    "workload": "A",
+    "keys": 24,
+    "updates": 6,
+    "sessions": 8,
+    "queries": 32
+  },
+  "capacities": [4, 8],
+  "random_policy_seeds": [7, 19, 43],
+  "evaluation": {
+    "split": "test",
+    "dataset_seeds": [
+      2026092101, 2026092102, 2026092103, 2026092104, 2026092105,
+      2026092106, 2026092107, 2026092108, 2026092109, 2026092110,
+      2026092111, 2026092112, 2026092113, 2026092114, 2026092115,
+      2026092116, 2026092117, 2026092118, 2026092119, 2026092120
+    ],
+    "episodes_per_seed": 512
+  },
+  "inference": {
+    "familywise_alpha": 0.05,
+    "equivalence_margin": 0.01,
+    "bootstrap_samples": 10000,
+    "bootstrap_seed": 2026092099
+  },
+  "smoke": {
+    "split": "train",
+    "dataset_seeds": [3107, 3119],
+    "episodes_per_seed": 8,
+    "bootstrap_samples": 200
+  }
+}
