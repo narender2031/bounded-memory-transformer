@@ -1,0 +1,161 @@
+{
+  "selection_rule": "first matching failure in saved seed 7 row order",
+  "examples": {
+    "selection_error/deleted": {
+      "answers": {
+        "character_full": "??",
+        "oracle_copy": "??",
+        "selected_character": "69",
+        "selected_copy": "69"
+      },
+      "attribute": 1,
+      "empty_prompt": "MCS64b73;D04b??;U64a86;N04b30;U64b69;S64b86;Q04b=",
+      "entity": 4,
+      "episode_id": 19,
+      "no_evidence": "??",
+      "oracle_index": 5,
+      "paired_no_memory": {
+        "character_full": "??",
+        "oracle_copy": "??",
+        "selected_character": "69",
+        "selected_copy": "69"
+      },
+      "prompt": "MD64a??;S04b48;S04a30;N64b47;CS64b73;D04b??;U64a86;N04b30;U64b69;S64b86;Q04b=",
+      "selector_index": 8,
+      "state_bytes": 64,
+      "stratum": "deleted",
+      "target": "??",
+      "world_target": "??"
+    },
+    "generation_error_after_correct_copy": {
+      "answers": {
+        "character_full": "??",
+        "oracle_copy": "48",
+        "selected_character": "44",
+        "selected_copy": "48"
+      },
+      "attribute": 0,
+      "empty_prompt": "MCU23a84;U23a22;D23a??;S26a48;N26b12;S23a19;Q26a=",
+      "entity": 26,
+      "episode_id": 23,
+      "no_evidence": "48",
+      "oracle_index": 7,
+      "paired_no_memory": {
+        "character_full": "??",
+        "oracle_copy": "48",
+        "selected_character": "44",
+        "selected_copy": "48"
+      },
+      "prompt": "MU23a73;S23a16;N23a27;U26b73;CU23a84;U23a22;D23a??;S26a48;N26b12;S23a19;Q26a=",
+      "selector_index": 7,
+      "state_bytes": 64,
+      "stratum": "irrelevant",
+      "target": "48",
+      "world_target": "48"
+    },
+    "selection_error/irrelevant": {
+      "answers": {
+        "character_full": "??",
+        "oracle_copy": "69",
+        "selected_character": "??",
+        "selected_copy": "??"
+      },
+      "attribute": 0,
+      "empty_prompt": "MCN23d12;U23d19;D23a??;S72a69;U72d16;S23a00;Q72a=",
+      "entity": 72,
+      "episode_id": 43,
+      "no_evidence": "69",
+      "oracle_index": 7,
+      "paired_no_memory": {
+        "character_full": "??",
+        "oracle_copy": "69",
+        "selected_character": "??",
+        "selected_copy": "??"
+      },
+      "prompt": "MU72d00;U23a73;U23d27;D72d??;CN23d12;U23d19;D23a??;S72a69;U72d16;S23a00;Q72a=",
+      "selector_index": 6,
+      "state_bytes": 64,
+      "stratum": "irrelevant",
+      "target": "69",
+      "world_target": "69"
+    },
+    "selection_error/contradicted": {
+      "answers": {
+        "character_full": "??",
+        "oracle_copy": "22",
+        "selected_character": "??",
+        "selected_copy": "??"
+      },
+      "attribute": 0,
+      "empty_prompt": "MCU90c23;N72c30;S72c01;U90c48;D90a??;S90c16;Q72a=",
+      "entity": 72,
+      "episode_id": 92,
+      "no_evidence": "??",
+      "oracle_index": 3,
+      "paired_no_memory": {
+        "character_full": "??",
+        "oracle_copy": "??",
+        "selected_character": "??",
+        "selected_copy": "??"
+      },
+      "prompt": "MU90a05;S72a69;N72c77;U72a22;CU90c23;N72c30;S72c01;U90c48;D90a??;S90c16;Q72a=",
+      "selector_index": 8,
+      "state_bytes": 64,
+      "stratum": "contradicted",
+      "target": "22",
+      "world_target": "22"
+    },
+    "selection_error/select": {
+      "answers": {
+        "character_full": "??",
+        "oracle_copy": "48",
+        "selected_character": "??",
+        "selected_copy": "??"
+      },
+      "attribute": 2,
+      "empty_prompt": "MCD77c??;U77c87;U21b84;N21c27;S77b22;S77c84;Q21c=",
+      "entity": 21,
+      "episode_id": 150,
+      "no_evidence": "??",
+      "oracle_index": 3,
+      "paired_no_memory": {
+        "character_full": "??",
+        "oracle_copy": "??",
+        "selected_character": "??",
+        "selected_copy": "??"
+      },
+      "prompt": "MD21b??;N77c37;U21b37;S21c48;CD77c??;U77c87;U21b84;N21c27;S77b22;S77c84;Q21c=",
+      "selector_index": -1,
+      "state_bytes": 64,
+      "stratum": "select",
+      "target": "48",
+      "world_target": "48"
+    },
+    "selection_error/unsupported": {
+      "answers": {
+        "character_full": "??",
+        "oracle_copy": "??",
+        "selected_character": "27",
+        "selected_copy": "27"
+      },
+      "attribute": 1,
+      "empty_prompt": "MCN93b16;U93a87;U23b77;S93a87;D93a??;S23b27;Q93b=",
+      "entity": 93,
+      "episode_id": 176,
+      "no_evidence": "??",
+      "oracle_index": -1,
+      "paired_no_memory": {
+        "character_full": "??",
+        "oracle_copy": "??",
+        "selected_character": "27",
+        "selected_copy": "27"
+      },
+      "prompt": "MU93a77;S93a84;N23b37;D93a??;CN93b16;U93a87;U23b77;S93a87;D93a??;S23b27;Q93b=",
+      "selector_index": 9,
+      "state_bytes": 64,
+      "stratum": "unsupported",
+      "target": "??",
+      "world_target": "??"
+    }
+  }
+}

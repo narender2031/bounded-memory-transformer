@@ -1,0 +1,23 @@
+{
+  "checks": 14853973,
+  "counts": {
+    "artifact_hashes": 237,
+    "capacity_episode_banks": 12288,
+    "capacity_exact_query_rows": 393216,
+    "combined_operation_rows": 46080,
+    "lifecycle_operation_rows": 33600,
+    "lifecycle_query_rows": 9600,
+    "reader_conditions": 102,
+    "reader_query_rows": 405696,
+    "source_hashes": 25
+  },
+  "failures": [],
+  "limitations": [
+    "Source hashes compare the current source-root contents.",
+    "Timing and causal training claims require source/run review.",
+    "No checkpoint inference or held-out model tuning is performed."
+  ],
+  "passed": true,
+  "run": "/Users/narendersingh/transformer/bounded-memory-transformer-five-cases/runs/five-case-2026-09-20-v1",
+  "source_revision": "4765f2f8295ce1d225638a38030ab6e85a985a2f"
+}

@@ -104,7 +104,31 @@ Verification:
 
 Project 01 intentionally contains no persistent memory. It is the no-memory control model.
 
-## Next implementation: Project 02
+## Project 03 — five cases implemented and tested
+
+The user approved all five cases and authorized implementation and local testing.
+Source/config were frozen at `4765f2f`; the three-seed M2 Pro run completed in
+736.83 seconds. See [measured results](research/five-case-results-2026-09-20.md)
+and [Project 03 reproduction](projects/03-memory-reliability/README.md).
+
+- Reader means: character 39.13%, select/generate 85.03%, select/copy 92.83%,
+  oracle/copy 100%. **Every seed fails the full absolute and relative gates.**
+- Controlled four-slot lifecycle: all action/target/transition/update/delete/control
+  outcomes 100%; stale/deleted leakage zero. Equality features are provided.
+- Predictable B retention: learned 27.91%/57.18% at four/eight slots versus FIFO
+  15.41%/31.98%, exactly matching the planted cue-priority heuristic.
+- Uniform A8 also has a positive observed learned/FIFO paired interval. Do not
+  claim that this run confirms the uniform null or demonstrates future prediction.
+- Combined B learned reading: 25.63%/51.35%; **diagnostic and unvalidated**.
+- 95 tests pass. Independent audit passes 237 artifact and 25 source hashes and
+  recomputes all reported metrics from saved query/write/bank records.
+
+Review: [draft PR #3](https://github.com/narender2031/bounded-memory-transformer/pull/3),
+stacked on #2. Hosted CPU lint/tests passed.
+Full artifacts: `runs/five-case-2026-09-20-v1` in the isolated five-case worktree.
+No held-out retuning. Original-checkout uncommitted work remains untouched.
+
+## Project 02 — preserved pilots and original specification
 
 **Current status:** The four-baseline Phase 1 implementation and two local runs
 are available in [draft PR #2](https://github.com/narender2031/bounded-memory-transformer/pull/2)
@@ -123,7 +147,7 @@ The subsequent frozen-reader diagnostic and primary-source comparison are in
 On 2,048 matched reading structures, mean accuracy was 78.91% with seen entity/value
 symbols and 76.06% with both unseen. This is exploratory train/validation analysis,
 not a new held-out policy result. It motivates a record-selection/copying reader
-ablation with an UNKNOWN option; no improved reader has yet been implemented.
+ablation with an UNKNOWN option, now measured separately in Project 03 above.
 The [Transformer fundamentals guide](research/transformer-fundamentals.md) explains
 the actual architecture, training, memory boundary, and reader terminology.
 
@@ -137,7 +161,7 @@ competence gate for a combined neural writer/reader claim. Pending evidence,
 provenance, and dependency metadata must consume the same total state budget.
 
 The remaining text below preserves the broader Project 02 specification;
-LRU/oracle/learned baselines and a competent neural reader remain future work.
+it predates Project 03. LRU and a fully competent neural reader remain future work.
 
 Build the deterministic synthetic memory benchmark before adding a learned memory controller.
 
@@ -280,26 +304,28 @@ At the end of every session:
 
 ## Immediate next action
 
-**User review checkpoint (2026-09-20):** the user requested a brief proposal to
-analyze before implementation. The [five-case review brief](research/memory-improvements-review-brief.md)
-compares four-, five-, and six-case scopes and links each proposal to the paper
-evidence. Its scope and additional slice gates are recommendations, not approved
-experimental changes. Await the user's review before starting the work below.
+**Approved implementation (2026-09-20):** the user approved five cases and
+explicitly requested building and testing every case. The review checkpoint is
+complete. Work proceeds in the isolated `feat/five-case-memory` worktree:
+`/Users/narendersingh/transformer/bounded-memory-transformer-five-cases`.
 
-1. Specify and implement a learned record selector with exact value copying and
-   an UNKNOWN option, using train/validation evidence only. Compare against the
-   character reader and exact-rule control; include current-session records.
-   Require at least 95% visible-evidence validation accuracy per seed, and declare
-   slice gates for full-key matching, abstention, updates/deletes, and four-slot
-   occupancy before the next training run. See D011 and the diagnostic note.
-2. Predeclare the next independent test before inspecting it. Preserve the two
-   recorded pilots; do not tune their held-out generators or relabel their metrics.
-3. Repeat the paired no-memory/FIFO/recency/similarity experiment with the competent
-   reader. Compare against the exact-reader control before interpreting a combined
-   Phase 2 system. A bounded action-and-target writer can be studied separately
-   with the exact-rule reader after its workload and transition metrics are declared.
-4. Project 01 PR #1 remains open; this phase was implemented locally on top of its
-   source without merging it. Preserve prior uncommitted research notes.
+- [Locked protocol](docs/superpowers/specs/2026-09-20-five-case-memory.md): selector
+  oracle, four rejection strata, two reader gates, lifecycle, A/B capacity, regret.
+- [Execution plan](docs/superpowers/plans/2026-09-20-five-case-memory.md).
+- [Frozen run configuration](projects/03-memory-reliability/configs/five-case-small.json).
+- New `memory_experiments` package; historical `memory_benchmark` is unchanged.
+
+All five cases, CPU smoke, full local run, figures, and independent audit are
+complete. The failed reader gates are retained as results, not unfinished tests.
+The four-slot canonical bank includes the observed utility cue within 64 bytes.
+Do not compare its scores directly with the historical event-bank workload.
+
+**Next research action:** develop a train/validation-only reader ablation for
+full-key matching, precedence, UNKNOWN rejection, and varied current-record
+counts/occupancy. Freeze a new protocol before further held-out evaluation. A
+separate preregistered replication should investigate the unexpected uniform-A8
+contrast. Do not tune to this test set or add latent compression as an automatic
+next step. Keep the original checkout's uncommitted work and PR #1/#2 intact.
 
 ## External research cadence
 

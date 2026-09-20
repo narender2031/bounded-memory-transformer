@@ -1,6 +1,6 @@
 # Problem Statement
 
-Last updated: 2026-08-27
+Last updated: 2026-09-20
 
 ## Target problem
 
@@ -25,6 +25,26 @@ where:
 - \(\theta\) remains fixed during ordinary inference.
 
 After every session, token activations and the normal KV cache are deleted. Only \(M_{t+1}\) survives.
+
+## Current operational study
+
+The long-term latent-memory question below remains provisional. The approved
+[2026-09-20 five-case protocol](../docs/superpowers/specs/2026-09-20-five-case-memory.md)
+first uses four inspectable symbolic slots, with all cue metadata inside the
+64-byte budget. It separates selection/rejection, lifecycle, and capacity;
+explicit writer equality features and selector supervision are disclosed.
+
+Report both visible-evidence reader accuracy and world-truth recall. Require
+absolute reader slice gates and the predeclared oracle-relative recovery gate.
+Capacity compares cue-independent and cue-predictable future queries; no future
+query or oracle eviction label enters the actor. A clairvoyant retention bound
+is evaluation-only. Updates, deletions, distractors, and abstention are tested
+across the suite; the write-then-query capacity condition has no deletions or
+interleaved accesses. Results only support these declared conditions.
+
+The [first five-case result](five-case-results-2026-09-20.md) passes controlled
+lifecycle checks but fails reader competence and matches the strong capacity
+heuristic. It does not establish the broader hypotheses or a novelty claim.
 
 ## Required memory operations
 

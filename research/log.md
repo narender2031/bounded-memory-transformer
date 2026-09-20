@@ -446,3 +446,102 @@ The document is part of [draft PR #2](https://github.com/narender2031/bounded-me
 **Next action:** the user reviews the brief and selects the scope. After that
 review, resolve requested changes and write the detailed implementation plan
 before beginning model or benchmark implementation.
+
+## 2026-09-20 — Approved five-case implementation, before held-out evaluation
+
+**Authorization:** the user approved the five-case proposal with oracle controls,
+rejection strata, dual reader gates, predictable/unpredictable capacity workloads,
+and retention regret, then requested implementation and testing of every case.
+Created an isolated `feat/five-case-memory` worktree; the original checkout's
+uncommitted research notes and Project 01 artifacts were left untouched.
+
+**Implementation:** separate reader selection/copy/generation arms, a learned
+feature-assisted lifecycle controller, causal delayed-reward capacity training,
+exact controls, fixed-state baselines, metrics, saved predictions/checkpoints,
+and a combined diagnostic. See D013, the locked protocol, and execution plan.
+No additional literature search was needed; paper interpretations are unchanged.
+
+**Evidence from development:** an independent review caught a generator shortcut:
+operation-kind tokens alone initially identified the relevant current fact.
+Added mixed unrelated current/memory operations and query-blind regression rules;
+those shortcuts now fail 55–100% in the four rejection strata. This was fixed on
+train/validation before the recorded experiment. An erroneous writer can produce
+an occupied key with value -1; its reader projection now preserves it as DELETE
+evidence rather than crashing or repairing the decision. Review also caught a
+microtask-only relative gate; episode controls now have their own required gate.
+
+**Inference:** tests establish instrumentation behavior, not successful learned
+memory. The cue-only learned policy has no information advantage over the
+cue-priority control. **Hypothesis:** it may learn that signal and improve useful
+retention in B without systematic gains in A. Full held-out results are pending.
+
+**Next actions:** run the checked-in CPU smoke, commit the protocol/source/config,
+train seeds 7/19/43 before creating any held-out data, finish all evaluations, and
+reconcile saved predictions before reporting results. Preserve failed gates.
+
+Pre-freeze verification: **95 tests passed** in 2.43 seconds; Ruff and whitespace
+checks passed. The checked-in five-step CPU smoke completed every case, all
+policies and both capacities. Its learned gates failed as expected for untrained
+models; the oracle controls were exact. This is pipeline verification only.
+
+## 2026-09-20 — All five cases executed and independently audited
+
+**Evidence:** frozen source/config commit `4765f2f8295ce1d225638a38030ab6e85a985a2f`
+ran seeds 7/19/43 on an Apple M2 Pro, 16 GiB, Python 3.13.7, PyTorch 2.9.1, with
+MPS readers and CPU controllers. Wall time: 736.83 seconds. Full artifacts are
+preserved at `runs/five-case-2026-09-20-v1` in the five-case worktree. All training
+completed before held-out generation. No test-based model/generator/metric
+changes followed.
+
+Mean reader accuracy: character 39.13%, selected generation 85.03%, selected copy
+92.83%, oracle copy 100%. Every seed fails reader gates; seed 43 exceeds 95%
+overall but fails required categories and recovery. Controlled writer update,
+deletion, control, action, target, and transition metrics are 100% in every seed,
+with zero stale/deleted leakage. Features include exact key equality. B learned
+retention is 27.91%/57.18% at four/eight slots versus FIFO 15.41%/31.98%, exactly
+matching cue-priority. Combined neural B recall of 25.63%/51.35% remains diagnostic.
+The full report explains denominators, failed gates, abstention, regret, per-seed
+variation, traces, and compute.
+
+**Unexpected evidence:** uniform A8 learned/FIFO difference is +3.08 points with
+95% paired interval [0.76, 5.64]. A4's interval crosses zero. Preserve both; the
+observed A8 contrast is not evidence that a cue-independent future becomes
+predictable. Potential sample variation or generator structure requires an
+independent preregistered episode replication. All seeds share evaluation episodes.
+
+**Verification:** the independent auditor, without experiment metric imports,
+passes 237 artifact hashes and 25 source hashes and recalculates scores from
+405,696 reader rows, 33,600 lifecycle operation rows, 12,288 capacity banks, and
+46,080 combined writes. Those are repeated control/policy/seed records, not
+independent examples. Tamper checks reject altered metrics/checkpoint hashes
+and incomplete runs. Source review verified all episode recovery gates, overwrite
+refusal, and four/eight-slot adapter trajectories. The suite has 95 passing tests.
+Figures and compact results are checked in; raw checkpoints/predictions remain
+local (~362 MiB). No fresh literature search; paper interpretations are unchanged.
+
+**Inference:** learned retention recovers the planted cue rule. Controlled writer
+competence and reader failure are now experimentally separable. A perfect exact
+reader over good banks still exceeds neural answers. This does not establish
+superiority over the strongest heuristic, representation learning, calibrated
+source trust, or the original latent-memory hypothesis. Capacity paired harm of
+zero has no safety meaning because its no-memory control has 0% accuracy.
+
+**Next action:** follow D014: train/validation reader diagnosis and a separately
+predeclared uniform-workload replication. Preserve this run and original-checkout
+uncommitted notes. See the [five-case report](five-case-results-2026-09-20.md) and
+[reproduction commands](../projects/03-memory-reliability/README.md).
+
+Final verification: `pytest` passed all 95 tests; `ruff check .` and
+`git diff --check` passed. All 69 checked local document links resolve. The three
+standalone figures were rendered and visually checked. An independent read-only
+review reconciled the report/README numbers and scientific caveats with saved
+results and found no remaining corrections. Frozen experiment source, tests, and
+configuration are unchanged from `4765f2f`.
+
+Review handoff: [draft PR #3](https://github.com/narender2031/bounded-memory-transformer/pull/3)
+is open against `feat/synthetic-memory-benchmark`; no base PR was merged. Hosted
+CPU lint and tests [passed at `116c1f2`](https://github.com/narender2031/bounded-memory-transformer/actions/runs/35499085042).
+Generated SVG whitespace was normalized in the exporter and saved figures after
+the staged-file check caught it; the complete branch whitespace check now passes.
+The original checkout has its original dirty status; the isolated worktree holds
+the completed implementation and results.
