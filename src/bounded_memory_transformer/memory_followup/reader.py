@@ -63,6 +63,13 @@ class FactorizedReader(nn.Module):
         self.authority = nn.Embedding(5, 1)
         self.order_weight = nn.Parameter(torch.tensor(0.0))
 
+    def pair_logits(self, tokens: Tensor) -> Tensor:
+        if tokens.ndim != 2 or tokens.shape[1] != 3:
+            raise ValueError("pair tokens must have shape N x 3")
+        hidden = self.embedding(tokens) + self.position(torch.arange(3, device=tokens.device))
+        hidden, _ = self.block(hidden)
+        return self.match(self.norm(hidden[:, -1])).flatten()
+
     def forward(self, batch: EncodedViews) -> tuple[Tensor, Tensor, Tensor]:
         if batch.pairs.ndim != 4 or batch.pairs.shape[-2:] != (3, 3):
             raise ValueError("expected B x candidates x 3 x 3 pairs")
@@ -70,9 +77,7 @@ class FactorizedReader(nn.Module):
         if any(x.shape != (rows, candidates) for x in (batch.kinds, batch.valid, batch.order)):
             raise ValueError("candidate metadata shape mismatch")
         tokens = batch.pairs.reshape(-1, 3)
-        hidden = self.embedding(tokens) + self.position(torch.arange(3, device=tokens.device))
-        hidden, _ = self.block(hidden)
-        matches = self.match(self.norm(hidden[:, -1])).reshape(rows, candidates, 3)
+        matches = self.pair_logits(tokens).reshape(rows, candidates, 3)
         authority = self.authority(batch.kinds).squeeze(-1)
         eligible = torch.cat((matches, authority.unsqueeze(-1)), dim=-1).amin(dim=-1)
         scores = 12.0 * (2.0 * eligible.sigmoid() - 1.0)

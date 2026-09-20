@@ -8,7 +8,9 @@ import time
 from pathlib import Path
 
 import torch
+import torch.nn.functional as F
 
+from bounded_memory_transformer.memory_benchmark.generator import symbol_space
 from bounded_memory_transformer.memory_benchmark.reader import synchronize
 from bounded_memory_transformer.memory_experiments.metrics import recovery
 from bounded_memory_transformer.memory_experiments.reader_cases import (
@@ -18,6 +20,58 @@ from bounded_memory_transformer.memory_experiments.reader_cases import (
 
 from .reader import FactorizedReader, supervised_loss
 from .tasks import varied_tasks
+
+
+def freeze_comparator(model):
+    for name, parameter in model.named_parameters():
+        parameter.requires_grad_(name in ("authority.weight", "order_weight"))
+
+
+def pretrain_comparator(model, steps, learning_rate):
+    """Learn the finite shared alphabet's equality relation before composition.
+
+    All symbols come from TRAIN keys. Full entity IDs are never combined here.
+    This exhaustive supervised primitive is an explicitly disclosed aid; it is
+    not a claim to generalize to unseen characters or learn unsupervised binding.
+    """
+    symbols = symbol_space("train")
+    digits = sorted({digit for e in symbols.entities for digit in (e // 10, e % 10)})
+    pairs = [
+        (a, b) for alphabet in (digits, list(range(10, 14))) for a in alphabet for b in alphabet
+    ]
+    device = next(model.parameters()).device
+    tokens = torch.tensor([[a, b, 14] for a, b in pairs], device=device)
+    target = torch.tensor([a == b for a, b in pairs], dtype=torch.float32, device=device)
+    positive = target.bool()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
+    history = []
+    for step in range(1, steps + 1):
+        logits = model.pair_logits(tokens)
+        losses = F.binary_cross_entropy_with_logits(logits, target, reduction="none")
+        loss = 0.5 * (losses[positive].mean() + losses[~positive].mean())
+        optimizer.zero_grad(set_to_none=True)
+        loss.backward()
+        torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        optimizer.step()
+        if step == 1 or step % 500 == 0 or step == steps:
+            with torch.no_grad():
+                logits = model.pair_logits(tokens)
+                history.append(
+                    dict(
+                        step=step,
+                        loss=float(loss.detach()),
+                        errors=int(((logits > 0) != positive).sum()),
+                        minimum_signed_margin=float((logits * (2 * target - 1)).min()),
+                    )
+                )
+            print(json.dumps(dict(comparator=history[-1])), flush=True)
+    freeze_comparator(model)
+    return dict(
+        pairs=len(pairs),
+        alphabet=digits + list(range(10, 14)),
+        history=history,
+        frozen_after_pretraining=True,
+    )
 
 
 def task_metrics(model, tasks, batch_size=128):
@@ -90,10 +144,17 @@ def train(config, seed, output):
                 capacity=k,
                 current_count=current,
             )
-    optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"])
     history = []
     synchronize(device)
     started = time.perf_counter()
+    curriculum = None
+    if config.get("comparator_steps", 0):
+        curriculum = pretrain_comparator(
+            model, config["comparator_steps"], config["comparator_learning_rate"]
+        )
+    optimizer = torch.optim.AdamW(
+        [p for p in model.parameters() if p.requires_grad], lr=config["learning_rate"]
+    )
     for step in range(1, config["steps"] + 1):
         model.train()
         examples = rng.choices(views, k=config["batch_size"])
@@ -130,6 +191,7 @@ def train(config, seed, output):
         parameters=sum(p.numel() for p in model.parameters()),
         seconds=time.perf_counter() - started,
         history=history,
+        comparator_curriculum=curriculum,
         checkpoint="final, not validation-best",
         config=config,
         training_tasks=len(training),

@@ -6,13 +6,17 @@ import torch
 from bounded_memory_transformer.memory_benchmark.operations import Kind, Operation
 from bounded_memory_transformer.memory_benchmark.views import QueryView, read_visible
 from bounded_memory_transformer.memory_experiments.reader_cases import ReaderTask, copy_selected
-from bounded_memory_transformer.memory_followup.evaluate_reader import task_categories
+from bounded_memory_transformer.memory_followup.evaluate_reader import (
+    task_categories,
+    validate_protocol_configs,
+)
 from bounded_memory_transformer.memory_followup.reader import (
     FactorizedReader,
     encode_views,
     supervised_loss,
 )
 from bounded_memory_transformer.memory_followup.tasks import varied_tasks
+from bounded_memory_transformer.memory_followup.train_reader import freeze_comparator
 
 
 def view(records=(), current=(), entity=13, attribute=0):
@@ -69,6 +73,23 @@ def test_gradient_reaches_key_comparator_authority_and_chronology():
         assert parameter.grad.abs().sum() > 0
 
 
+def test_frozen_comparator_cannot_drift_during_record_ranking_training():
+    model = FactorizedReader()
+    freeze_comparator(model)
+    v = view([Operation(Kind.SET, 13, 0, 25), Operation(Kind.UPDATE, 13, 0, 45)])
+    batch = encode_views([v])
+    before = model(batch)[1].detach().clone()
+    order = model.order_weight.detach().clone()
+    optimizer = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=0.01)
+    for _ in range(3):
+        loss, _ = supervised_loss(model, [v])
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+    assert torch.equal(before, model(batch)[1].detach())
+    assert not torch.equal(order, model.order_weight.detach())
+
+
 def test_copy_does_not_repair_a_wrong_neural_key_selection():
     v = view([Operation(Kind.SET, 23, 0, 25)], [Operation(Kind.UPDATE, 13, 0, 45)])
     assert copy_selected(v, 0) == "25"
@@ -89,6 +110,21 @@ def test_source_slice_uses_selected_evidence_not_legacy_override_label():
     assert categories["source_memory"] == [True]
     assert categories["source_current"] == [False]
     assert categories["source_none"] == [False]
+
+
+def test_heldout_preflight_rejects_wrong_training_candidate_and_changed_evaluation():
+    import json
+    from pathlib import Path
+
+    configs = Path("projects/04-memory-followup/configs")
+    evaluation = json.loads((configs / "reader-evaluation.json").read_text())
+    selected = json.loads((configs / "reader-candidate-3.json").read_text())
+    earlier = json.loads((configs / "reader-candidate-2.json").read_text())
+    validate_protocol_configs(evaluation, selected, smoke=False)
+    with pytest.raises(ValueError, match="candidate"):
+        validate_protocol_configs(evaluation, earlier, smoke=False)
+    with pytest.raises(ValueError, match="evaluation"):
+        validate_protocol_configs({**evaluation, "original_seed": 17}, selected, smoke=False)
 
 
 @pytest.mark.parametrize("capacity,current", [(4, 0), (4, 1), (8, 12), (8, 32)])

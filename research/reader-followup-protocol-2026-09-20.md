@@ -1,6 +1,7 @@
 # Reader follow-up v1: protocol
 
-Status: train/validation development; no follow-up held-out reader data opened.
+Status: final candidate declared during train/validation development; no follow-up
+held-out reader data opened when this protocol was frozen.
 The user authorized this follow-up. Project 03 source and results stay frozen.
 
 ## Diagnosis and candidate
@@ -21,6 +22,27 @@ record scores. The selected value is copied without a key check or correction.
 Values cannot affect selection. No equality booleans or oracle indices enter
 inference. This is substantially more structured than the original character
 reader; do not claim it repairs free-form generation or learns source trust.
+
+Development retained two failures. Candidate 1's stress generator accidentally
+correlated occupancy with question type; its perfect seed-7 validation score is
+not accepted as coverage evidence. Before any test use, the generator was fixed
+to cross these dimensions and a regression test was added. Candidate 2 retrained
+the same architecture on the corrected data. Seeds 19/43 reached 100%, but seed 7
+scored 98.5% on original validation tasks: all 15 errors per 1,000 tasks were
+unsupported queries misread through one attribute mismatch. It fails the full
+gate and is retained, not hidden by seed averaging.
+
+**Final candidate 3:** keep the architecture and corrected generator. First train
+the shared comparator for 2,000 steps on all 116 valid digit/digit or
+attribute/attribute pairs from the TRAIN alphabet, balancing equality and
+inequality losses. Freeze its weights, then train authority and chronology for
+3,000 steps on the same record tasks. The final checkpoints of seeds 7/19/43
+are the only new models used on held-out episodes. Configuration:
+[reader-candidate-3.json](../projects/04-memory-followup/configs/reader-candidate-3.json).
+This exhaustive supervised primitive is a strong engineering aid. Generalization
+means new combinations of familiar characters and evidence structures; it does
+not mean new character symbols, unsupervised key binding, calibrated trust, or
+an end-to-end language-model solution. No further candidate is planned in v1.
 
 Training uses only train symbols, mixed 4/8-slot occupancy, current counts
 0/1/3/6/12, and paired empty-memory views. Validation uses the existing validation

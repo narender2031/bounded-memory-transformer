@@ -45,6 +45,18 @@ def save_json(path, value):
     Path(path).write_text(json.dumps(value, indent=2, allow_nan=False) + "\n")
 
 
+def validate_protocol_configs(config, training_config, *, smoke):
+    if smoke:
+        if config["split"] != "validation":
+            raise ValueError("reader smoke must use validation")
+        return
+    directory = Path(__file__).resolve().parents[3] / "projects/04-memory-followup/configs"
+    if config != json.loads((directory / "reader-evaluation.json").read_text()):
+        raise ValueError("evaluation differs from the declared protocol")
+    if training_config != json.loads((directory / "reader-candidate-3.json").read_text()):
+        raise ValueError("training candidate differs from the declared candidate 3")
+
+
 def evaluate_views(model, views, world, ids, categories, path, bootstrap, old=None):
     started = time.perf_counter()
     device = str(next(model.parameters()).device)
@@ -139,6 +151,8 @@ def run(config, training, references, output, *, smoke=False):
         raise ValueError("refusing to overwrite nonempty output")
     if config["threshold"] != 0.95 or config["capacities"] != [4, 8]:
         raise ValueError("this protocol fixes the 95% gate and 4/8-slot budgets")
+    train_config = json.loads((training / "config.json").read_text())
+    validate_protocol_configs(config, train_config, smoke=smoke)
     tracked_scope = [
         "src",
         "projects/04-memory-followup/configs",
@@ -154,6 +168,7 @@ def run(config, training, references, output, *, smoke=False):
     paths = list(Path("src").rglob("*.py"))
     paths += list(Path("projects/04-memory-followup/configs").glob("*.json"))
     paths += [Path("research/reader-followup-protocol-2026-09-20.md")]
+    paths += [training / "config.json"]
     for seed in config["seeds"]:
         paths += [training / f"reader-{seed}.pt", training / f"training-{seed}.json"]
         paths += [references / f"{name}-{seed}.pt" for name in ("reader", "lifecycle", "capacity")]
@@ -174,7 +189,6 @@ def run(config, training, references, output, *, smoke=False):
     )
     # Load/check every seed BEFORE constructing held-out examples.
     loaded = {}
-    train_config = json.loads((training / "config.json").read_text())
     for seed in config["seeds"]:
         saved = torch.load(
             training / f"reader-{seed}.pt", map_location=config["device"], weights_only=True
