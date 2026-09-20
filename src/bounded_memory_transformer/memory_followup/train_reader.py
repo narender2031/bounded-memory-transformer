@@ -19,7 +19,7 @@ from bounded_memory_transformer.memory_experiments.reader_cases import (
 )
 
 from .reader import FactorizedReader, supervised_loss
-from .tasks import varied_tasks
+from .tasks import authority_tasks, varied_tasks
 
 
 def freeze_comparator(model):
@@ -128,6 +128,14 @@ def train(config, seed, output):
                 capacity=capacity,
                 current_count=current,
             )
+        if config.get("authority_examples", 0):
+            training += authority_tasks(
+                "train",
+                seed=seed + capacity * 100,
+                count=config["authority_examples"],
+                capacity=capacity,
+                current_count=config["authority_training_current_count"],
+            )
     views = [v for t in training for v in (t.view, t.empty_view)]
     validation = {
         f"original_k{k}": generate_reader_tasks(
@@ -136,6 +144,10 @@ def train(config, seed, output):
         for k in (4, 8)
     }
     for k in (4, 8):
+        if config.get("authority_examples", 0):
+            validation[f"authority_k{k}"] = authority_tasks(
+                "validation", seed=20260923 + k, count=900, capacity=k
+            )
         for current in config["validation_current_counts"]:
             validation[f"varied_k{k}_c{current}"] = varied_tasks(
                 "validation",

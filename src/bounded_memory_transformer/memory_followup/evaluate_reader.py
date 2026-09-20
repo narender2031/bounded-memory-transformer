@@ -34,7 +34,7 @@ from bounded_memory_transformer.memory_experiments.run import (
 )
 
 from .reader import FactorizedReader
-from .tasks import varied_tasks
+from .tasks import authority_tasks, varied_tasks
 
 
 def digest(path):
@@ -53,8 +53,8 @@ def validate_protocol_configs(config, training_config, *, smoke):
     directory = Path(__file__).resolve().parents[3] / "projects/04-memory-followup/configs"
     if config != json.loads((directory / "reader-evaluation.json").read_text()):
         raise ValueError("evaluation differs from the declared protocol")
-    if training_config != json.loads((directory / "reader-candidate-3.json").read_text()):
-        raise ValueError("training candidate differs from the declared candidate 3")
+    if training_config != json.loads((directory / "reader-candidate-4.json").read_text()):
+        raise ValueError("training candidate differs from the declared candidate 4")
 
 
 def evaluate_views(model, views, world, ids, categories, path, bootstrap, old=None):
@@ -130,7 +130,9 @@ def evaluate_views(model, views, world, ids, categories, path, bootstrap, old=No
 
 
 def task_categories(tasks, slots):
-    categories = {s: [t.stratum == s for t in tasks] for s in STRATA}
+    categories = {
+        s: [t.stratum == s for t in tasks] for s in sorted(set(STRATA) | {t.stratum for t in tasks})
+    }
     categories.update(
         {f"occupancy_{k}": [t.occupancy == k for t in tasks] for k in range(slots + 1)}
     )
@@ -197,6 +199,7 @@ def run(config, training, references, output, *, smoke=False):
             raise ValueError("checkpoint/config/seed mismatch")
         model = FactorizedReader(**saved["settings"]).to(config["device"])
         model.load_state_dict(saved["state"])
+        model.readout_mode = config["readout_mode"]
         model.eval()
         utility = torch.load(
             references / f"capacity-{seed}.pt", weights_only=True, map_location="cpu"
@@ -253,6 +256,19 @@ def run(config, training, references, output, *, smoke=False):
             )
 
         for slots in config["capacities"]:
+            tasks = authority_tasks(
+                config["split"],
+                seed=config["authority_seed"] + slots,
+                count=config["authority_count"],
+                capacity=slots,
+            )
+            evaluate(
+                f"authority-k{slots}",
+                [t.view for t in tasks],
+                [t.target for t in tasks],
+                [t.episode_id for t in tasks],
+                task_categories(tasks, slots),
+            )
             tasks = generate_reader_tasks(
                 config["split"],
                 seed=config["original_seed"],
@@ -358,6 +374,7 @@ def main():
             split="validation",
             seeds=[7],
             original_count=50,
+            authority_count=180,
             varied_count=100,
             lifecycle_count=8,
             capacity_count=2,

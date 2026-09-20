@@ -51,9 +51,21 @@ def encode_views(views: list[QueryView], device: str = "cpu") -> EncodedViews:
 
 
 class FactorizedReader(nn.Module):
-    def __init__(self, d_model: int = 24, n_heads: int = 2):
+    def __init__(
+        self,
+        d_model: int = 24,
+        n_heads: int = 2,
+        saturate: bool = False,
+        readout_mode: str = "score",
+    ):
         super().__init__()
-        self.settings = dict(d_model=d_model, n_heads=n_heads)
+        self.settings = dict(d_model=d_model, n_heads=n_heads, saturate=saturate)
+        # Inference readout is separately frozen in the evaluation configuration.
+        # Preserve checkpoint architecture settings for exact training reproduction.
+        self.saturate = saturate
+        if readout_mode not in ("score", "binary"):
+            raise ValueError("unknown readout mode")
+        self.readout_mode = readout_mode
         config = TransformerConfig(15, 3, d_model, n_heads, 1, dropout=0.0)
         self.embedding = nn.Embedding(15, d_model)
         self.position = nn.Embedding(3, d_model)
@@ -80,7 +92,13 @@ class FactorizedReader(nn.Module):
         matches = self.pair_logits(tokens).reshape(rows, candidates, 3)
         authority = self.authority(batch.kinds).squeeze(-1)
         eligible = torch.cat((matches, authority.unsqueeze(-1)), dim=-1).amin(dim=-1)
-        scores = 12.0 * (2.0 * eligible.sigmoid() - 1.0)
+        confidence = eligible.sigmoid()
+        if self.saturate:
+            # Confidently eligible records must compete by chronology, not by
+            # operation-specific classifier margins. This is a disclosed prior,
+            # not calibrated confidence or a hardcoded key-equality check.
+            confidence = (2.0 * confidence - 0.5).clamp(0.0, 1.0)
+        scores = 12.0 * (2.0 * confidence - 1.0)
         scores = scores + 2.0 * self.order_weight.tanh() * batch.order
         scores = scores.masked_fill(~batch.valid, float("-inf"))
         unknown = torch.zeros((rows, 1), device=scores.device)
@@ -96,7 +114,21 @@ class FactorizedReader(nn.Module):
         device = str(next(self.parameters()).device)
         try:
             for start in range(0, len(views), batch_size):
-                scores, _, _ = self(encode_views(views[start : start + batch_size], device))
+                batch = encode_views(views[start : start + batch_size], device)
+                scores, matches, authority = self(batch)
+                if self.readout_mode == "binary":
+                    # A classifier-to-pointer adapter: the zero-logit boundary
+                    # is fixed, not calibrated on validation/test. Eligible
+                    # records compete solely through learned chronology. There
+                    # is still no symbolic key check or selection repair.
+                    eligible = (matches > 0).all(-1) & (authority > 0)
+                    record_scores = (
+                        2 * eligible.float() - 1 + 0.1 * self.order_weight.tanh() * batch.order
+                    )
+                    record_scores = record_scores.masked_fill(~batch.valid, float("-inf"))
+                    scores = torch.cat(
+                        (record_scores, torch.zeros((len(record_scores), 1), device=device)), dim=-1
+                    )
                 selected.extend(
                     -1 if i == scores.shape[1] - 1 else i for i in scores.argmax(-1).tolist()
                 )

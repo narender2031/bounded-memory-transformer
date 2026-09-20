@@ -32,22 +32,60 @@ scored 98.5% on original validation tasks: all 15 errors per 1,000 tasks were
 unsupported queries misread through one attribute mismatch. It fails the full
 gate and is retained, not hidden by seed averaging.
 
-**Final candidate 3:** keep the architecture and corrected generator. First train
+**Candidate 3 (rejected before held-out evaluation):** keep the architecture and
+corrected generator. First train
 the shared comparator for 2,000 steps on all 116 valid digit/digit or
 attribute/attribute pairs from the TRAIN alphabet, balancing equality and
 inequality losses. Freeze its weights, then train authority and chronology for
 3,000 steps on the same record tasks. The final checkpoints of seeds 7/19/43
-are the only new models used on held-out episodes. Configuration:
+were evaluated on validation only. Configuration:
 [reader-candidate-3.json](../projects/04-memory-followup/configs/reader-candidate-3.json).
 This exhaustive supervised primitive is a strong engineering aid. Generalization
 means new combinations of familiar characters and evidence structures; it does
 not mean new character symbols, unsupervised key binding, calibrated trust, or
-an end-to-end language-model solution. No further candidate is planned in v1.
+an end-to-end language-model solution.
+
+**Pre-test amendment, candidate 4:** all three candidate-3 seeds passed the original
+validation gates, but an additional ordered-operation probe exposed stale answers:
+UPDATE→SET, DELETE→SET and DELETE→UPDATE could choose the earlier operation.
+Operation-specific eligibility margins were overwhelming chronology. Preserve
+that failure; no candidate-3 model is used for a held-out claim. Amend the original
+three-candidate development budget to one additional, explicitly recorded version
+before opening any reader test data. The independent uniform replication is a
+different frozen protocol and does not inform this reader change.
+
+Keep comparator pretraining/freeze. Before combining eligibility with chronology,
+replace probability `p` by `clamp(2*p-.5, 0, 1)`. Confidently valid records now have
+equal relevance and compete by the learned chronology term. This deterministic
+saturation band is a disclosed architectural prior, not calibrated uncertainty.
+Add all nine ordered pairs of SET/UPDATE/DELETE, including recreation after
+deletion, both inside memory and in current evidence. Train with six current
+records; validation/test use 32. Final configuration:
+[reader-candidate-4.json](../projects/04-memory-followup/configs/reader-candidate-4.json).
+Only its fixed-step seeds 7/19/43 proceed to the reader's held-out evaluation.
+
+**Final readout amendment, still before reader test generation:** candidate 4's
+soft saturated scores also fail the ordered-operation validation (66.67–77.78%
+across seeds/budgets). Its SET/UPDATE margins settle just inside the saturation
+band, so remaining differences can still outweigh a small chronology gap.
+Retain that negative result. Without additional training or threshold search,
+use the classifier's fixed zero-logit decision boundary for each key component
+and authority. A record is eligible only if all four neural classifications are
+positive. Eligible records receive the same relevance score and then compete
+through the learned chronology coefficient; UNKNOWN wins when none is eligible.
+This is the declared `readout_mode: binary` adapter in the evaluation config.
+It is a stronger deterministic composition rule, not a fully learned ranking
+result. No symbolic key-equality repair, answer value, or oracle index is supplied
+to it. The weights are the unchanged candidate-4 final checkpoints. This fifth
+development readout variation adds no training run and is separately preserved
+in the ablation report. No further reader variation is allowed after test opening.
 
 Training uses only train symbols, mixed 4/8-slot occupancy, current counts
-0/1/3/6/12, and paired empty-memory views. Validation uses the existing validation
+0/1/3/6/12, six-current authoritative transition challenges, and paired empty-memory
+views. Validation uses the existing validation
 symbol partition, current counts 0/1/6/32, and original controls. At most three
-candidate configurations may be developed; retain every outcome. Final models
+candidate configurations were initially budgeted; the pre-test amendment above
+adds a fourth for a demonstrated coverage failure. Retain every outcome. Final models
 use a fixed step count and seeds 7/19/43, never a test-selected checkpoint.
 The disjoint test symbols are inherited from the established benchmark: fresh
 episodes do not constitute a newly untouched research-level symbol partition.
@@ -72,6 +110,9 @@ For each seed evaluate:
 4. Six frozen capacity policies on 128 fresh episodes per A/B and 4/8 slots;
    also frozen learned lifecycle + learned retention actors on the same episodes.
    This is reader validation on retained evidence, not a new capacity claim.
+5. All nine authoritative operation transitions at 4/8 slots, 1,800 tasks per
+   capacity, balanced across memory-only and 32-current-record evidence. Require
+   each transition category to pass separately. This makes 41 conditions per seed.
 
 Exact visible answers, exact current-only answers, the neural reader with memory,
 and the same neural reader without memory are recorded together. Oracle copy

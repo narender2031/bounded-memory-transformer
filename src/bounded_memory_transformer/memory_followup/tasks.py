@@ -86,3 +86,57 @@ def varied_tasks(
             )
         )
     return tasks
+
+
+def authority_tasks(
+    split: str, *, seed: int, count: int, capacity: int, current_count: int = 32
+) -> list[ReaderTask]:
+    """Cross all nine ordered authoritative-kind pairs with memory/current origin."""
+    if count < 1 or capacity < 2 or current_count < 2:
+        raise ValueError("positive count and two slots required")
+    rng = random.Random(seed)
+    symbols = symbol_space(split)
+    kinds = (Kind.SET, Kind.UPDATE, Kind.DELETE)
+    tasks = []
+    for index in range(count):
+        first, last = kinds[(index % 9) // 3], kinds[index % 3]
+        in_current = (index // 9) % 2 == 1
+        entity, other = rng.sample(symbols.entities, 2)
+        attribute = rng.randrange(4)
+        old, new = rng.sample(symbols.values, 2)
+        query = Operation(Kind.ASK, entity, attribute)
+        memory = [
+            Operation(Kind.SET, other, rng.randrange(4), rng.choice(symbols.values))
+            for _ in range(capacity)
+        ]
+        current = (
+            [
+                Operation(Kind.NOISE, entity, attribute, rng.choice(symbols.values))
+                for _ in range(current_count)
+            ]
+            if in_current
+            else []
+        )
+        pair = [
+            Operation(first, entity, attribute, None if first == Kind.DELETE else old),
+            Operation(last, entity, attribute, None if last == Kind.DELETE else new),
+        ]
+        destination = current if in_current else memory
+        destination[-2:] = pair
+        view = QueryView(tuple(memory), tuple(current), query, capacity * 16, ())
+        target = read_visible(view.memory, view.current, query)
+        tasks.append(
+            ReaderTask(
+                index,
+                f"transition_{first.name}_{last.name}",
+                view,
+                empty_memory(view),
+                target,
+                read_visible((), view.current, query),
+                oracle_select(view),
+                capacity,
+                target != UNKNOWN,
+                "current" if in_current else "memory",
+            )
+        )
+    return tasks

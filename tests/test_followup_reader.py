@@ -15,7 +15,7 @@ from bounded_memory_transformer.memory_followup.reader import (
     encode_views,
     supervised_loss,
 )
-from bounded_memory_transformer.memory_followup.tasks import varied_tasks
+from bounded_memory_transformer.memory_followup.tasks import authority_tasks, varied_tasks
 from bounded_memory_transformer.memory_followup.train_reader import freeze_comparator
 
 
@@ -90,11 +90,49 @@ def test_frozen_comparator_cannot_drift_during_record_ranking_training():
     assert not torch.equal(order, model.order_weight.detach())
 
 
+def test_validity_confidence_cannot_override_later_authoritative_evidence():
+    model = FactorizedReader(saturate=True, readout_mode="binary")
+    with torch.no_grad():
+        model.match.weight.zero_()
+        model.match.bias.fill_(10.0)
+        model.authority.weight.copy_(torch.tensor([[0.0], [0.02], [0.2], [6.0], [-3.0]]))
+        model.order_weight.fill_(2.0)
+    for first in (Kind.SET, Kind.UPDATE, Kind.DELETE):
+        for last in (Kind.SET, Kind.UPDATE, Kind.DELETE):
+            current = [Operation(Kind.NOISE, 13, 0, 91)] * 32
+            current += [
+                Operation(first, 13, 0, None if first == Kind.DELETE else 25),
+                Operation(last, 13, 0, None if last == Kind.DELETE else 45),
+            ]
+            assert model.select([view(current=current)]) == [33]
+
+
+def test_authority_challenge_covers_all_transitions_in_memory_and_current():
+    tasks = authority_tasks("train", seed=61, count=180, capacity=4)
+    combinations = {(t.stratum, len(t.view.current)) for t in tasks}
+    assert len(combinations) == 18
+    for task in tasks:
+        records = (*task.view.memory, *task.view.current)
+        assert task.oracle_index == len(records) - 1
+        assert task.target == read_visible(task.view.memory, task.view.current, task.view.query)
+
+
 def test_copy_does_not_repair_a_wrong_neural_key_selection():
     v = view([Operation(Kind.SET, 23, 0, 25)], [Operation(Kind.UPDATE, 13, 0, 45)])
     assert copy_selected(v, 0) == "25"
     assert copy_selected(v, 1) == "45"
     assert copy_selected(v, -1) == "??"
+
+
+def test_binary_adapter_does_not_secretly_apply_symbolic_key_matching():
+    model = FactorizedReader(readout_mode="binary")
+    with torch.no_grad():
+        model.match.weight.zero_()
+        model.match.bias.fill_(10.0)
+        model.authority.weight.fill_(10.0)
+    wrong = view([Operation(Kind.SET, 23, 0, 25)])
+    assert model.select([wrong]) == [0]
+    assert copy_selected(wrong, 0) == "25"
 
 
 def test_each_question_category_spans_each_occupancy_when_all_are_feasible():
@@ -118,7 +156,7 @@ def test_heldout_preflight_rejects_wrong_training_candidate_and_changed_evaluati
 
     configs = Path("projects/04-memory-followup/configs")
     evaluation = json.loads((configs / "reader-evaluation.json").read_text())
-    selected = json.loads((configs / "reader-candidate-3.json").read_text())
+    selected = json.loads((configs / "reader-candidate-4.json").read_text())
     earlier = json.loads((configs / "reader-candidate-2.json").read_text())
     validate_protocol_configs(evaluation, selected, smoke=False)
     with pytest.raises(ValueError, match="candidate"):

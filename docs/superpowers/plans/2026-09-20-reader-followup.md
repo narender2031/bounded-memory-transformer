@@ -28,8 +28,10 @@ unchanged. This plan is implementation authorization, not a claim of success.
 ## Boundaries
 
 All changes live in new `memory_followup` modules and Project 04 artifacts;
-Project 03 source remains frozen. Develop at most three reader configurations
-using validation. Retain every development outcome; if gates fail, report the
+Project 03 source remains frozen. Initially budget three reader configurations
+using validation. A pre-test amendment permits one fourth version after an
+additional validation probe exposed reverse-operation/recreation failures despite
+passing the earlier slices. Retain every development outcome; if gates fail, report the
 failure and a next hypothesis rather than retuning after a held-out result.
 The final architecture need not be a new scientific contribution: it first
 establishes trustworthy experimental instrumentation for the capacity study.
