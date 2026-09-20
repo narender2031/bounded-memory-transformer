@@ -446,3 +446,40 @@ The document is part of [draft PR #2](https://github.com/narender2031/bounded-me
 **Next action:** the user reviews the brief and selects the scope. After that
 review, resolve requested changes and write the detailed implementation plan
 before beginning model or benchmark implementation.
+
+## 2026-09-20 — Approved five-case implementation, before held-out evaluation
+
+**Authorization:** the user approved the five-case proposal with oracle controls,
+rejection strata, dual reader gates, predictable/unpredictable capacity workloads,
+and retention regret, then requested implementation and testing of every case.
+Created an isolated `feat/five-case-memory` worktree; the original checkout's
+uncommitted research notes and Project 01 artifacts were left untouched.
+
+**Implementation:** separate reader selection/copy/generation arms, a learned
+feature-assisted lifecycle controller, causal delayed-reward capacity training,
+exact controls, fixed-state baselines, metrics, saved predictions/checkpoints,
+and a combined diagnostic. See D013, the locked protocol, and execution plan.
+No additional literature search was needed; paper interpretations are unchanged.
+
+**Evidence from development:** an independent review caught a generator shortcut:
+operation-kind tokens alone initially identified the relevant current fact.
+Added mixed unrelated current/memory operations and query-blind regression rules;
+those shortcuts now fail 55–100% in the four rejection strata. This was fixed on
+train/validation before the recorded experiment. An erroneous writer can produce
+an occupied key with value -1; its reader projection now preserves it as DELETE
+evidence rather than crashing or repairing the decision. Review also caught a
+microtask-only relative gate; episode controls now have their own required gate.
+
+**Inference:** tests establish instrumentation behavior, not successful learned
+memory. The cue-only learned policy has no information advantage over the
+cue-priority control. **Hypothesis:** it may learn that signal and improve useful
+retention in B without systematic gains in A. Full held-out results are pending.
+
+**Next actions:** run the checked-in CPU smoke, commit the protocol/source/config,
+train seeds 7/19/43 before creating any held-out data, finish all evaluations, and
+reconcile saved predictions before reporting results. Preserve failed gates.
+
+Pre-freeze verification: **95 tests passed** in 2.43 seconds; Ruff and whitespace
+checks passed. The checked-in five-step CPU smoke completed every case, all
+policies and both capacities. Its learned gates failed as expected for untrained
+models; the oracle controls were exact. This is pipeline verification only.

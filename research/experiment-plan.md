@@ -4,10 +4,13 @@ Last updated: 2026-09-20
 
 ## Current execution phases
 
-**Pending review:** [Memory improvements: proposal for review](memory-improvements-review-brief.md)
-recommends five focused cases and compares four/six-case alternatives. The user
-will review the scope before implementation. Proposed cases and slice thresholds
-are not additions to the frozen pilots or an approved training configuration.
+**Approved execution:** the user approved all five cases with explicit selector
+oracle, four rejection strata, absolute plus relative reader gates, A/B capacity
+workloads, and an evaluation-only retention bound. They authorized implementing
+and locally testing every case. See the [approved brief](memory-improvements-review-brief.md),
+[locked protocol](../docs/superpowers/specs/2026-09-20-five-case-memory.md),
+and [configuration](../projects/03-memory-reliability/configs/five-case-small.json).
+A separate `memory_experiments` package preserves the recorded Phase 1 pilots.
 
 The user's three-phase plan now governs implementation. The longer architectural
 ladder below remains a proposal, not work already completed.

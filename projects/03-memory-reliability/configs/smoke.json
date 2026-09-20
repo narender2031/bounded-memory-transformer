@@ -1,0 +1,51 @@
+{
+  "seeds": [
+    7
+  ],
+  "device": "cpu",
+  "threads": 1,
+  "reader": {
+    "capacity": 4,
+    "train_examples": 100,
+    "validation_examples": 50,
+    "selector_steps": 5,
+    "character_steps": 5,
+    "batch_size": 8,
+    "learning_rate": 0.002,
+    "d_model": 16,
+    "n_heads": 2,
+    "n_layers": 1,
+    "context_length": 128,
+    "selector_d_model": 16,
+    "selector_n_layers": 1,
+    "log_every": 5
+  },
+  "lifecycle": {
+    "steps": 5,
+    "batch_size": 8,
+    "learning_rate": 0.01,
+    "hidden": 8,
+    "slots": 4,
+    "training_examples": 64
+  },
+  "capacity_training": {
+    "episodes": 4,
+    "capacity": 4,
+    "learning_rate": 0.03
+  },
+  "evaluation": {
+    "split": "validation",
+    "reader_tasks": 50,
+    "lifecycle_episodes": 8,
+    "capacity_episodes": 4,
+    "capacity_queries": 8,
+    "capacity_slots": [
+      4,
+      8
+    ],
+    "reader_seed": 2121,
+    "lifecycle_seed": 2122,
+    "capacity_seed": 2123,
+    "bootstrap_samples": 50
+  }
+}

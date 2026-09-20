@@ -1,8 +1,35 @@
-# Memory improvements: proposal for review
+# Memory improvements: approved five-case scope
 
-Date: 2026-09-20. **Status: proposed scope; awaiting your review.**
-This brief selects experiments from the six-paper review. Implementation starts
-after you review the scope. These are proposed tests, not measured improvements.
+Date: 2026-09-20. **Status: five cases approved; implementation and local testing authorized.**
+The user approved the scope with the amendments below. Paper results remain
+evidence for experimental choices, not measured improvements to our system.
+The [locked protocol](../docs/superpowers/specs/2026-09-20-five-case-memory.md)
+and [execution plan](../docs/superpowers/plans/2026-09-20-five-case-memory.md)
+govern the new experiment; historical pilots stay frozen.
+
+## Approved amendments
+
+- Case 1 has four explicit arms: character reader; learned selector → character
+  generation; the same selector → exact copy; oracle selector → exact copy.
+  The oracle reads only visible evidence and must agree with the exact reader 100%.
+- Case 2 reports unsupported, contradicted/stale, irrelevant, and deleted
+  separately. Every task includes unrelated SET/UPDATE/DELETE/NOISE distractors,
+  so an operation-label shortcut cannot replace full-key matching.
+- Require ≥95% visible-evidence accuracy per seed and required category, plus
+  ≥95% oracle-relative recovery: `(A_neural - A_current_only) /
+  (A_exact_visible - A_current_only)`. Nonpositive headroom is unavailable.
+  Report and gate recovery on episode controls as well as reader microtasks.
+- Case 5 separates uniform unpredictable queries (A) from queries correlated
+  with an observable, budgeted durability cue (B). Future suffixes never enter
+  the online policy or eviction labels. Use delayed answer rewards for learning.
+- Report evaluation-only clairvoyant top-K retention utility and regret. Add
+  stateless random and cue-priority controls; the latter exposes whether learning
+  merely recovers the planted heuristic.
+- Keep ABSTAIN in the reader, four symbolic slots, and eight-slot transfer.
+  Defer DEFER, Case 6, latent compression, and LRU until their workloads exist.
+
+The original alternatives and paper-to-case rationale below remain for context;
+the approved amendments and locked protocol take precedence.
 
 ## Recommendation: five cases
 
@@ -148,8 +175,8 @@ latent decompression, reconstruction/pollution auxiliary losses, and uncertain
 evidence until the five-case measurements justify a particular addition. MetaKV
 remains outside the core comparison. LRU is planned, not an existing baseline.
 
-For review: choose the four-, five-, or six-case scope, check the proposed reader
-gates, and confirm the separation between reader and writer experiments. The
-recommendation is **five cases, implemented in stages**, starting with cases 1–2.
+The user selected **five cases, implemented in stages**, starting with cases 1–2,
+and then authorized building and testing all five. The amendments above replace
+the earlier review checkpoint.
 The [full paper review](reading-notes/2026-09-20-six-paper-review.md) retains the
 methodological details behind this brief.

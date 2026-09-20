@@ -133,3 +133,37 @@ Introduce uncertainty, derived facts, and dependency repair only as separately
 declared workloads. Full raw-history replay remains outside strict comparisons.
 Current metrics and historical pilots remain unchanged. Retaining the entire
 unbounded world state is not a valid success target for four symbolic slots.
+
+## 2026-09-20 — D013: Execute five decomposed cases with causal capacity learning
+
+**Decision:** the user approved and authorized all five cases. Freeze the
+[protocol](../docs/superpowers/specs/2026-09-20-five-case-memory.md) and
+[configuration](../projects/03-memory-reliability/configs/five-case-small.json)
+before held-out evaluation. Four reader arms share inputs/weights/selector
+choices as applicable. Use the exact visible oracle as a 100% implementation
+control, not as an oracle for discarded facts. Separately report unsupported,
+contradicted, irrelevant, and deleted queries.
+
+**Gates:** ≥95% per-seed visible accuracy overall and on every required reader
+slice. Recovery is `(A_neural-A_current_only)/(A_exact_visible-A_current_only)`;
+nonpositive headroom is unavailable, not a pass. Require ≥95% recovery on the
+reader microtasks and each declared nonempty-memory episode control, including
+combined diagnostics. Require ≥95% lifecycle semantic, update, deletion, and
+control preservation. Failed gates label the combined system unvalidated; they
+do not authorize changing held-out tasks or skipping the remaining cases.
+
+**Capacity:** canonical K×4 int32 `[entity, attribute, value, observed cue]`,
+64 bytes at four slots. Evaluate identical weights at eight slots. Workload A
+has uniform future queries; B has a planted binary cue with 5:1 query weighting.
+The cue is observed before independent query sampling and charged to all banks.
+Train the 25-parameter cue scorer with delayed query rewards, never future action
+or frequency labels. Compare FIFO, recency, bounded similarity, stateless random,
+and a cue-priority heuristic. A clairvoyant top-K future-count oracle is a feasible
+evaluation-only bound for this write-then-query workload; report retention regret.
+
+**Interpretation:** this tests whether simple causal learning recovers observable
+utility, not whether it predicts arbitrary future questions or beats a matched
+heuristic. Writer symbolic equality features and selector provenance supervision
+are disclosed engineering aids. ABSTAIN stays in the reader; DEFER, latent slots,
+dependency repair, and interleaved-access LRU are deferred. Prior pilots keep their
+original event-bank semantics and cannot be directly compared to the new scores.

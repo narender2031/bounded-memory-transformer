@@ -280,26 +280,24 @@ At the end of every session:
 
 ## Immediate next action
 
-**User review checkpoint (2026-09-20):** the user requested a brief proposal to
-analyze before implementation. The [five-case review brief](research/memory-improvements-review-brief.md)
-compares four-, five-, and six-case scopes and links each proposal to the paper
-evidence. Its scope and additional slice gates are recommendations, not approved
-experimental changes. Await the user's review before starting the work below.
+**Approved implementation (2026-09-20):** the user approved five cases and
+explicitly requested building and testing every case. The review checkpoint is
+complete. Work proceeds in the isolated `feat/five-case-memory` worktree:
+`/Users/narendersingh/transformer/bounded-memory-transformer-five-cases`.
 
-1. Specify and implement a learned record selector with exact value copying and
-   an UNKNOWN option, using train/validation evidence only. Compare against the
-   character reader and exact-rule control; include current-session records.
-   Require at least 95% visible-evidence validation accuracy per seed, and declare
-   slice gates for full-key matching, abstention, updates/deletes, and four-slot
-   occupancy before the next training run. See D011 and the diagnostic note.
-2. Predeclare the next independent test before inspecting it. Preserve the two
-   recorded pilots; do not tune their held-out generators or relabel their metrics.
-3. Repeat the paired no-memory/FIFO/recency/similarity experiment with the competent
-   reader. Compare against the exact-reader control before interpreting a combined
-   Phase 2 system. A bounded action-and-target writer can be studied separately
-   with the exact-rule reader after its workload and transition metrics are declared.
-4. Project 01 PR #1 remains open; this phase was implemented locally on top of its
-   source without merging it. Preserve prior uncommitted research notes.
+- [Locked protocol](docs/superpowers/specs/2026-09-20-five-case-memory.md): selector
+  oracle, four rejection strata, two reader gates, lifecycle, A/B capacity, regret.
+- [Execution plan](docs/superpowers/plans/2026-09-20-five-case-memory.md).
+- [Frozen run configuration](projects/03-memory-reliability/configs/five-case-small.json).
+- New `memory_experiments` package; historical `memory_benchmark` is unchanged.
+
+All five implementations and a CPU integration test are available. Next: freeze
+source/config, execute three seeds locally, independently reconcile predictions,
+and document successful and failed gates. All models must finish training before
+held-out episodes are constructed. No test-based retuning or success claims from
+unit tests alone. The four-slot canonical bank includes its observed utility cue
+within 64 bytes. This is an interpretable symbolic experiment, not latent memory.
+Keep original-checkout uncommitted work untouched. PR #1/#2 remain unmerged.
 
 ## External research cadence
 

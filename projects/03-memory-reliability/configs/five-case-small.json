@@ -1,0 +1,53 @@
+{
+  "seeds": [
+    7,
+    19,
+    43
+  ],
+  "device": "auto",
+  "threads": 4,
+  "reader": {
+    "capacity": 4,
+    "train_examples": 65535,
+    "validation_examples": 2560,
+    "selector_steps": 6000,
+    "character_steps": 6000,
+    "batch_size": 64,
+    "learning_rate": 0.002,
+    "d_model": 96,
+    "n_heads": 4,
+    "n_layers": 2,
+    "context_length": 128,
+    "selector_d_model": 48,
+    "selector_n_layers": 1,
+    "log_every": 1000
+  },
+  "lifecycle": {
+    "steps": 300,
+    "batch_size": 128,
+    "learning_rate": 0.01,
+    "hidden": 32,
+    "slots": 4,
+    "training_examples": 4096
+  },
+  "capacity_training": {
+    "episodes": 1024,
+    "capacity": 4,
+    "learning_rate": 0.03
+  },
+  "evaluation": {
+    "split": "test",
+    "reader_tasks": 2560,
+    "lifecycle_episodes": 800,
+    "capacity_episodes": 128,
+    "capacity_queries": 32,
+    "capacity_slots": [
+      4,
+      8
+    ],
+    "reader_seed": 2026092011,
+    "lifecycle_seed": 2026092012,
+    "capacity_seed": 2026092013,
+    "bootstrap_samples": 2000
+  }
+}
