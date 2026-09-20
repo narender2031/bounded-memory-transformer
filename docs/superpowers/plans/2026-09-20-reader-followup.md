@@ -22,7 +22,7 @@ unchanged. This plan is implementation authorization, not a claim of success.
 - [x] Design Case 5B-v2 using observed past access and lifecycle events, budgeted
   metadata, strong access heuristics, causal learning, and held-out mechanisms.
   No Case 5B-v2 implementation or success claim is implied by this design task.
-- [ ] Audit saved predictions, run lint/tests, document evidence/inferences and
+- [x] Audit saved predictions, run lint/tests, document evidence/inferences and
   failures, update continuity files, and open a stacked reviewable draft PR.
 
 ## Boundaries
@@ -41,3 +41,8 @@ establishes trustworthy experimental instrumentation for the capacity study.
 Full held-out execution depends on passing behavioral checks and freezing the
 protocol/configuration/source. Independent uniform replication and Case 5B
 design can proceed alongside reader development without sharing model state.
+
+Completed: [results](../../../research/reader-followup-results-2026-09-20.md) and
+[draft PR #4](https://github.com/narender2031/bounded-memory-transformer/pull/4).
+Emergent utility remains a design; its implementation and evaluation are not
+completion criteria for this reader/replication/design task.

@@ -661,3 +661,9 @@ Frozen reader source/config/protocol are unchanged from `1845235`; both historic
 experiment packages are unchanged from `4765f2f`. The original checkout retains
 its pre-session dirty status. The standalone figure was visually checked after
 moving its equivalence-margin legend out of the plotted intervals.
+
+Review handoff: [draft PR #4](https://github.com/narender2031/bounded-memory-transformer/pull/4)
+is open against `feat/five-case-memory` (#3), with results commit `39d67eb`.
+The PR links hosted CPU verification for its current revision. No base PR was
+merged. This completes the authorized reader, replication, and design tasks;
+the next research implementation is the separately specified EU1 development stage.

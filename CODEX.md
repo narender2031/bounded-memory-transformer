@@ -144,6 +144,10 @@ development: `runs/reader-followup-development`. Compact checked-in evidence:
 `projects/04-memory-followup/results/2026-09-20-v1`.
 Historical experiment packages and the original checkout's dirty work are unchanged.
 
+Review: [draft PR #4](https://github.com/narender2031/bounded-memory-transformer/pull/4),
+stacked on #3. Local verification: 156 tests, Ruff, whitespace and 89 document links
+pass. The PR exposes the current hosted CPU-check status. No base PR is merged.
+
 ## Project 03 — five cases implemented and tested
 
 The user approved all five cases and authorized implementation and local testing.
