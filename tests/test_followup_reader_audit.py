@@ -189,6 +189,10 @@ def test_report_tampering_and_row_hash_tampering_are_both_rejected(tmp_path):
     bad["visible_accuracy"] = 1
     with pytest.raises(module.AuditError, match="visible_accuracy"):
         module.audit_condition(path, bad, bootstrap_samples=20)
+    invented = deepcopy(report)
+    invented["by_category"]["invented"] = {"count": 500, "accuracy": 1.0}
+    with pytest.raises(module.AuditError, match="categor"):
+        module.audit_condition(path, invented, bootstrap_samples=20)
     with path.open("ab") as handle:
         handle.write(b"tamper")
     with pytest.raises(module.AuditError, match="hash"):
@@ -544,3 +548,26 @@ def test_complete_seed_inventory_cannot_omit_an_unfavorable_condition(tmp_path):
     (tmp_path / "summary.json").write_text(json.dumps(summary))
     with pytest.raises(module.AuditError, match="complete conditions"):
         module.audit_run(tmp_path, source_root=tmp_path)
+
+
+def test_recovery_formula_is_not_clamped_to_a_unit_interval():
+    module = auditor()
+    low = literal_rows()
+    low[0].update(selected=-1, answer="??")
+    assert module.recompute_rows(low, bootstrap_samples=20)["reader_recovery"]["value"] == -1
+    high = literal_rows()
+    high[1].update(selected=1, answer="??")
+    high[3].update(selected=1, answer="50")
+    result = module.recompute_rows(high, bootstrap_samples=20)
+    assert result["reader_recovery"]["value"] == 2
+    assert result["relative_gate_passed"] is True
+    assert result["passed"] is False
+
+
+def test_query_count_cannot_hide_missing_or_duplicated_independent_episodes():
+    module = auditor()
+    rows = [{"episode_id": identity} for identity in (0, 0, 1, 1)]
+    module.verify_episode_counts(rows, episode_count=2, queries_per_episode=2)
+    rows[-1]["episode_id"] = 0
+    with pytest.raises(module.AuditError, match="episode"):
+        module.verify_episode_counts(rows, episode_count=2, queries_per_episode=2)

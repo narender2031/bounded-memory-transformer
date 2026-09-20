@@ -378,6 +378,14 @@ def audit_condition(
         condition=condition,
         category_overrides=category_overrides,
     )
+    for field in ("by_category", "paired", "reader_recovery"):
+        equal(set(fresh[field]), set(reported[field]), f"report/{field}/fields")
+    for label in fresh["by_category"]:
+        equal(
+            {"count", "accuracy"},
+            set(reported["by_category"][label]),
+            f"report/by_category/{label}/fields",
+        )
     require(
         len(set(reported["absent_categories"])) == len(reported["absent_categories"]),
         "duplicate absent categories",
@@ -661,6 +669,13 @@ def load_rows(path):
         return [json.loads(line) for line in handle if line.strip()]
 
 
+def verify_episode_counts(rows, *, episode_count, queries_per_episode):
+    counts = dict(Counter(row["episode_id"] for row in rows))
+    expected = {identity: queries_per_episode for identity in range(episode_count)}
+    equal(set(expected), set(counts), "independent episode identity inventory")
+    equal(expected, counts, "queries per independent episode")
+
+
 def audit_run(run, *, source_root=None):
     run = Path(run).resolve()
     root = Path(source_root).resolve() if source_root else Path(__file__).resolve().parents[2]
@@ -690,7 +705,7 @@ def audit_run(run, *, source_root=None):
     equal(expected_artifacts, set(summary["artifact_hashes"]), "complete artifact hash inventory")
     artifact_count = verify_file_hashes(summary["artifact_hashes"], run)
     frozen = load_json(run / "frozen-manifest.json")
-    equal({}, frozen["seeds"], "manifest was frozen before any seed result")
+    require(frozen["seeds"] == {}, "manifest must be frozen before any seed result")
     for field in ("config", "hashes", "smoke", "frozen_utc", "git_commit", "environment"):
         equal(frozen[field], summary[field], f"frozen manifest/{field}")
         if isinstance(frozen[field], dict):
@@ -780,6 +795,9 @@ def audit_run(run, *, source_root=None):
                 equal(config[f"{family}_count"], len(rows), f"{condition}/sample count")
             elif condition == "lifecycle":
                 equal(2 * config["lifecycle_count"], len(rows), "lifecycle sample count")
+                verify_episode_counts(
+                    rows, episode_count=config["lifecycle_count"], queries_per_episode=2
+                )
                 raw = load_json(run / f"lifecycle-{seed}.json")
                 overrides = verify_lifecycle_evidence(raw, rows)
             else:
@@ -788,6 +806,9 @@ def audit_run(run, *, source_root=None):
                 family, workload, slots, policy = match.groups()
                 slots = int(slots)
                 equal(32 * config["capacity_count"], len(rows), "capacity sample count")
+                verify_episode_counts(
+                    rows, episode_count=config["capacity_count"], queries_per_episode=32
+                )
                 raw = load_json(run / f"{condition}-{seed}.json")
                 if family == "combined":
                     raw = raw["result"]

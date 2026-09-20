@@ -45,17 +45,27 @@ This is a hypothesis, not a result.
 
 ## Research status
 
-The five-case study is implemented and has completed a three-seed local run.
-Selection/copying improves reader accuracy to 92.83%, but every seed still fails
-the full reader gates. Controlled updates/deletions score 100%. On predictable
-future utility, learned retention reaches 27.91% versus FIFO's 15.41% with four
-slots, matching the cue-priority heuristic. The combined system remains unvalidated.
+The reader follow-up now passes both 95% gates in all 41 conditions for each of
+three seeds. A 7,639-parameter neural classifier with explicit composition and
+exact copying matches the visible-evidence oracle at 100%; the frozen previous
+reader reaches 92.74% on the same fresh four-slot original tasks. This establishes
+symbolic reading competence with strong architectural priors. It does not solve
+uncertain-source trust or recover facts the writer discarded.
 
-Start with [Project 03 and reproduction commands](projects/03-memory-reliability/README.md)
-and the [detailed five-case report](research/five-case-results-2026-09-20.md).
-The run took 12.28 minutes on an M2 Pro MacBook with 16 GiB RAM. All 95 tests pass;
-independent auditing reconciles the saved predictions, metrics, and hashes.
-Historical **Experiment 01 — When Memory Hurts** remains a weak-reader pilot.
+An independent 10,240-episode uniform-query replication puts all six learned–baseline
+contrasts inside the preregistered ±1 percentage-point equivalence margin. The
+earlier eight-slot advantage did not replicate. Historical predictable-utility
+gains still match a planted cue heuristic; emergent utility remains unproved.
+
+![Audited reader and uniform-control results](projects/04-memory-followup/results/2026-09-20-v1/reader-and-uniform.png)
+
+Start with [Project 04 reproduction](projects/04-memory-followup/README.md), the
+[detailed follow-up report](research/reader-followup-results-2026-09-20.md), and
+the [Case 5B emergent-utility design](research/case-5b-emergent-utility-design.md).
+The runs and independent audits completed locally on an M2 Pro MacBook, 16 GiB.
+The [original five-case results](research/five-case-results-2026-09-20.md) and
+historical **Experiment 01 — When Memory Hurts** remain preserved, including
+failed gates. Case 5B is designed but has not been implemented or evaluated.
 
 See:
 

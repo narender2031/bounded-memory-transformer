@@ -189,3 +189,70 @@ UNKNOWN thresholds, and occupancy/current-record distribution. Predeclare a new
 held-out protocol after development, and separately replicate uniform A on fresh
 episodes. More realistic future utility needs an interleaved, budgeted-access
 workload and stronger access-based baselines; latent compression stays deferred.
+
+## 2026-09-20 — D015: Qualify and freeze the reliable symbolic reader
+
+**Evidence:** the [follow-up report](reader-followup-results-2026-09-20.md) records
+100% visible accuracy and raw oracle-relative recovery in all 41 conditions for
+each of seeds 7/19/43, after freeze `1845235`. The independent audit reconciles
+all 437,664 saved rows. Original generator/metrics/checkpoints are unchanged.
+Four training variants and a fifth readout variation were explored on development
+data, with explicit pre-test amendments. Failed occupancy coverage, unsupported
+matching, and reverse-operation/recreation probes remain archived.
+
+**Decision:** use the final reader as qualified symbolic instrumentation. Disclose
+its learned field comparator, exhaustive training-alphabet pair supervision,
+frozen comparator curriculum, learned authority, deterministic binary conjunction
+and chronology composition, and exact copy. Candidate-4 soft training scores
+and the final binary evaluation adapter are different paths over identical weights.
+No inference-time exact-key repair is permitted. Do not describe this as a fully
+learned ranker, free-form generation breakthrough, or calibrated source trust.
+
+**Constraints:** no post-test model, generator, metric or gate tuning. A visible
+UNKNOWN can be correct while losing world recall; an unseen superseding event
+cannot be inferred from absent evidence. Zero observed harm is confined to the
+declared authoritative symbolic suite. Shared model/policy rows are not independent
+episodes. New task families require separate freezes and evaluation.
+
+## 2026-09-20 — D016: Accept the preregistered uniform equivalence result
+
+**Evidence:** protocol/config freeze `569c387` preceded 20 fresh dataset seeds,
+512 episodes each. All six learned-minus-FIFO/recency/random contrasts at K4/K8
+have corrected analytic and paired bootstrap intervals inside ±1 percentage
+point and containing zero. The K8 learned/FIFO contrast is −0.0391 points
+[−0.3985, +0.3204]. All 122,880 banks satisfy the full distinct-current-key premise
+for the K/24 uniform expectation. Independent artifact/metric/transition audit passes.
+
+**Decision:** the predeclared practical-equivalence criterion is met; the previous
++3.08-point K8 advantage did not replicate. Preserve that original positive interval.
+Do not claim exact mathematical equality from finite data or use this control to
+claim utility-learning success. The frozen learned checkpoints are greedy-policy
+aliases; three model seeds do not triple independent episode N. Random policy
+seeds are averaged within episode for contrasts.
+
+**Inference:** the former positive contrast is consistent with sampling variation.
+Uniformly unpredictable future queries offer no information advantage to the
+observed cue. Learned write compute is higher than FIFO with no measured benefit
+in this condition. Utility questions must contain causal predictive structure.
+
+## 2026-09-20 — D017: Separate emergent utility from planted-cue capacity
+
+**Decision:** adopt [EU1](case-5b-emergent-utility-design.md) as the proposed next
+design, identifier `case_5b_emergent_utility_v1`, without renaming or replacing
+historical B. Implementation/training/test opening remain pending. Learn from past
+observations and realized rewards only; ASK provides a key and never restores
+a missing value. Charge keys, values, sketches, counters, timestamps, and feedback
+state within 64/128 bytes. Shared exact lifecycle guards isolate retention learning.
+
+**Evidence:** the [dated primary-source check](reading-notes/2026-09-20-emergent-utility-prior-art.md)
+establishes access-based utility, recency/frequency adaptation, and learned caching
+as prior art. ARC/LeCaR histories and LRB training buffers cannot be free state.
+TinyLFU-style nonresident frequency is a necessary strong comparator, with its
+adaptation and small sketch explicitly disclosed.
+
+**Constraints:** compare independent strong heuristics, tuned hybrid and ablations
+on held-out abrupt drift, recurrence and scan mechanisms, five model seeds and four
+episode-seed blocks. Require the predeclared effect, simultaneous interval, seed
+consistency and harm gates. Future-informed labels cannot enter the actor. Use a
+feasible-transition oracle on the small certified panel; a future-count top-K list
+is not a valid interleaved oracle. No emergent-utility or novelty result exists yet.

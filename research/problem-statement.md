@@ -46,6 +46,20 @@ The [first five-case result](five-case-results-2026-09-20.md) passes controlled
 lifecycle checks but fails reader competence and matches the strong capacity
 heuristic. It does not establish the broader hypotheses or a novelty claim.
 
+The [reader/control follow-up](reader-followup-results-2026-09-20.md) now passes
+all declared reader gates with a structured neural classifier and exact copying.
+Its independent uniform replication meets a ±1-point equivalence criterion.
+These results establish instrumentation and a negative control; they do not show
+learned retention outperforming strong utility heuristics.
+
+The next operational question is whether a bounded model can infer future value
+from past experience under distribution shift while avoiding harmful use of
+retained information. [Case 5B emergent utility](case-5b-emergent-utility-design.md)
+specifies interleaved observations, no refill on ASK, charged metadata, strong
+access-based baselines, held-out workload mechanisms, and separate harm gates.
+This is a design with no results yet. The longer-term latent-state hypotheses
+below remain unproved.
+
 ## Required memory operations
 
 The model must learn five distinct behaviours:

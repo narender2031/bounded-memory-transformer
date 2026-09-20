@@ -1,0 +1,193 @@
+{
+  "reader": {
+    "select": {
+      "v1": 0.895,
+      "final": 1.0,
+      "evaluations": 3000
+    },
+    "unsupported": {
+      "v1": 0.934,
+      "final": 1.0,
+      "evaluations": 3000
+    },
+    "contradicted": {
+      "v1": 0.9156666666666666,
+      "final": 1.0,
+      "evaluations": 3000
+    },
+    "irrelevant": {
+      "v1": 0.9393333333333334,
+      "final": 1.0,
+      "evaluations": 3000
+    },
+    "deleted": {
+      "v1": 0.953,
+      "final": 1.0,
+      "evaluations": 3000
+    }
+  },
+  "uniform": {
+    "K4:learned-fifo": {
+      "alpha": 0.05,
+      "bootstrap_ci": [
+        -0.0026591110229492185,
+        0.002587928771972653
+      ],
+      "bootstrap_equivalent": true,
+      "bootstrap_negative": false,
+      "bootstrap_positive": false,
+      "ci95": [
+        -0.002037779013403404,
+        0.0018546735446534038
+      ],
+      "episodes": 10240,
+      "equivalence_margin": 0.01,
+      "equivalent": true,
+      "family_size": 6,
+      "mean": -9.1552734375e-05,
+      "negative": false,
+      "positive": false,
+      "simultaneous_ci": [
+        -0.002711318034645674,
+        0.002528212565895674
+      ],
+      "standard_deviation": 0.10048360777810414,
+      "standard_error": 0.0009929908377806884
+    },
+    "K4:learned-random": {
+      "alpha": 0.05,
+      "bootstrap_ci": [
+        -0.0022756195068359443,
+        0.0017371368408203138
+      ],
+      "bootstrap_equivalent": true,
+      "bootstrap_negative": false,
+      "bootstrap_positive": false,
+      "ci95": [
+        -0.0017635026825201733,
+        0.0012202897918951738
+      ],
+      "episodes": 10240,
+      "equivalence_margin": 0.01,
+      "equivalent": true,
+      "family_size": 6,
+      "mean": -0.00027160644531249963,
+      "negative": false,
+      "positive": false,
+      "simultaneous_ci": [
+        -0.002279809723603559,
+        0.0017365968329785594
+      ],
+      "standard_deviation": 0.07702656056008246,
+      "standard_error": 0.000761185536558611
+    },
+    "K4:learned-recency": {
+      "alpha": 0.05,
+      "bootstrap_ci": [
+        -0.002783203125,
+        0.0025014495849609354
+      ],
+      "bootstrap_equivalent": true,
+      "bootstrap_negative": false,
+      "bootstrap_positive": false,
+      "ci95": [
+        -0.002160874981733415,
+        0.001733628887983415
+      ],
+      "episodes": 10240,
+      "equivalence_margin": 0.01,
+      "equivalent": true,
+      "family_size": 6,
+      "mean": -0.000213623046875,
+      "negative": false,
+      "positive": false,
+      "simultaneous_ci": [
+        -0.00283476895616449,
+        0.00240752286241449
+      ],
+      "standard_deviation": 0.10053656235961848,
+      "standard_error": 0.0009935141411873333
+    },
+    "K8:learned-fifo": {
+      "alpha": 0.05,
+      "bootstrap_ci": [
+        -0.003907318115234375,
+        0.003188133239746088
+      ],
+      "bootstrap_equivalent": true,
+      "bootstrap_negative": false,
+      "bootstrap_positive": false,
+      "ci95": [
+        -0.0030612351145959515,
+        0.0022799851145959516
+      ],
+      "episodes": 10240,
+      "equivalence_margin": 0.01,
+      "equivalent": true,
+      "family_size": 6,
+      "mean": -0.000390625,
+      "negative": false,
+      "positive": false,
+      "simultaneous_ci": [
+        -0.003985464810848251,
+        0.003204214810848251
+      ],
+      "standard_deviation": 0.13788352473447457,
+      "standard_error": 0.0013625812186659472
+    },
+    "K8:learned-random": {
+      "alpha": 0.05,
+      "bootstrap_ci": [
+        -0.0031304295857747387,
+        0.0018893941243489428
+      ],
+      "bootstrap_equivalent": true,
+      "bootstrap_negative": false,
+      "bootstrap_positive": false,
+      "ci95": [
+        -0.0025738272466189656,
+        0.001218846777868965
+      ],
+      "episodes": 10240,
+      "equivalence_margin": 0.01,
+      "equivalent": true,
+      "family_size": 6,
+      "mean": -0.0006774902343750003,
+      "negative": false,
+      "positive": false,
+      "simultaneous_ci": [
+        -0.003230100871600499,
+        0.001875120402850498
+      ],
+      "standard_deviation": 0.09790782634409363,
+      "standard_error": 0.0009675366625111637
+    },
+    "K8:learned-recency": {
+      "alpha": 0.05,
+      "bootstrap_ci": [
+        -0.0039357757568359375,
+        0.003225746154785153
+      ],
+      "bootstrap_equivalent": true,
+      "bootstrap_negative": false,
+      "bootstrap_positive": false,
+      "ci95": [
+        -0.00308892975706029,
+        0.00223443756956029
+      ],
+      "episodes": 10240,
+      "equivalence_margin": 0.01,
+      "equivalent": true,
+      "family_size": 6,
+      "mean": -0.00042724609375,
+      "negative": false,
+      "positive": false,
+      "simultaneous_ci": [
+        -0.004010070237363295,
+        0.0031555780498632945
+      ],
+      "standard_deviation": 0.13742265230689307,
+      "standard_error": 0.0013580268230974203
+    }
+  }
+}
