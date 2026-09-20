@@ -20,7 +20,12 @@ POLICY_LABELS = ("None", "FIFO", "Recency", "Random", "Similarity", "Cue rule", 
 
 def finish(fig, output: Path, stem: str):
     for suffix in ("png", "svg"):
-        fig.savefig(output / f"{stem}.{suffix}", dpi=180, bbox_inches="tight")
+        path = output / f"{stem}.{suffix}"
+        fig.savefig(path, dpi=180, bbox_inches="tight")
+        if suffix == "svg":
+            path.write_text(
+                "\n".join(line.rstrip() for line in path.read_text().splitlines()) + "\n"
+            )
     plt.close(fig)
 
 
